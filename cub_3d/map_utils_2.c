@@ -57,12 +57,12 @@ int ft_ch_sp_aux_frow(int i, int j, int max, t_in *dt)
 {
     if (j == 0)//esquina sup izq
     {
-        if (ft_ch(i, j + 1, dt, 0) == -1 || ft_ch(i + 1, j, dt, 0) == -1 || ft_ch(i + 1, j + 1, dt, 0) == -1)
+        if ((dt->map[i + 1][j] == '1' && dt->map[i][j + 1] == '1' && dt->map[i + 1][j + 1] != '1') || ft_ch(i + 1, j, dt, 0) == -1 || ft_ch(i + 1, j + 1, dt, 0) == -1 || ft_ch(i, j + 1, dt, 0) == -1)  
             return (-1);
     }
 	else if (j == max)//esquina sup der
 	{
-        if (ft_ch(i, j - 1, dt, 0) == -1 || ft_ch(i + 1, j, dt, 0) == -1 || ft_ch(i + 1, j - 1, dt, 0) == -1)
+        if ((dt->map[i + 1][j] == '1' && dt->map[i][j - 1] == '1' && dt->map[i + 1][j - 1] != '1') || ft_ch(i + 1, j, dt, 0) == -1 || ft_ch(i + 1, j - 1, dt, 0) == -1 || ft_ch(i, j - 1, dt, 0) == -1)  
             return (-1);
     }
 	else//fila superior sin esquinas

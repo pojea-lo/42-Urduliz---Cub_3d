@@ -125,7 +125,7 @@ int	ft_ch(int i, int j, t_in *dt, int n)
 		{
 			if (dt->map[i][j] != '1' && dt->map[i][j] != '0' && dt->map[i][j] != 'N')
 			{
-				printf ("Entro con\ni: %d\nj: %d\nchar: %c\n", i, j, dt->map[i][j]);
+				printf ("Y aqui entro con\ni: %d\nj: %d\nchar: %c\n", i, j, dt->map[i][j]);
 				return (-1);
 			}
 		}
