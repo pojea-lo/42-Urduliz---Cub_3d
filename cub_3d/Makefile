@@ -23,7 +23,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	#make -C mlx/
-	$(CC) $(FLAGS) $^ -o $@ #$(SAN) #$(MLX)
+	$(CC) $(FLAGS) $^ -o $@ $(SAN) #$(MLX)
 
 clean:
 	$(RM) $(OBJS)

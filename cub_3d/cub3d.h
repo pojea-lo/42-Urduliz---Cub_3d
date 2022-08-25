@@ -9,6 +9,8 @@
 typedef struct  s_in//estructura con datos iniciales
 {
     char    **map;//array bidimensional con el map
+    int     xo;//posicion original del personaje en x
+    int     yo;//posicion original del personaje en y
     int     maxy;//cantidad de filas del mapa
     int     maxx;//cantidad de columnas del mapa
 }t_in;
@@ -30,6 +32,7 @@ int     ft_data_map(t_in *dt);
 int     ft_ch_map(t_in *dt);
 int     ft_ch_chars(t_in *dt);
 int     ft_ch_chars_aux(int n);
+void    ft_personage(int i, int j, t_in *dt);
 int     ft_ch_personage(t_in *dt);
 int     ft_ch_personage_out(int i, int j, t_in *dt);
 int		ft_ch(int i, int j, t_in *dt, int n);
@@ -46,8 +49,6 @@ int     ft_ch_sp_aux_irow(int i, int j, int max, t_in *dt);
 //Funciones para encontrar mapas abiertos
 int     ft_ch_close(t_in *dt);
 int     ft_ch_close_aux(int i, int j, int max, t_in *dt);
-int     ft_ch_cl_aux_frow(int i, int j, int max, t_in *dt);
-int     ft_ch_cl_aux_lrow(int i, int j, int max, t_in *dt);
 int     ft_ch_cl_aux_irow(int i, int j, int max, t_in *dt);
 
 //gnl.c files

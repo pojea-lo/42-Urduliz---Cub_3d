@@ -40,6 +40,8 @@ int ft_traspas(int fd, char *map, t_in *dt)
 void    ft_memset(t_in *dt)//resetea los valores iniciales
 {
     dt->map = NULL;
+    dt->xo = 0;
+    dt->yo = 0;
 }
 
 void	ft_free(t_in *dt)

@@ -20,6 +20,7 @@ int ft_ch_map(t_in *dt)
 }
 
 //chequeo el mapa por si tiene chars prohibidos o permitidos duplicados
+//también guardo la posición del personaje
 int ft_ch_chars(t_in *dt)
 {
     int i;
@@ -40,6 +41,7 @@ int ft_ch_chars(t_in *dt)
                     printf ("Bad char in map - ");
                     return (-1);
                 }
+                ft_personage (i, j, dt);
                 n++;
             }
         }
@@ -63,8 +65,16 @@ int	ft_ch_chars_aux(int n)
     return (0);
 }
 
+//funcion que guarda la posición del personaje en la estructura y lo substituye por un 0
+void    ft_personage(int i, int j, t_in *dt)
+{
+    dt->xo = j;
+    dt->yo = i;
+    dt->map[i][j] = '0';
+    printf ("El personage esta en:\ni: %d\nj: %d\n", dt->yo, dt->xo);
+} 
 //chequeo si el personage esta tocando algun espacio o rodeado de 1
-int     ft_ch_personage(t_in *dt)
+int ft_ch_personage(t_in *dt)
 {
     int i;
     int j;
