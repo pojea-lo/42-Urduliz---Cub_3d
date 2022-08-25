@@ -23,14 +23,10 @@ int main(int argc, char* argv[])
     return (0);
 }
 
-int ft_traspas(int fd, char *map, t_in *dt)//funcion inicial que empieza a analizar el mapa
+//funcion inicial que empieza a analizar el mapa
+int ft_traspas(int fd, char *map, t_in *dt)
 {
     ft_memset(dt);
-	if (ft_ch_data(fd) == -1)
-	{
-		printf ("Bad char in map or data\n");
-		return (-1);
-	}
     if (ft_create_bid(fd, dt, map) == -1)
         return (-1);
     if (ft_ch_map(dt) == -1)

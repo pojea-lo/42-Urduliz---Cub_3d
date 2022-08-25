@@ -3,6 +3,8 @@ NAME = cub
 SRC = 	main.c\
 		map_utils_0.c\
 		map_utils_1.c\
+		map_utils_2.c\
+		map_utils_3.c\
 		gnl.c
 
 OBJ = $(SRC: .c=.o)  
@@ -21,7 +23,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	#make -C mlx/
-	$(CC) $(FLAGS) $^ -o $@ $(SAN) #$(MLX)
+	$(CC) $(FLAGS) $^ -o $@ #$(SAN) #$(MLX)
 
 clean:
 	$(RM) $(OBJS)

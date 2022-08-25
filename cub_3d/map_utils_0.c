@@ -1,26 +1,5 @@
 #include "cub3d.h"
 
-//chequeo que no haya caracteres raros ni en el mapa ni en los datos
-int	ft_ch_data (int	fd)
-{
-    int		j;
-	char	*line;
-
-	line = ft_gnl(fd);
-    j = -1;
-    while (line)
-    {
-        if (ft_check_line (line, 2) == 1 && line)
-		{
-			free (line);
-            return (-1);
-		}
-        free (line);
-        line = ft_gnl(fd);
-    }
-	return (0);
-}
-
 //crea a partir del archivo la bidimensional con el mapa
 int ft_create_bid (int fd, t_in *dt, char *map)
 {
@@ -38,7 +17,7 @@ int ft_create_bid (int fd, t_in *dt, char *map)
     j = -1;
     while (line)
     {
-        if (ft_check_line (line, 2) == 0 && line)
+       if (ft_check_line (line, 2) == 0 && line)
             dt->map[++j] = ft_dup(line);
         free (line);
         line = ft_gnl(fd);
@@ -78,14 +57,14 @@ int ft_check_line(char *line, int n)
     i = 0;
     while (line[i] && line[i] == ' ')//avanzo los espacios en blanco
         i++;
-    if (n == 2)//control de mapas
+    if (n == 2 && line[i])//control de mapas
     {
-        if (line[i] == '1' || line[i] == '0')
-            return (0);
-        if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'O') && line[i + 1] != 'O')
-            return (0);
+        if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'O') && line[i + 1] == 'O')
+            return (1);
+		else
+			return (0);
     }
-    else if (n == 1)//contro de datos de color y texturas
+    else if (n == 1 && line[i])//contro de datos de color y texturas
     {
         if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'O') && line [n + 1] == 'O')
             return (0);
