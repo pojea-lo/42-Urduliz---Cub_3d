@@ -22,6 +22,7 @@ int ft_ch_close(t_in *dt)
 			{
 				if (ft_ch_close_aux(i, j, max, dt) == -1)
 				{
+					printf ("Falla con 0\ni: %d\nj: %d\nchar: %c\n", i, j, dt->map[i][j]);
 					printf ("No closed map - ");
             		return (-1);
 				}

@@ -31,8 +31,8 @@ int     ft_data_map(t_in *dt);
 //Funciones para el control del mapa
 int     ft_ch_map(t_in *dt);
 int     ft_ch_chars(t_in *dt);
-int     ft_ch_chars_aux(int n);
-void    ft_personage(int i, int j, t_in *dt);
+int     ft_ch_chars_aux(int i, int j, int n, t_in *dt);
+char    **ft_add_columns(t_in *dt);
 int     ft_ch_personage(t_in *dt);
 int     ft_ch_personage_out(int i, int j, t_in *dt);
 int		ft_ch(int i, int j, t_in *dt, int n);
