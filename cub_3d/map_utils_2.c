@@ -22,7 +22,7 @@ int ft_ch_spaces(t_in *dt)
 			{
 				if (ft_ch_spaces_aux(i, j, max, dt) == -1)
 				{
-					printf ("Falla con sp\ni: %d\nj: %d\nchar: %c\n", i, j, dt->map[i][j]);
+					printf ("Falla con sp\nx: %d\ny: %d\nchar: %c\n", j, i, dt->map[i][j]);
 					printf ("Bad space in map - ");
             		return (-1);
 				}

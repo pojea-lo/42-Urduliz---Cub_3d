@@ -1,7 +1,7 @@
 #include "cub3d.h"
 
 //crea a partir del archivo la bidimensional con el mapa
-int ft_create_bid (int fd, t_in *dt, char *map)
+int ft_create_bid (int fd, t_in *dt, char *argv)
 {
     int     j;
     char    *line;
@@ -12,7 +12,7 @@ int ft_create_bid (int fd, t_in *dt, char *map)
         perror ("Malloc error\n");
         return (-1);
     }
-    fd = open(map, O_RDWR);
+    fd = open(argv, O_RDWR);
     line = ft_gnl(fd);
     j = -1;
     while (line)

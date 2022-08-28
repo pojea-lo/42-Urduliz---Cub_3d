@@ -5,24 +5,50 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include "./mlx/mlx.h"
 
-typedef struct  s_in//estructura con datos iniciales
+//estructura con datos iniciales
+typedef struct  s_in
 {
     char    **map;//array bidimensional con el map
     int     xo;//posicion original del personaje en x
     int     yo;//posicion original del personaje en y
     int     maxy;//cantidad de filas del mapa
     int     maxx;//cantidad de columnas del mapa
-}t_in;
+}	t_in;
+
+//estructura de la mlx
+typedef struct	s_mlx
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+}	t_mlx;
+
+//estructura para el final con los hk
+typedef struct	s_hook
+{
+	t_in	*dt;
+	t_mlx	*gr;
+}	t_hook;
+
 
 //main.c files
-int		ft_traspas(int fd, char *map, t_in *dt);
-void    ft_memset(t_in *dt);
+int		ft_traspas(int fd, char *argv, t_in *dt);
+t_hook	*ft_memset(t_in *dt);
 void	ft_free(t_in *dt);
+void	ft_free_hk(t_hook *hk);
+
+//draw_utils_0.c files
+//Funciones que dibujan el mapa
+int		ft_draw_map(t_hook *hk);
+
+//hook_utils_0.c
+int		close_button(t_hook *hk);
 
 //map_utils_0.c files
 //Funciones para crear la bidimensional
-int     ft_create_bid (int fd, t_in *dt, char *map);
+int     ft_create_bid (int fd, t_in *dt, char *argv);
 int     ft_count_fd (int fd, int n);
 int     ft_check_line(char *line, int n);
 int     ft_data_map(t_in *dt);
