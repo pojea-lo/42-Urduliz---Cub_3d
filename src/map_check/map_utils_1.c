@@ -8,11 +8,12 @@ int ft_ch_map(t_in *dt)
     if (ft_ch_chars(dt) == -1)
         return (-1);
 	dt->map = ft_add_columns(dt);
+    if (ft_ch_personage(dt) == -1)
+        return (-1);
+    dt->map[dt->yo][dt->xo] = '0';//sustituyo el personaje por 0
     if (ft_ch_spaces(dt) == -1)
         return (-1);
     if (ft_ch_close(dt) == -1)
-        return (-1);
-    if (ft_ch_personage(dt) == -1)
         return (-1);
     i = -1;
     while (dt->map[++i])
@@ -65,7 +66,6 @@ int	ft_ch_chars_aux(int i, int j, int n, t_in *dt)
     }
     dt->xo = j;
     dt->yo = i;
-    dt->map[i][j] = '0';
     printf ("El personaje esta en:\ni: %d\nj: %d\n", dt->yo, dt->xo);
     return (0);
 }
