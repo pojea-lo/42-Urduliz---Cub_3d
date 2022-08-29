@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 //close window with red botton
 int	close_button(t_hook *hk)

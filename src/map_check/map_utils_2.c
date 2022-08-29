@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 //chequeo el mapa por si tiene huecos vacios y abiertos
 //Realizo un chequeo buscando espacios en blanco y estos espacios solo pueden estar rodeados de otro espacio en blanco o de 1s

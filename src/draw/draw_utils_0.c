@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 //funcion que abre la ventana y arranca el dibujo del mapa
 int	ft_draw_map(t_hook *hk)

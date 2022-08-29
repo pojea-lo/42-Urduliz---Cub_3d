@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 //crea a partir del archivo la bidimensional con el mapa
 int ft_create_bid (int fd, t_in *dt, char *argv)

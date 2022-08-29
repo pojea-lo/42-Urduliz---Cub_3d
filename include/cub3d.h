@@ -5,7 +5,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include "./mlx/mlx.h"
+# include "mlx/mlx.h"
 
 //estructura con datos iniciales
 typedef struct  s_in

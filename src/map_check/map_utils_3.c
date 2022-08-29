@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 //chequeo el mapa por si esta cerrado
 //Realizo un chequeo buscando 0 y estos 0 solo pueden estar rodeados de otros 0s o de 1s

@@ -1,4 +1,4 @@
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 //funcion que chequea si el mapa es valido
 int ft_ch_map(t_in *dt)
