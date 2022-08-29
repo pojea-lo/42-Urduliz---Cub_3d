@@ -25,7 +25,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C mlx/
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) #$(SAN)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
 
 clean:
 	$(RM) $(OBJS)

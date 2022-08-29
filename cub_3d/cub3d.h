@@ -23,6 +23,9 @@ typedef struct	s_mlx
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
+	char	*relative_path;
+	int		img_width;
+	int		img_height;
 }	t_mlx;
 
 //estructura para el final con los hk
