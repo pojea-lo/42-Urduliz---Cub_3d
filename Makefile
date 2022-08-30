@@ -8,6 +8,7 @@ SRC = 	src/main.c\
 		src/map_check/map_utils_1.c\
 		src/map_check/map_utils_2.c\
 		src/map_check/map_utils_3.c\
+		src/raycasting/raycasting_utils_0.c\
 		include/gnl.c
 
 OBJ = $(SRC: .c=.o)  

@@ -5,16 +5,30 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "mlx/mlx.h"
 
 //estructura con datos iniciales
 typedef struct  s_in
 {
     char    **map;//array bidimensional con el map
-    int     xo;//posicion original del personaje en x
-    int     yo;//posicion original del personaje en y
-    int     maxy;//cantidad de filas del mapa
+	int		mapw;//anchura del mapa
+	int		maph;//altura del mapa
     int     maxx;//cantidad de columnas del mapa
+    int     maxy;//cantidad de filas del mapa
+    int		xo;//posicion del personaje en x
+    int		yo;//posicion del personaje en y
+	char	dir;//guardo la dirección del personaje
+	double	dirx;//direccion x del personaje
+	double	diry;//direccion y del personaje
+	double	fov;//angulo de vision del personaje (71)
+	double	planex;//vector plano de pantalla x
+	double	planey;//vector plano de pantalla y
+	double	camerax;//coordenada x en el espacio de la camara
+	double	raydirx;//x del vecto rayo
+	double	raydiry;//y del vecto rayo
+
+
 }	t_in;
 
 //estructura de la mlx
@@ -49,6 +63,14 @@ int		ft_draw_map(t_hook *hk);
 
 //hook_utils_0.c
 int		close_button(t_hook *hk);
+
+//raycast_utils_0.c
+//Funciones para el calculo numerico del raycasting
+int		ft_rayc_init(t_hook *hk);
+int		ft_rayc_memset(t_hook *hk);
+int		ft_get_dir(t_hook *hk);
+int		ft_get_plane(t_hook *hk);
+
 
 //map_utils_0.c files
 //Funciones para crear la bidimensional

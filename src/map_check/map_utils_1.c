@@ -131,6 +131,7 @@ int ft_ch_personage(t_in *dt)
 //aux de ft_ch_personage
 int     ft_ch_personage_out(int i, int j, t_in *dt)
 {
+	dt->dir = dt->map[i][j];//guardo la direccion del personaje
     if (i == 0 || i == (dt->maxy - 1) || j == 0 || j == (dt->maxx - 1))
         return (1);//caso del personage en los limites del mapa
     else if (dt->map[i][j - 1] == ' ' || dt->map[i][j + 1] == ' ' || dt->map[i - 1][j] == ' ' || dt->map[i + 1][j] == ' ')
