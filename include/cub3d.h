@@ -25,9 +25,11 @@ typedef struct  s_in
 	double	planex;//vector plano de pantalla x
 	double	planey;//vector plano de pantalla y
 	double	camerax;//coordenada x en el espacio de la camara
-	double	raydirx;//x del vecto rayo
-	double	raydiry;//y del vecto rayo
+	double	raydirx;//x del vector rayo
+	double	raydiry;//y del vector rayo
 	//variables del algoritmo DDA
+	int		mapx;
+	int		mapy;
 	double	sidedistx;
 	double	sidedisty;
 	double	deltadistx;
@@ -35,7 +37,7 @@ typedef struct  s_in
 	double	perpwalldist;//longitud del rayo
 	int		stepx;//avance del rayo hacia la izq (-1) o la der (1)
 	int		stepy;//avance del rayo hacia arriba (-1) o hacia a bajo (1)
-	int		hit;//si el rayo golpea un muro (1) o no (0)
+	int		hit;//buleano para salir del bucle del DDA
 	int		side;//si se golpeo lado x (0) o y (1)
 
 	//hasta aqui el DDA
@@ -82,6 +84,8 @@ int		ft_rayc_init(t_hook *hk);
 int		ft_rayc_memset(t_hook *hk);
 int		ft_get_dir(t_hook *hk);
 int		ft_get_plane(t_hook *hk);
+void	ft_calcul_step(t_hook *hk);
+void	ft_dda_algorithm(t_hook *hk);
 
 
 //map_utils_0.c files
