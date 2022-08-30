@@ -12,8 +12,8 @@
 typedef struct  s_in
 {
     char    **map;//array bidimensional con el map
-	int		mapw;//anchura del mapa
-	int		maph;//altura del mapa
+	double	mapw;//anchura del mapa
+	double	maph;//altura del mapa
     int     maxx;//cantidad de columnas del mapa
     int     maxy;//cantidad de filas del mapa
     int		xo;//posicion del personaje en x
@@ -27,6 +27,18 @@ typedef struct  s_in
 	double	camerax;//coordenada x en el espacio de la camara
 	double	raydirx;//x del vecto rayo
 	double	raydiry;//y del vecto rayo
+	//variables del algoritmo DDA
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;//longitud del rayo
+	int		stepx;//avance del rayo hacia la izq (-1) o la der (1)
+	int		stepy;//avance del rayo hacia arriba (-1) o hacia a bajo (1)
+	int		hit;//si el rayo golpea un muro (1) o no (0)
+	int		side;//si se golpeo lado x (0) o y (1)
+
+	//hasta aqui el DDA
 
 
 }	t_in;

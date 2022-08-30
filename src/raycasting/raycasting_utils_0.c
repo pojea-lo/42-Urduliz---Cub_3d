@@ -7,13 +7,23 @@ int	ft_rayc_init(t_hook *hk)
 
 	x = -1;
 	ft_rayc_memset(hk);
-	while (1)//comienza el gameloop
+//	while (1)//comienza el gameloop
 	{
 		while (++x < hk->dt->mapw)
 		{
-			hk->dt->camerax = ((2 * x) / hk->dt->mapw) - 1;
+			hk->dt->camerax = ((2 * x) / hk->dt->mapw - 1);
+//			printf ("La camerax: %f\n", hk->dt->camerax);
 			hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax);
 			hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
+//			printf ("Los raydir:\nX: %f\nY: %f\n", hk->dt->raydirx, hk->dt->raydiry);
+			if (hk->dt->raydirx == 0)
+				hk->dt->raydirx = 1e30;
+			else if (hk->dt->raydiry == 0)
+				hk->dt->raydiry = 1e30;
+			hk->dt->deltadistx = fabs(1 / hk->dt->raydirx);
+			hk->dt->deltadisty = fabs(1 / hk->dt->raydiry);
+//			printf ("Las deltadist:\nX: %f\nY: %f\n", hk->dt->deltadistx, hk->dt->deltadisty);
+
 
 
 
@@ -35,6 +45,14 @@ int	ft_rayc_memset(t_hook *hk)
 //	printf ("El FOV: %f\n", (hk->dt->fov * 360) / (2 * 3.1416));
 	ft_get_plane(hk);
 //	printf ("El vector plano:\nX: %f\nY: %f\n", hk->dt->planex, hk->dt->planey);
+	hk->dt->sidedistx = 0;
+	hk->dt->sidedisty = 0;
+	hk->dt->deltadistx = 0;
+	hk->dt->deltadisty = 0;
+	hk->dt->stepx = 0;
+	hk->dt->stepy = 0;
+	hk->dt->hit = 0;//de primeras no golpea muro
+	hk->dt->side = -1;//de primeras no golpea muro tampoco
 	return (0);
 }
 
