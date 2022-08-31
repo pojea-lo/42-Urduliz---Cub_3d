@@ -3,8 +3,10 @@
 
 int manage_mouse_hook_options(t_hook *hk)
 {
+	int x[2] = {5,5};
+	int y[2] = {6,6};
 	(void)hk;
-	//printf("%d\n", mlx_mouse_get_pos(hk->gr->mlx_win,0,0));
+	printf("%d\n", mlx_mouse_get_pos(hk->gr->mlx_win,x,y));
 	return (1);
 }
 
@@ -30,8 +32,8 @@ int manage_key_hook_options(int keycode, t_hook *hk)
 	if (keycode == 123) //Izquierda
 		hk->dt->dirx -= 1;
 	if (keycode == 124) //Derecha
-		hk->dt->dirx += 1;
-
+		hk->dt->dirx += 1;		
+	mlx_do_sync(hk->gr->mlx);
 	ft_rayc_init(hk);
 	return  (1);
 }
