@@ -36,17 +36,17 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		printf ("Map error\n");
 		return (-1);
 	}
+	if (ft_draw_map (hk) == -1)
+	{
+		printf ("Draw map error\n");
+		return (-1);
+	}
 	if (ft_rayc_init(hk) == -1)
 	{
 		printf ("Calculs error\n");
 		return (-1);
 	}
-/*	if (ft_draw_map (hk) == -1)
-	{
-		printf ("Draw map error\n");
-		return (-1);
-	}
-*/	return (0);
+	return (0);
 }
 
 //resetea los valores iniciales

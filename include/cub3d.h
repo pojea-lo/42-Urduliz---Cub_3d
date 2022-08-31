@@ -21,7 +21,7 @@ typedef struct  s_in
 	char	dir;//guardo la dirección del personaje
 	double	dirx;//direccion x del personaje
 	double	diry;//direccion y del personaje
-	double	fov;//angulo de vision del personaje (71)
+	double	fov;//angulo de vision del personaje
 	double	planex;//vector plano de pantalla x
 	double	planey;//vector plano de pantalla y
 	double	camerax;//coordenada x en el espacio de la camara
@@ -39,6 +39,9 @@ typedef struct  s_in
 	int		stepy;//avance del rayo hacia arriba (-1) o hacia a bajo (1)
 	int		hit;//buleano para salir del bucle del DDA
 	int		side;//si se golpeo lado x (0) o y (1)
+	int		lineheight;//altura de la linea
+	int		drawstart;//pixel inicial en altura
+	int		drawend;//pixel final en altura
 
 	//hasta aqui el DDA
 
@@ -74,6 +77,8 @@ void	ft_free_hk(t_hook *hk);
 //draw_utils_0.c files
 //Funciones que dibujan el mapa
 int		ft_draw_map(t_hook *hk);
+int		ft_draw_line(t_hook *hk, int x);
+int		ft_draw_all(t_hook *hk);
 
 //hook_utils_0.c
 int		close_button(t_hook *hk);
@@ -82,6 +87,7 @@ int		close_button(t_hook *hk);
 //Funciones para el calculo numerico del raycasting
 int		ft_rayc_init(t_hook *hk);
 int		ft_rayc_memset(t_hook *hk);
+int		ft_rayc_memset_2(t_hook *hk);
 int		ft_get_dir(t_hook *hk);
 int		ft_get_plane(t_hook *hk);
 void	ft_calcul_step(t_hook *hk);
