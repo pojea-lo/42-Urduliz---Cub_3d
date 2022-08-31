@@ -6,8 +6,9 @@ int	ft_rayc_init(t_hook *hk)
 {
 	int	x;
 
-	x = 0;
+	x = -1;
 	ft_rayc_memset(hk);
+//	ft_draw_map(hk);
 //	while (1)//comienza el gameloop
 	{
 		while (++x < hk->dt->mapw)
@@ -15,7 +16,7 @@ int	ft_rayc_init(t_hook *hk)
 			ft_rayc_memset_2(hk);
 			hk->dt->camerax = ((2 * x) / hk->dt->mapw - 1);
 //			printf ("La camerax: %f\n", hk->dt->camerax);
-			hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax);
+			hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax) * (-1);//multiplico por -1 pq me lo dibujaba simetrico
 			hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
 //			printf ("Los raydir:\nX: %f\nY: %f\n", hk->dt->raydirx, hk->dt->raydiry);
 //			if (hk->dt->raydirx == 0)//evitar dividir por 0
@@ -39,7 +40,6 @@ int	ft_rayc_init(t_hook *hk)
 //			printf ("La linea empieza: %d y termina %d\n", hk->dt->drawstart, hk->dt->drawend);
 			ft_draw_line(hk, x);
 		}
-		ft_draw_all(hk);
 	}
 
 
@@ -111,8 +111,8 @@ void	ft_calcul_step(t_hook *hk)
 //inicialización de las variables del rayc y calculo de algunas
 int	ft_rayc_memset(t_hook *hk)
 {
-	hk->dt->mapw = 640;//dimensiones del mapa
-	hk->dt->maph = 480;
+	hk->dt->mapw = 960;//dimensiones del mapa
+	hk->dt->maph = 720;
 	ft_get_dir(hk);
 //	printf ("El vector direccion:\nX: %f\nY: %f\n", hk->dt->dirx, hk->dt->diry);
 //	hk->dt->fov = 1.152;//fijo el fov en 66 grados
@@ -126,7 +126,7 @@ int	ft_rayc_memset(t_hook *hk)
 	hk->dt->deltadisty = 0;
 	hk->dt->stepx = 0;
 	hk->dt->stepy = 0;
-	hk->dt->side = -1;//de primeras no golpea muro tampoco
+	hk->dt->side = -1;//ni 0 ni 1
 	return (0);
 }
 
@@ -144,17 +144,11 @@ int	ft_get_plane(t_hook *hk)
 	if (hk->dt->dir == 'N' || hk->dt->dir == 'S')
 	{
 		hk->dt->planey = 0;
-//		if (hk->dt->diry < 0)
-//			hk->dt->diry *= -1;
-//ESTO CREO QUE QUITAR DE AQUI
 		hk->dt->planex = hk->dt->diry * tan(hk->dt->fov / 2);
 	}
 	else if (hk->dt->dir == 'E' || hk->dt->dir == 'O')
 	{
 		hk->dt->planex = 0;
-//		if (hk->dt->dirx < 0)
-//			hk->dt->dirx *= -1;
-//ESTO CREO QUE QUITAR DE AQUI
 		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
 	}
 	return (0);
