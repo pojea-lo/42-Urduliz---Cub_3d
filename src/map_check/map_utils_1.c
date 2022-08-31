@@ -66,7 +66,7 @@ int	ft_ch_chars_aux(int i, int j, int n, t_in *dt)
     }
     dt->xo = j;
     dt->yo = i;
-//	printf ("El personaje esta en:\ni: %d\nj: %d\n", dt->yo, dt->xo);
+	printf ("El personaje esta en:\ni: %d\nj: %d\n", dt->yo, dt->xo);
     return (0);
 }
 

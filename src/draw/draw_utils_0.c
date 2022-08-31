@@ -10,6 +10,8 @@ int	ft_draw_map(t_hook *hk)
 	hk->gr->addr = mlx_get_data_addr(hk->gr->img, &hk->gr->bits_per_pixel, &hk->gr->line_length, &hk->gr->endian);
 	ft_rayc_init(hk);
 //	mlx_put_image_to_window(hk->gr->mlx, hk->gr->mlx_win, hk->gr->img, 100, 60);
+	mlx_mouse_hook(hk->gr->mlx_win,&manage_mouse_hook_options, hk);
+	mlx_key_hook(hk->gr->mlx_win, &manage_key_hook_options,hk);
 	mlx_hook(hk->gr->mlx_win, 17, 0, close_button, hk);
 //	mlx_hook(hk->gr->mlx_win, 2, 1L << 0, keyw, hk);
 	mlx_loop(hk->gr->mlx);

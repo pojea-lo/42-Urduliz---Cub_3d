@@ -7,6 +7,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "mlx/mlx.h"
+# include <stdbool.h>
 
 //estructura con datos iniciales
 typedef struct  s_in
@@ -82,6 +83,8 @@ int		ft_draw_all(t_hook *hk);
 
 //hook_utils_0.c
 int		close_button(t_hook *hk);
+int		manage_key_hook_options(int keycode, t_hook *hk);
+int		manage_mouse_hook_options(t_hook *hk);
 
 //raycast_utils_0.c
 //Funciones para el calculo numerico del raycasting

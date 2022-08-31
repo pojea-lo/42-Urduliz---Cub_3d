@@ -7,6 +7,7 @@ int	ft_rayc_init(t_hook *hk)
 	int	x;
 
 	x = -1;
+
 	ft_rayc_memset(hk);
 //	ft_draw_map(hk);
 //	while (1)//comienza el gameloop
@@ -113,9 +114,15 @@ int	ft_rayc_memset(t_hook *hk)
 {
 	hk->dt->mapw = 960;//dimensiones del mapa
 	hk->dt->maph = 720;
-	ft_get_dir(hk);
+	printf("%f\n",hk->dt->fov);
+	if (hk->dt->fov != 1.5708)
+	{
+		printf("Entro aquio");
+		ft_get_dir(hk);
+	}
+	
 //	printf ("El vector direccion:\nX: %f\nY: %f\n", hk->dt->dirx, hk->dt->diry);
-//	hk->dt->fov = 1.152;//fijo el fov en 66 grados
+	//hk->dt->fov = 1.152;//fijo el fov en 66 grados
 	hk->dt->fov = 1.5708;//fijo el fov en 90 grados
 //	printf ("El FOV: %f\n", (hk->dt->fov * 360) / (2 * 3.1416));
 	ft_get_plane(hk);
