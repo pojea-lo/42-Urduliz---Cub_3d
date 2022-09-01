@@ -3,7 +3,7 @@
 //funcion que abre la ventana y arranca el dibujo del mapa
 int	ft_draw_map(t_hook *hk)
 {
-//	ft_rayc_memset(hk);
+	ft_rayc_memset(hk);
 	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, hk->dt->mapw, hk->dt->maph,"");//960.00, 720.00, "");
 	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, 960.00, 720.00, "");
 	hk->gr->img = mlx_new_image(hk->gr->mlx, hk->dt->mapw, hk->dt->maph);

@@ -13,6 +13,8 @@
 typedef struct  s_in
 {
     char    **map;//array bidimensional con el map
+	char	**tex;//array bidimensional con las texturas
+	int		**color;//array bidimensional con los colores cielo y sueo
 	double	mapw;//anchura del mapa
 	double	maph;//altura del mapa
     int     maxx;//cantidad de columnas del mapa
@@ -22,6 +24,7 @@ typedef struct  s_in
 	char	dir;//guardo la dirección del personaje
 	double	dirx;//direccion x del personaje
 	double	diry;//direccion y del personaje
+	//variables del raycasting
 	double	fov;//angulo de vision del personaje
 	double	planex;//vector plano de pantalla x
 	double	planey;//vector plano de pantalla y
@@ -43,9 +46,15 @@ typedef struct  s_in
 	int		lineheight;//altura de la linea
 	int		drawstart;//pixel inicial en altura
 	int		drawend;//pixel final en altura
-
-	//hasta aqui el DDA
-
+	//variables para texturas
+	double	texwidth;//dimension de la textura(mirar de meter en int y castear a la hora de calcular texx en la funcion draw_tex (marcado con *)
+	double	texheight;
+	int		texnum;//valor del mapa -1 para saber que textura aplicar
+	double	wallx;//valor decimal de la colision del rayo en la text
+	double	texx;//coordenada x de la textura
+	int		texy;//coordenada y de la textura
+	double	step;//paso para moverte por la textura
+	double	texpos;//coordenada de textura inicial
 
 }	t_in;
 
@@ -95,7 +104,7 @@ int		ft_get_dir(t_hook *hk);
 int		ft_get_plane(t_hook *hk);
 void	ft_calcul_step(t_hook *hk);
 void	ft_dda_algorithm(t_hook *hk);
-
+int		ft_draw_texture(t_hook *hk, int x);
 
 //map_utils_0.c files
 //Funciones para crear la bidimensional
@@ -127,6 +136,18 @@ int     ft_ch_sp_aux_irow(int i, int j, int max, t_in *dt);
 int     ft_ch_close(t_in *dt);
 int     ft_ch_close_aux(int i, int j, int max, t_in *dt);
 int     ft_ch_cl_aux_irow(int i, int j, int max, t_in *dt);
+
+//map_text_0.c files
+//Funciones que gestionan las texturas del mapa
+int		ft_create_text(t_in *dt, char *argv);
+int		ft_create_text_tex(t_in *dt, char *argv);
+int		ft_count_tex(char *argv);
+char	*ft_regen_tex(char *old);
+int		ft_count_col(char *argv);
+int		ft_check_line_two(char *line);
+int		ft_create_text_col(t_in *dt, char *argv);
+int		ft_dup_atoi(t_in *dt, char *line, int n);
+int		ft_atoi_bid(t_in *dt, char **num, int n);
 
 //gnl.c files
 char    *ft_gnl(int fd);

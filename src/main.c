@@ -29,6 +29,11 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 	t_hook	*hk;
 
 	hk = ft_memset(dt);
+	if (ft_create_text(dt, argv) == -1)
+	{
+		printf ("Texture error\n");
+		return (-1);
+	}
 	if (ft_create_bid(fd, dt, argv) == -1)
 		return (-1);
 	if (ft_ch_map(dt) == -1)
@@ -36,12 +41,12 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		printf ("Map error\n");
 		return (-1);
 	}
-	if (ft_draw_map (hk) == -1)
+/*	if (ft_draw_map (hk) == -1)
 	{
 		printf ("Draw map error\n");
 		return (-1);
 	}
-	return (0);
+*/	return (0);
 }
 
 //resetea los valores iniciales
@@ -51,6 +56,8 @@ t_hook	*ft_memset(t_in *dt)
 	t_hook	*hk;//creo la estructura unica para trabajar con las funciones de la mlx
 
 	dt->map = NULL;
+	dt->tex = NULL;
+	dt->color[0][0] = -1;
 	dt->xo = 0;
 	dt->yo = 0;
 	gr = NULL;

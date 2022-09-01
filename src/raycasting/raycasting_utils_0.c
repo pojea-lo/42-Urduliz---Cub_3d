@@ -8,8 +8,7 @@ int	ft_rayc_init(t_hook *hk)
 
 	x = -1;
 
-	ft_rayc_memset(hk);
-//	ft_draw_map(hk);
+//	ft_rayc_memset(hk);
 //	while (1)//comienza el gameloop
 	{
 		while (++x < hk->dt->mapw)
@@ -20,13 +19,7 @@ int	ft_rayc_init(t_hook *hk)
 			hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax) * (-1);//multiplico por -1 pq me lo dibujaba simetrico
 			hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
 //			printf ("Los raydir:\nX: %f\nY: %f\n", hk->dt->raydirx, hk->dt->raydiry);
-//			if (hk->dt->raydirx == 0)//evitar dividir por 0
-//				hk->dt->raydirx = 1e30;
-//ESTO CREO QUE QUITAR DE AQUI
 			hk->dt->deltadistx = fabs(1 / hk->dt->raydirx);
-//			if (hk->dt->raydiry == 0)//evitar dividir por 0
-//				hk->dt->raydiry = 1e30;
-//ESTO CREO QUE QUITAR DE AQUI
 			hk->dt->deltadisty = fabs(1 / hk->dt->raydiry);
 //			printf ("Las deltadist:\nX: %f\nY: %f\n", hk->dt->deltadistx, hk->dt->deltadisty);
 			ft_calcul_step(hk);
@@ -39,7 +32,8 @@ int	ft_rayc_init(t_hook *hk)
 			if (hk->dt->drawend >= hk->dt->maph)
 				hk->dt->drawend = hk->dt->maph - 1;
 //			printf ("La linea empieza: %d y termina %d\n", hk->dt->drawstart, hk->dt->drawend);
-			ft_draw_line(hk, x);
+//			ft_draw_line(hk, x);
+//			ft_draw_texture(hk, x);
 		}
 	}
 
@@ -47,6 +41,37 @@ int	ft_rayc_init(t_hook *hk)
 	return (0);
 }
 
+//dibujo de la textura
+int	ft_draw_texture(t_hook *hk, int x)
+{
+	int	y;
+
+	hk->dt->texnum = hk->dt->map[hk->dt->mapy][hk->dt->mapx];
+	if (hk->dt->side == 0)
+		hk->dt->wallx = hk->dt->yo + (hk->dt->perpwalldist * hk->dt->raydiry);
+	else if (hk->dt->side == 1)
+		hk->dt->wallx = hk->dt->xo + (hk->dt->perpwalldist * hk->dt->raydirx);
+	hk->dt->texx = (int)(hk->dt->wallx * hk->dt->texwidth);//(*)
+	if((hk->dt->side == 0 && hk->dt->raydirx > 0) || (hk->dt->side == 1 && hk->dt->raydiry < 0))
+		hk->dt->texx = hk->dt->texwidth - hk->dt->texx - 1;
+	hk->dt->step = 1.0 * hk->dt->texheight / hk->dt->lineheight;
+	hk->dt->texpos = (hk->dt->drawstart - hk->dt->maph / 2 + hk->dt->lineheight / 2) * hk->dt->step;
+	y = hk->dt->drawstart;
+	while (y++ < hk->dt->drawend)
+	{
+		hk->dt->texy = (int)hk->dt->texpos;
+		if (hk->dt->texy > hk->dt->texheight)
+			hk->dt->texy = hk->dt->texheight - 1;
+		hk->dt->texpos += hk->dt->step;
+/*		Uint32 color = texture[texNum][texHeight * texY + texX];
+		if (hk->dt->side == 1)
+			color = (color >> 1) & 8355711;
+		buffer[y][x] = color;
+*/		if (x == 1e30)
+			printf ("x: %d\n", x);
+	}
+	return (0);
+}
 
 //algoritmo DDA
 void	ft_dda_algorithm(t_hook *hk)
@@ -114,6 +139,8 @@ int	ft_rayc_memset(t_hook *hk)
 {
 	hk->dt->mapw = 960;//dimensiones del mapa
 	hk->dt->maph = 720;
+	hk->dt->texwidth = 64;//dimensiones de la textura
+	hk->dt->texheight = 64;
 	printf("%f\n",hk->dt->fov);
 	if (hk->dt->fov != 1.5708)
 	{

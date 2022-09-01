@@ -59,14 +59,16 @@ int ft_check_line(char *line, int n)
         i++;
     if (n == 2 && line[i])//control de mapas
     {
-        if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'O') && line[i + 1] == 'O')
+        if (((line[i] == 'N' || line[i] == 'S') && line[i + 1] == 'O') || (line[i] == 'E' && line[i + 1] == 'A') || (line[i] == 'W' && line [i + 1] == 'E'))
             return (1);
+		if ((line[i] == 'F' || line[i] == 'C') && (line[i + 1] == ' '))
+			return (1);
 		else
 			return (0);
     }
-    else if (n == 1 && line[i])//contro de datos de color y texturas
+    else if (n == 1 && line[i])//control de datos de color y texturas
     {
-        if ((line[i] == 'N' || line[i] == 'S' || line[i] == 'E' || line[i] == 'O') && line [n + 1] == 'O')
+        if (((line[i] == 'N' || line[i] == 'S') && line[i + 1] == 'O') || (line[i] == 'E' && line[i + 1] == 'A') || (line[i] == 'W' && line [i + 1] == 'E'))
             return (0);
     }
     return (1);
