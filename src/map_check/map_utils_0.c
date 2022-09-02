@@ -8,10 +8,7 @@ int ft_create_bid (int fd, t_in *dt, char *argv)
 
     dt->map = (char **) malloc (sizeof(char *) * (ft_count_fd (fd, 2) + 1));
     if (!dt->map)
-    {
-        perror ("Malloc error\n");
         return (-1);
-    }
     fd = open(argv, O_RDWR);
     line = ft_gnl(fd);
     j = -1;
@@ -91,7 +88,7 @@ int ft_data_map(t_in *dt)
     }
     if (dt->maxy < 4 || dt->maxx < 4)
     {
-        printf ("Bad map dimension - Error map\n");
+        printf ("Error\nBad map dimension - Error map\n");
         return (-1);
     }
     return (0);

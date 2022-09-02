@@ -4,14 +4,14 @@ int	ft_create_text(t_in *dt, char *argv)
 {
 	if (ft_count_tex(argv) != 4)
 	{
-		printf ("Error in number of textures - ");
+		printf ("Error\nError in number of textures - ");
 		return (-1);
 	}
 	if (ft_create_text_tex(dt, argv) == -1)
 		return (-1);
 	if (ft_count_col(argv) != 2)
 	{
-		printf ("Error in number of colors - ");
+		printf ("Error\nError in number of colors - ");
 		return (-1);
 	}
 	if (ft_create_text_col(dt, argv) == -1)
@@ -40,7 +40,7 @@ int	ft_create_text_col(t_in *dt, char *argv)
 		{
 			if (ft_dup_atoi(dt, line, i) == 1)
 			{
-				printf ("Bad imput of colors - ");
+				printf ("Error\nBad imput of colors - ");
 				return (-1);
 			}
 			i++;
@@ -49,8 +49,8 @@ int	ft_create_text_col(t_in *dt, char *argv)
 		line = ft_gnl(fd);
 	}
 	close(fd);
-//	printf ("Numeros 0: %d / %d / %d\n", dt->color[0][0], dt->color[0][1], dt->color[0][2]);
-//	printf ("Numeros 1: %d / %d / %d\n", dt->color[1][0], dt->color[1][1], dt->color[1][2]);
+//	printf ("Color 0: <%d / %d / %d>\n", dt->color[0][0], dt->color[0][1], dt->color[0][2]);
+//	printf ("Color 1: <%d / %d / %d>\n", dt->color[1][0], dt->color[1][1], dt->color[1][2]);
 	return (0);
 }
 
@@ -86,7 +86,7 @@ int	ft_dup_atoi(t_in *dt, char *line, int n)
 				i++;
 			}
 			num[j][++k] = 00;
-			if (line[i] != ',' && line[i] != 00)
+			if (line[i] != ',' && line[i] != 00 && line[i] != ' ')
 				return (1);
 		}
 		if(line[i])
@@ -117,7 +117,9 @@ int	ft_atoi_bid(t_in *dt, char **num, int n)
 			dt->color[n][i] = (num[i][k] - '0') + (dt->color[n][i] * 10);
 		if (dt->color[n][i] > 255)
 			return (1);
+		free(num[i]);
 	}
+	free(num);
 	return (0);
 }
 
@@ -140,11 +142,12 @@ int ft_create_text_tex(t_in *dt, char *argv)
 		{
 			dt->tex[++j] = ft_dup(line);
 			dt->tex[j] = ft_regen_tex(dt->tex[j]);
+//			printf ("Textura %d: <%s>\n", j, dt->tex[j]); 
 		}
 		free(line);
 		if (dt->tex[j] == NULL)
 		{
-			printf ("Bad imput of textures - ");
+			printf ("Error\nBad imput of textures - ");
 			return (-1);
 		}
 		line = ft_gnl(fd);
@@ -176,9 +179,17 @@ char	*ft_regen_tex(char *old)
 		if (old[i] != ' ')
 			new[j] = old[i];
 		else
-			return (NULL);
-		i++;
-		j++;
+		{
+			while(old[i] && old[i] == ' ')
+				i++;
+			if (old[i] != 00)
+				return (NULL);
+		}
+		if (old[i])
+		{	
+			i++;
+			j++;
+		}
 	}
 	new[j] = 00;
 	free(old);

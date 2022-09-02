@@ -15,10 +15,10 @@ int ft_ch_map(t_in *dt)
         return (-1);
     if (ft_ch_close(dt) == -1)
         return (-1);
-    i = -1;
+/*    i = -1;
     while (dt->map[++i])
         printf ("El map %d: <%s>\n", i, dt->map[i]);
-    return (0);
+*/    return (0);
 }
 
 //chequeo el mapa por si tiene chars prohibidos o permitidos duplicados
@@ -40,7 +40,7 @@ int ft_ch_chars(t_in *dt)
             {
                 if (dt->map[i][j] != 'N' && dt->map[i][j] != 'S' && dt->map[i][j] != 'E' && dt->map[i][j] != 'O')
                 {
-                    printf ("Bad char in map - ");
+                    printf ("Error\nBad char in map - ");
                     return (-1);
                 }
                 n++;
@@ -59,14 +59,14 @@ int	ft_ch_chars_aux(int i, int j, int n, t_in *dt)
     if (n != 1)
     {
         if (n == 0)
-            printf ("No personage in map - ");
+            printf ("Error\nNo personage in map - ");
         else
-            printf ("More than one personage in map - ");
+            printf ("Error\nMore than one personage in map - ");
         return (-1);
     }
     dt->xo = j;
     dt->yo = i;
-	printf ("El personaje esta en:\ni: %d\nj: %d\n", dt->yo, dt->xo);
+//	printf ("El personaje esta en:\ni: %d\nj: %d\n", dt->yo, dt->xo);
     return (0);
 }
 
@@ -115,11 +115,11 @@ int ft_ch_personage(t_in *dt)
             {
                 n = ft_ch_personage_out(i, j, dt);
                 if (n == 1)
-                    printf ("Personage inside limits - ");
+                    printf ("Error\nPersonage inside limits - ");
                 else if (n == 2)
-                    printf ("Personage in the air - ");
+                    printf ("Error\nPersonage in the air - ");
                 else if (n == 3)
-                    printf ("Encapsulated personage - ");
+                    printf ("Error\nEncapsulated personage - ");
                 if (n != 0)
                     return (-1);
             }

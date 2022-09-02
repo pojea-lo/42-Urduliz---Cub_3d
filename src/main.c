@@ -41,12 +41,16 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		printf ("Map error\n");
 		return (-1);
 	}
-/*	if (ft_draw_map (hk) == -1)
+	if (ft_draw_map (hk) == -1)
 	{
 		printf ("Draw map error\n");
 		return (-1);
 	}
-*/	return (0);
+	free (hk->gr);
+	hk->gr = NULL;
+	free (hk);
+	hk = NULL;
+	return (0);
 }
 
 //resetea los valores iniciales
@@ -57,7 +61,7 @@ t_hook	*ft_memset(t_in *dt)
 
 	dt->map = NULL;
 	dt->tex = NULL;
-	dt->color[0][0] = -1;
+	dt->color = NULL;
 	dt->xo = 0;
 	dt->yo = 0;
 	gr = NULL;
@@ -82,6 +86,22 @@ void	ft_free(t_in *dt)
 		while (dt->map[++i])
 			free (dt->map[i]);
 		free (dt->map);
+		dt->map = NULL;
+	}
+	if (dt->tex)
+	{
+		i = -1;
+		while (dt->tex[++i])
+			free (dt->tex[i]);
+		free (dt->tex);
+		dt->tex = NULL;
+	}
+	if (dt->color)
+	{
+		free (dt->color[0]);
+		free (dt->color[1]);
+		free (dt->color);
+		dt->color = NULL;
 	}
 }
 
@@ -95,7 +115,25 @@ void	ft_free_hk(t_hook *hk)
 		while (hk->dt->map[++i])
 			free (hk->dt->map[i]);
 		free (hk->dt->map);
+		hk->dt->map = NULL;
+	}
+	if (hk->dt->tex)
+	{
+		i = -1;
+		while (hk->dt->tex[++i])
+			free (hk->dt->tex[i]);
+		free (hk->dt->tex);
+		hk->dt->tex = NULL;
+	}
+	if (hk->dt->color)
+	{
+		free (hk->dt->color[0]);
+		free (hk->dt->color[1]);
+		free (hk->dt->color);
+		hk->dt->color = NULL;
 	}
 	free (hk->gr);
+	hk->gr = NULL;
 	free (hk);
+	hk = NULL;
 }

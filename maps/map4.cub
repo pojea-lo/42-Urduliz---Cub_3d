@@ -1,10 +1,10 @@
 NO ../pics/mossy.png
 SO ../pics/greystone.png
 EA ../pics/colorstone.png
-WE ../pics/bluestone.png
+WE ../pics/bluestone.png    
 
 F 220,100,0
-C 225,30,0
+C 225,30,0    
 
 111111111111111
 100000000000001
