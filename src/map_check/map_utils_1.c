@@ -3,8 +3,6 @@
 //funcion que chequea si el mapa es valido
 int ft_ch_map(t_in *dt)
 {
-    int i;
-
     if (ft_ch_chars(dt) == -1)
         return (-1);
 	dt->map = ft_add_columns(dt);
@@ -15,9 +13,10 @@ int ft_ch_map(t_in *dt)
         return (-1);
     if (ft_ch_close(dt) == -1)
         return (-1);
-/*    i = -1;
-    while (dt->map[++i])
-        printf ("El map %d: <%s>\n", i, dt->map[i]);
+/*	int i;
+	i = -1;
+	while (dt->map[++i])
+		printf ("El map %d: <%s>\n", i, dt->map[i]);
 */    return (0);
 }
 

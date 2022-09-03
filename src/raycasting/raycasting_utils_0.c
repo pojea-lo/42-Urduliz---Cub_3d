@@ -7,34 +7,29 @@ int	ft_rayc_init(t_hook *hk)
 	int	x;
 
 	x = -1;
-
-//	ft_rayc_memset(hk);
-//	while (1)//comienza el gameloop
+	while (++x < hk->dt->mapw)
 	{
-		while (++x < hk->dt->mapw)
-		{
-			ft_rayc_memset_2(hk);
-			hk->dt->camerax = ((2 * x) / hk->dt->mapw - 1);
+		ft_rayc_memset_2(hk);
+		hk->dt->camerax = ((2 * x) / hk->dt->mapw - 1);
 //			printf ("La camerax: %f\n", hk->dt->camerax);
-			hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax) * (-1);//multiplico por -1 pq me lo dibujaba simetrico
-			hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
+		hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax) * (-1);//multiplico por -1 pq me lo dibujaba simetrico
+		hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
 //			printf ("Los raydir:\nX: %f\nY: %f\n", hk->dt->raydirx, hk->dt->raydiry);
-			hk->dt->deltadistx = fabs(1 / hk->dt->raydirx);
-			hk->dt->deltadisty = fabs(1 / hk->dt->raydiry);
+		hk->dt->deltadistx = fabs(1 / hk->dt->raydirx);
+		hk->dt->deltadisty = fabs(1 / hk->dt->raydiry);
 //			printf ("Las deltadist:\nX: %f\nY: %f\n", hk->dt->deltadistx, hk->dt->deltadisty);
-			ft_calcul_step(hk);
-			ft_dda_algorithm(hk);
-			hk->dt->lineheight = (int)(hk->dt->maph / hk->dt->perpwalldist);
-			hk->dt->drawstart = (int)(-hk->dt->lineheight / 2 + hk->dt->maph / 2);
-			if (hk->dt->drawstart < 0)
-				hk->dt->drawstart = 0;
-			hk->dt->drawend = (int)(hk->dt->lineheight / 2 + hk->dt->maph / 2);
-			if (hk->dt->drawend >= hk->dt->maph)
-				hk->dt->drawend = hk->dt->maph - 1;
+		ft_calcul_step(hk);
+		ft_dda_algorithm(hk);
+		hk->dt->lineheight = (int)(hk->dt->maph / hk->dt->perpwalldist);
+		hk->dt->drawstart = (int)(-hk->dt->lineheight / 2 + hk->dt->maph / 2);
+		if (hk->dt->drawstart < 0)
+			hk->dt->drawstart = 0;
+		hk->dt->drawend = (int)(hk->dt->lineheight / 2 + hk->dt->maph / 2);
+		if (hk->dt->drawend >= hk->dt->maph)
+			hk->dt->drawend = hk->dt->maph - 1;
 //			printf ("La linea empieza: %d y termina %d\n", hk->dt->drawstart, hk->dt->drawend);
-//			ft_draw_line(hk, x);
-//			ft_draw_texture(hk, x);
-		}
+		ft_draw_line(hk, x);
+//		ft_draw_texture(hk, x);
 	}
 
 
@@ -44,9 +39,7 @@ int	ft_rayc_init(t_hook *hk)
 //dibujo de la textura
 int	ft_draw_texture(t_hook *hk, int x)
 {
-	int	y;
-
-	hk->dt->texnum = hk->dt->map[hk->dt->mapy][hk->dt->mapx];
+	hk->dt->texnum = hk->dt->map[hk->dt->mapy][hk->dt->mapx] - '1';
 	if (hk->dt->side == 0)
 		hk->dt->wallx = hk->dt->yo + (hk->dt->perpwalldist * hk->dt->raydiry);
 	else if (hk->dt->side == 1)
@@ -56,21 +49,61 @@ int	ft_draw_texture(t_hook *hk, int x)
 		hk->dt->texx = hk->dt->texwidth - hk->dt->texx - 1;
 	hk->dt->step = 1.0 * hk->dt->texheight / hk->dt->lineheight;
 	hk->dt->texpos = (hk->dt->drawstart - hk->dt->maph / 2 + hk->dt->lineheight / 2) * hk->dt->step;
-	y = hk->dt->drawstart;
-	while (y++ < hk->dt->drawend)
-	{
-		hk->dt->texy = (int)hk->dt->texpos;
-		if (hk->dt->texy > hk->dt->texheight)
-			hk->dt->texy = hk->dt->texheight - 1;
-		hk->dt->texpos += hk->dt->step;
-/*		Uint32 color = texture[texNum][texHeight * texY + texX];
-		if (hk->dt->side == 1)
-			color = (color >> 1) & 8355711;
-		buffer[y][x] = color;
-*/		if (x == 1e30)
-			printf ("x: %d\n", x);
-	}
+	ft_print_tex(hk, x);
 	return (0);
+}
+
+//dibuja en la imagen la textura con los datos
+void	ft_print_tex(t_hook *hk, int x)
+{
+	int		y;
+	t_mlx	img;
+
+	y = 0;
+	while (y < hk->dt->drawstart)
+	{
+		my_mlx_pixel_put(hk, x, y, 0x00FFFF / 2);
+		y++;
+	}
+	while (y < hk->dt->drawend)
+	{
+		img = ft_charge_tex(hk);
+		hk->dt->texy = (int)hk->dt->texpos & (int)(hk->dt->texheight - 1);
+		hk->dt->texpos += hk->dt->step;
+		my_mlx_pixel_put(hk, x, y, get_mlx_pixel_color(&img, x, y));
+		y++;
+	}
+	while (y < hk->dt->maph)
+	{
+		my_mlx_pixel_put(hk, x, y, 0xFFFF00 / 2);
+		y++;
+	}
+}
+
+//cargo las imagenes de las texturas
+t_mlx	ft_charge_tex(t_hook *hk)
+{
+	t_mlx	img;
+
+	if (hk->dt->side == 0)
+	{
+		if (hk->dt->raydirx > 0)
+			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[0], &img.w, &img.h);
+		else
+			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[1], &img.w, &img.h);
+	}
+	else
+	{
+		if (hk->dt->raydiry > 0)
+			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[2], &img.w, &img.h);
+		else
+			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[3], &img.w, &img.h);
+	}
+	img.line_length = 0;
+	img.bits_per_pixel = 0;
+	img.endian = 0;
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	return (img);
 }
 
 //algoritmo DDA
@@ -139,17 +172,17 @@ int	ft_rayc_memset(t_hook *hk)
 {
 	hk->dt->mapw = 960;//dimensiones del mapa
 	hk->dt->maph = 720;
-	hk->dt->texwidth = 64;//dimensiones de la textura
-	hk->dt->texheight = 64;
-	printf("%f\n",hk->dt->fov);
+//	hk->dt->texwidth = 64;//dimensiones de la textura
+//	hk->dt->texheight = 64;
+//	printf("%f\n",hk->dt->fov);
 	if (hk->dt->fov != 1.5708)
 	{
-		printf("Entro aquio");
+//		printf("Entro aquio");
 		ft_get_dir(hk);
 	}
 	
 //	printf ("El vector direccion:\nX: %f\nY: %f\n", hk->dt->dirx, hk->dt->diry);
-	//hk->dt->fov = 1.152;//fijo el fov en 66 grados
+//	hk->dt->fov = 1.152;//fijo el fov en 66 grados
 	hk->dt->fov = 1.5708;//fijo el fov en 90 grados
 //	printf ("El FOV: %f\n", (hk->dt->fov * 360) / (2 * 3.1416));
 	ft_get_plane(hk);

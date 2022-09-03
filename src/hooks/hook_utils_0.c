@@ -3,11 +3,12 @@
 
 int manage_mouse_hook_options(t_hook *hk)
 {
-	int x[2] = {5,5};
+	(void)hk;
+/*	int x[2] = {5,5};
 	int y[2] = {6,6};
 	(void)hk;
 	printf("%d\n", mlx_mouse_get_pos(hk->gr->mlx_win,x,y));
-	return (1);
+*/	return (1);
 }
 
 int manage_key_hook_options(int keycode, t_hook *hk)

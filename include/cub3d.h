@@ -55,6 +55,7 @@ typedef struct  s_in
 	int		texy;//coordenada y de la textura
 	double	step;//paso para moverte por la textura
 	double	texpos;//coordenada de textura inicial
+	int		colo;	
 
 }	t_in;
 
@@ -68,6 +69,8 @@ typedef struct	s_mlx
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		w;
+	int		h;
 }	t_mlx;
 
 //estructura para el final con los hk
@@ -89,6 +92,9 @@ void	ft_free_hk(t_hook *hk);
 int		ft_draw_map(t_hook *hk);
 int		ft_draw_line(t_hook *hk, int x);
 int		ft_draw_all(t_hook *hk);
+void	my_mlx_pixel_put(t_hook *hk, int x, int y, int color);
+t_mlx	ft_charge_tex(t_hook *hk);
+unsigned int	get_mlx_pixel_color(t_mlx *img, int x, int y);
 
 //hook_utils_0.c
 int		close_button(t_hook *hk);
@@ -105,6 +111,7 @@ int		ft_get_plane(t_hook *hk);
 void	ft_calcul_step(t_hook *hk);
 void	ft_dda_algorithm(t_hook *hk);
 int		ft_draw_texture(t_hook *hk, int x);
+void	ft_print_tex(t_hook *hk, int x);
 
 //map_utils_0.c files
 //Funciones para crear la bidimensional

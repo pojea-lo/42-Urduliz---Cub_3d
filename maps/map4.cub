@@ -1,7 +1,7 @@
-NO ../pics/mossy.png
-SO ../pics/greystone.png
-EA ../pics/colorstone.png
-WE ../pics/bluestone.png    
+NO ../pics/mossy.xpm
+SO ../pics/greystone.xpm
+EA ../pics/colorstone.xpm
+WE ../pics/bluestone.xpm    
 
 F 220,100,0
 C 225,30,0    
@@ -11,5 +11,8 @@ C 225,30,0
 100000000000001
 100011111110001
 100000000000001
-1000000N0000001
+100000000000001
+100000000000001
+100000000000001
+1000N0000000001
 111111111111111
