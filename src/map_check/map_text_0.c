@@ -3,6 +3,7 @@
 int	ft_create_text(t_hook *hk, char *argv)
 {
 	int	i;
+	int	fd;
 
 	if (ft_count_tex(argv) != 4)
 	{
@@ -13,7 +14,16 @@ int	ft_create_text(t_hook *hk, char *argv)
 		return (-1);
 	i = -1;
 	while (hk->dt->tex[++i])
+	{
+		fd = open(hk->dt->tex[i], O_RDONLY);//compruebo si existe el archivo
+		if (fd == -1)
+		{
+			printf ("No existe archivo - ");
+			return (-1);
+		}
+		close (fd);
 		hk->dt->texture[i] = ft_charge_tex(hk, i);
+	}
 	if (ft_count_col(argv) != 2)
 	{
 		printf ("Error\nError in number of colors - ");
@@ -33,11 +43,6 @@ t_mlx	ft_charge_tex(t_hook *hk, int i)
 	img.line_length = 0;
 	img.bits_per_pixel = 0;
 	img.endian = 0;
-	if (i == 0)//esto se ha de ir cambiando en funcion de la textura
-	{
-		hk->dt->texwidth = img.w;
-		hk->dt->texheight = img.h;
-	}
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	return (img);
 }
