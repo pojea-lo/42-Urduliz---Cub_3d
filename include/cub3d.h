@@ -9,6 +9,20 @@
 # include "mlx/mlx.h"
 # include <stdbool.h>
 
+//estructura de la mlx
+typedef struct	s_mlx
+{
+	void	*mlx;
+	void	*mlx_win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		w;
+	int		h;
+}	t_mlx;
+
 //estructura con datos iniciales
 typedef struct  s_in
 {
@@ -47,11 +61,12 @@ typedef struct  s_in
 	int		drawstart;//pixel inicial en altura
 	int		drawend;//pixel final en altura
 	//variables para texturas
+	t_mlx	texture[4];
 	double	texwidth;//dimension de la textura(mirar de meter en int y castear a la hora de calcular texx en la funcion draw_tex (marcado con *)
 	double	texheight;
 	int		texnum;//valor del mapa -1 para saber que textura aplicar
 	double	wallx;//valor decimal de la colision del rayo en la text
-	double	texx;//coordenada x de la textura
+	int		texx;//coordenada x de la textura
 	int		texy;//coordenada y de la textura
 	double	step;//paso para moverte por la textura
 	double	texpos;//coordenada de textura inicial
@@ -59,27 +74,12 @@ typedef struct  s_in
 
 }	t_in;
 
-//estructura de la mlx
-typedef struct	s_mlx
-{
-	void	*mlx;
-	void	*mlx_win;
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		w;
-	int		h;
-}	t_mlx;
-
 //estructura para el final con los hk
 typedef struct	s_hook
 {
 	t_in	*dt;
 	t_mlx	*gr;
 }	t_hook;
-
 
 //main.c files
 int		ft_traspas(int fd, char *argv, t_in *dt);
@@ -93,7 +93,6 @@ int		ft_draw_map(t_hook *hk);
 int		ft_draw_line(t_hook *hk, int x);
 int		ft_draw_all(t_hook *hk);
 void	my_mlx_pixel_put(t_hook *hk, int x, int y, int color);
-t_mlx	ft_charge_tex(t_hook *hk);
 unsigned int	get_mlx_pixel_color(t_mlx *img, int x, int y);
 
 //hook_utils_0.c
@@ -112,6 +111,7 @@ void	ft_calcul_step(t_hook *hk);
 void	ft_dda_algorithm(t_hook *hk);
 int		ft_draw_texture(t_hook *hk, int x);
 void	ft_print_tex(t_hook *hk, int x);
+int		ft_cal_texnum(t_hook *hk);
 
 //map_utils_0.c files
 //Funciones para crear la bidimensional
@@ -146,7 +146,7 @@ int     ft_ch_cl_aux_irow(int i, int j, int max, t_in *dt);
 
 //map_text_0.c files
 //Funciones que gestionan las texturas del mapa
-int		ft_create_text(t_in *dt, char *argv);
+int		ft_create_text(t_hook *hk, char *argv);
 int		ft_create_text_tex(t_in *dt, char *argv);
 int		ft_count_tex(char *argv);
 char	*ft_regen_tex(char *old);
@@ -155,6 +155,7 @@ int		ft_check_line_two(char *line);
 int		ft_create_text_col(t_in *dt, char *argv);
 int		ft_dup_atoi(t_in *dt, char *line, int n);
 int		ft_atoi_bid(t_in *dt, char **num, int n);
+t_mlx	ft_charge_tex(t_hook *hk, int i);
 
 //gnl.c files
 char    *ft_gnl(int fd);

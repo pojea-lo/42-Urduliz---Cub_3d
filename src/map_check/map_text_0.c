@@ -1,22 +1,45 @@
 #include "../../include/cub3d.h"
 
-int	ft_create_text(t_in *dt, char *argv)
+int	ft_create_text(t_hook *hk, char *argv)
 {
+	int	i;
+
 	if (ft_count_tex(argv) != 4)
 	{
 		printf ("Error\nError in number of textures - ");
 		return (-1);
 	}
-	if (ft_create_text_tex(dt, argv) == -1)
+	if (ft_create_text_tex(hk->dt, argv) == -1)
 		return (-1);
+	i = -1;
+	while (hk->dt->tex[++i])
+		hk->dt->texture[i] = ft_charge_tex(hk, i);
 	if (ft_count_col(argv) != 2)
 	{
 		printf ("Error\nError in number of colors - ");
 		return (-1);
 	}
-	if (ft_create_text_col(dt, argv) == -1)
+	if (ft_create_text_col(hk->dt, argv) == -1)
 		return (-1);
 	return (0);
+}
+
+//cargo las imagenes de las texturas
+t_mlx	ft_charge_tex(t_hook *hk, int i)
+{
+	t_mlx	img;
+
+	img.img = mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[i], &img.w, &img.h);
+	img.line_length = 0;
+	img.bits_per_pixel = 0;
+	img.endian = 0;
+	if (i == 0)//esto se ha de ir cambiando en funcion de la textura
+	{
+		hk->dt->texwidth = img.w;
+		hk->dt->texheight = img.h;
+	}
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	return (img);
 }
 
 //creo la bidimensional de int de los colores
@@ -40,7 +63,7 @@ int	ft_create_text_col(t_in *dt, char *argv)
 		{
 			if (ft_dup_atoi(dt, line, i) == 1)
 			{
-				printf ("Error\nBad imput of colors - ");
+				printf ("Error\nBad imput in colors - ");
 				return (-1);
 			}
 			i++;
@@ -147,7 +170,7 @@ int ft_create_text_tex(t_in *dt, char *argv)
 		free(line);
 		if (dt->tex[j] == NULL)
 		{
-			printf ("Error\nBad imput of textures - ");
+			printf ("Error\nBad imput in textures - ");
 			return (-1);
 		}
 		line = ft_gnl(fd);
@@ -168,7 +191,7 @@ char	*ft_regen_tex(char *old)
 		return (NULL);
 	i = 0;
 	j = ft_strlen(old);
-	while (old[i] && (old[i] == 'N' || old[i] == 'S' || old[i] == 'E' || old[i] == 'W' || old[i] == 'O' || old[i] == 'A' || old[i] == ' '))
+	while (old[i] && (old[i] == 'N' || old[i] == 'S' || old[i] == 'E' || old[i] == 'W' || old[i] == 'O' || old[i] == 'A' || old[i] == ' ' || old[i] == '.' || old[i] == '/'))
 		i++;
 	new = (char *)malloc(sizeof(char) * (j - i + 1));
 	if (!new)
@@ -191,6 +214,8 @@ char	*ft_regen_tex(char *old)
 			j++;
 		}
 	}
+	if (j == 0)//por si alguna linea no tiene textura
+		return (NULL);
 	new[j] = 00;
 	free(old);
 	return (new);

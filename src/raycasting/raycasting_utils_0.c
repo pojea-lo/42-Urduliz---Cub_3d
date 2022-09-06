@@ -28,49 +28,76 @@ int	ft_rayc_init(t_hook *hk)
 		if (hk->dt->drawend >= hk->dt->maph)
 			hk->dt->drawend = hk->dt->maph - 1;
 //			printf ("La linea empieza: %d y termina %d\n", hk->dt->drawstart, hk->dt->drawend);
-		ft_draw_line(hk, x);
-//		ft_draw_texture(hk, x);
+//		ft_draw_line(hk, x);
+		ft_draw_texture(hk, x);
 	}
-
-
+	mlx_put_image_to_window(hk->gr->mlx, hk->gr->mlx_win, hk->gr->img, 0, 0);
 	return (0);
 }
 
 //dibujo de la textura
 int	ft_draw_texture(t_hook *hk, int x)
 {
-	hk->dt->texnum = hk->dt->map[hk->dt->mapy][hk->dt->mapx] - '1';
+	hk->dt->texnum = ft_cal_texnum(hk);
 	if (hk->dt->side == 0)
 		hk->dt->wallx = hk->dt->yo + (hk->dt->perpwalldist * hk->dt->raydiry);
 	else if (hk->dt->side == 1)
 		hk->dt->wallx = hk->dt->xo + (hk->dt->perpwalldist * hk->dt->raydirx);
-	hk->dt->texx = (int)(hk->dt->wallx * hk->dt->texwidth);//(*)
+	hk->dt->wallx -= floor((hk->dt->wallx));
+	hk->dt->texx = (int)(hk->dt->wallx * (double)hk->dt->texwidth);
+	if (hk->dt->texx < 0 || hk->dt->texx > 64)
+		printf("texx: %d\n", hk->dt->texx);
 	if((hk->dt->side == 0 && hk->dt->raydirx > 0) || (hk->dt->side == 1 && hk->dt->raydiry < 0))
 		hk->dt->texx = hk->dt->texwidth - hk->dt->texx - 1;
 	hk->dt->step = 1.0 * hk->dt->texheight / hk->dt->lineheight;
-	hk->dt->texpos = (hk->dt->drawstart - hk->dt->maph / 2 + hk->dt->lineheight / 2) * hk->dt->step;
+	hk->dt->texpos = ((hk->dt->drawstart - hk->dt->maph / 2) + (hk->dt->lineheight / 2)) * hk->dt->step;
 	ft_print_tex(hk, x);
 	return (0);
+}
+
+//calculo el numero de textura en funcion de donde pegue
+int	ft_cal_texnum(t_hook *hk)
+{
+	int	texnum;
+
+	texnum = 0;
+	if (hk->dt->side == 0)
+	{
+		if (hk->dt->dirx > 0)
+			texnum = 0;
+		else
+			texnum = 1;
+	}
+	else if (hk->dt->side == 1)
+	{
+		if (hk->dt->diry > 0)
+			texnum = 2;
+		else
+			texnum = 3;
+	}
+	hk->dt->texwidth = hk->dt->texture[texnum].w;
+	hk->dt->texheight = hk->dt->texture[texnum].h;
+	return (texnum);
 }
 
 //dibuja en la imagen la textura con los datos
 void	ft_print_tex(t_hook *hk, int x)
 {
 	int		y;
-	t_mlx	img;
-
+	
 	y = 0;
 	while (y < hk->dt->drawstart)
 	{
 		my_mlx_pixel_put(hk, x, y, 0x00FFFF / 2);
 		y++;
 	}
+	y = hk->dt->drawstart;
 	while (y < hk->dt->drawend)
 	{
-		img = ft_charge_tex(hk);
 		hk->dt->texy = (int)hk->dt->texpos & (int)(hk->dt->texheight - 1);
 		hk->dt->texpos += hk->dt->step;
-		my_mlx_pixel_put(hk, x, y, get_mlx_pixel_color(&img, x, y));
+		hk->dt->colo = get_mlx_pixel_color(&hk->dt->texture[hk->dt->texnum], hk->dt->texx, hk->dt->texy);
+		my_mlx_pixel_put(hk, x, y, hk->dt->colo);
 		y++;
 	}
 	while (y < hk->dt->maph)
@@ -79,33 +106,6 @@ void	ft_print_tex(t_hook *hk, int x)
 		y++;
 	}
 }
-
-//cargo las imagenes de las texturas
-t_mlx	ft_charge_tex(t_hook *hk)
-{
-	t_mlx	img;
-
-	if (hk->dt->side == 0)
-	{
-		if (hk->dt->raydirx > 0)
-			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[0], &img.w, &img.h);
-		else
-			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[1], &img.w, &img.h);
-	}
-	else
-	{
-		if (hk->dt->raydiry > 0)
-			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[2], &img.w, &img.h);
-		else
-			mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[3], &img.w, &img.h);
-	}
-	img.line_length = 0;
-	img.bits_per_pixel = 0;
-	img.endian = 0;
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	return (img);
-}
-
 //algoritmo DDA
 void	ft_dda_algorithm(t_hook *hk)
 {
@@ -172,8 +172,6 @@ int	ft_rayc_memset(t_hook *hk)
 {
 	hk->dt->mapw = 960;//dimensiones del mapa
 	hk->dt->maph = 720;
-//	hk->dt->texwidth = 64;//dimensiones de la textura
-//	hk->dt->texheight = 64;
 //	printf("%f\n",hk->dt->fov);
 	if (hk->dt->fov != 1.5708)
 	{
@@ -213,7 +211,7 @@ int	ft_get_plane(t_hook *hk)
 		hk->dt->planey = 0;
 		hk->dt->planex = hk->dt->diry * tan(hk->dt->fov / 2);
 	}
-	else if (hk->dt->dir == 'E' || hk->dt->dir == 'O')
+	else if (hk->dt->dir == 'E' || hk->dt->dir == 'W')
 	{
 		hk->dt->planex = 0;
 		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
@@ -240,7 +238,7 @@ int	ft_get_dir(t_hook *hk)
 		hk->dt->dirx = 1;
 		hk->dt->diry = 0;
 	}
-	else if (hk->dt->dir == 'O')
+	else if (hk->dt->dir == 'W')
 	{
 		hk->dt->dirx = -1;
 		hk->dt->diry = 0;

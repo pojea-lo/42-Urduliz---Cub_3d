@@ -29,7 +29,7 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 	t_hook	*hk;
 
 	hk = ft_memset(dt);
-	if (ft_create_text(dt, argv) == -1)
+	if (ft_create_text(hk, argv) == -1)
 	{
 		printf ("Texture error\n");
 		return (-1);
