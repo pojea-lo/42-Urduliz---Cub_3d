@@ -1,25 +1,21 @@
 #include "../../include/cub3d.h"
 
 //crea a partir del archivo la bidimensional con el mapa
-int ft_create_bid (int fd, t_in *dt, char *argv)
+int ft_create_bid (t_in *dt)
 {
-    int     j;
-    char    *line;
+    int		i;
+	int     j;
 
-    dt->map = (char **) malloc (sizeof(char *) * (ft_count_fd (fd, 2) + 1));
+    dt->map = (char **) malloc (sizeof(char *) * (ft_count_fd (dt->info, 2) + 1));
     if (!dt->map)
         return (-1);
-    fd = open(argv, O_RDWR);
-    line = ft_gnl(fd);
-    j = -1;
-    while (line)
+    i = -1;
+	j = -1;
+    while (dt->info[++i])
     {
-       if (ft_check_line (line, 2) == 0 && line)
-            dt->map[++j] = ft_dup(line);
-        free (line);
-        line = ft_gnl(fd);
+       if (ft_check_line (dt->info[i], 2) == 0)
+            dt->map[++j] = ft_dup(dt->info[i]);
     }
-	close (fd);
 	dt->map[++j] = NULL;
     if (ft_data_map(dt) == -1)
         return (-1);
@@ -27,21 +23,20 @@ int ft_create_bid (int fd, t_in *dt, char *argv)
 }
 
 //cuenta la cantidad de lineas, o de datos (1) o de mapa (2)
-int ft_count_fd (int fd, int n)
+int ft_count_fd (char **info, int n)
 {
     int     i;
-    char    *line;
+	int		r;
 
-    i = 0;
-    line = ft_gnl(fd);
-    while (line)
+	i = 0;
+	r = 0;
+    while (info[i])
     {
-        if (ft_check_line (line, n) == 0 && line)
-            i++;
-		free (line);
-        line = ft_gnl(fd);
+        if (ft_check_line (info[i], n) == 0)
+            r++;
+		i++;
     }
-    return (i);
+    return (r);
 }
 
 //chequeo si la linea vale para datos (n = 1) o para mapa (n = 2)

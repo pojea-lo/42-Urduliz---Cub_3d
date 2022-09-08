@@ -26,7 +26,8 @@ typedef struct	s_mlx
 //estructura con datos iniciales
 typedef struct  s_in
 {
-    char    **map;//array bidimensional con el map
+    char	**info;//array bidimensional con toda la info
+	char    **map;//array bidimensional con el map
 	char	**tex;//array bidimensional con las texturas
 	int		**color;//array bidimensional con los colores cielo y sueo
 	double	mapw;//anchura del mapa
@@ -113,10 +114,15 @@ int		ft_draw_texture(t_hook *hk, int x);
 void	ft_print_tex(t_hook *hk, int x);
 int		ft_cal_texnum(t_hook *hk);
 
+//map_info.c files
+//Funciones para obtener la bidimensional con los datos iniciales
+char	**ft_get_info(int fd, char *argv, t_in *dt);
+int		ft_count_info(int fd);
+
 //map_utils_0.c files
 //Funciones para crear la bidimensional
-int     ft_create_bid (int fd, t_in *dt, char *argv);
-int     ft_count_fd (int fd, int n);
+int     ft_create_bid (t_in *dt);
+int     ft_count_fd (char **info, int n);
 int     ft_check_line(char *line, int n);
 int     ft_data_map(t_in *dt);
 
@@ -146,16 +152,16 @@ int     ft_ch_cl_aux_irow(int i, int j, int max, t_in *dt);
 
 //map_text_0.c files
 //Funciones que gestionan las texturas del mapa
-int		ft_create_text(t_hook *hk, char *argv);
-int		ft_create_text_tex(t_in *dt, char *argv);
-int		ft_count_tex(char *argv);
+int		ft_create_text(t_hook *hk);
+int		ft_count_tex(char **info);
+int		ft_create_text_tex(t_in *dt);
 char	*ft_regen_tex(char *old);
-int		ft_count_col(char *argv);
+t_mlx	ft_charge_tex(t_hook *hk, int i);
+int		ft_count_col(char **info);
 int		ft_check_line_two(char *line);
-int		ft_create_text_col(t_in *dt, char *argv);
+int		ft_create_text_col(t_in *dt);
 int		ft_dup_atoi(t_in *dt, char *line, int n);
 int		ft_atoi_bid(t_in *dt, char **num, int n);
-t_mlx	ft_charge_tex(t_hook *hk, int i);
 
 //gnl.c files
 char    *ft_gnl(int fd);

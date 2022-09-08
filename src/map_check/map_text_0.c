@@ -1,16 +1,16 @@
 #include "../../include/cub3d.h"
 
-int	ft_create_text(t_hook *hk, char *argv)
+int	ft_create_text(t_hook *hk)
 {
 	int	i;
 	int	fd;
 
-	if (ft_count_tex(argv) != 4)
+	if (ft_count_tex(hk->dt->info) != 4)
 	{
 		printf ("Error\nError in number of textures - ");
 		return (-1);
 	}
-	if (ft_create_text_tex(hk->dt, argv) == -1)
+	if (ft_create_text_tex(hk->dt) == -1)
 		return (-1);
 	i = -1;
 	while (hk->dt->tex[++i])
@@ -24,14 +24,101 @@ int	ft_create_text(t_hook *hk, char *argv)
 		close (fd);
 		hk->dt->texture[i] = ft_charge_tex(hk, i);
 	}
-	if (ft_count_col(argv) != 2)
+	if (ft_count_col(hk->dt->info) != 2)
 	{
 		printf ("Error\nError in number of colors - ");
 		return (-1);
 	}
-	if (ft_create_text_col(hk->dt, argv) == -1)
+	if (ft_create_text_col(hk->dt) == -1)
 		return (-1);
 	return (0);
+}
+
+//cuento las lineas de texturas
+int	ft_count_tex(char **info)
+{
+	int		i;
+	int		n;
+
+	i = 0;
+	n = 0;
+	while (info[i])
+	{
+		if (ft_check_line (info[i], 1) == 0)
+			n++;
+		i++;
+	}
+	return (n);
+}
+
+//creo la bidimensional de las texturas
+int ft_create_text_tex(t_in *dt)
+{
+	int		i;
+	int		j;
+
+	dt->tex = (char **)malloc(sizeof(char *) * 5);
+	if (!dt->tex)
+		return (-1);
+	i = -1;
+	j = -1;
+	while (dt->info[++i])
+	{
+		if (ft_check_line (dt->info[i], 1) == 0)
+		{
+			dt->tex[++j] = ft_dup(dt->info[i]);
+			dt->tex[j] = ft_regen_tex(dt->tex[j]);
+//			printf ("Textura %d: <%s>\n", j, dt->tex[j]);
+		}
+		if (dt->tex[j] == NULL)
+		{
+			printf ("Error\nBad imput in textures - ");
+			return (-1);
+		}
+	}
+	dt->tex[++j] = NULL;
+	return (0);
+}
+
+//funcion que purga la bidimensional text quedandose solo con la ruta
+char	*ft_regen_tex(char *old)
+{
+	char	*new;
+	int		i;
+	int		j;
+
+	if (!old)
+		return (NULL);
+	i = 0;
+	j = ft_strlen(old);
+	while (old[i] && (old[i] == 'N' || old[i] == 'S' || old[i] == 'E' || old[i] == 'W' || old[i] == 'O' || old[i] == 'A' || old[i] == ' ' || old[i] == '.' || old[i] == '/'))
+		i++;
+	new = (char *)malloc(sizeof(char) * (j - i + 1));
+	if (!new)
+		return (NULL);
+	j = 0;
+	while (old[i])
+	{
+		if (old[i] != ' ')
+			new[j] = old[i];
+		else
+		{
+			while(old[i] && old[i] == ' ')
+				i++;
+			if (old[i] != 00)
+				return (NULL);
+		}
+		if (old[i])
+		{
+			i++;
+			j++;
+		}
+	}
+	if (j == 0)//por si alguna linea no tiene textura
+		return (NULL);
+	new[j] = 00;
+	free(old);
+	return (new);
 }
 
 //cargo las imagenes de las texturas
@@ -47,36 +134,61 @@ t_mlx	ft_charge_tex(t_hook *hk, int i)
 	return (img);
 }
 
-//creo la bidimensional de int de los colores
-int	ft_create_text_col(t_in *dt, char *argv)
+//cuento las lineas de color
+int	ft_count_col(char **info)
 {
 	int		i;
-	int		fd;
-	char	*line;
+	int		n;
 
-	fd = open (argv, O_RDWR);
+	i = 0;
+	n = 0;
+	while (info[i])
+	{
+		if (ft_check_line_two (info[i]) == 0)
+			n++;
+		i++;
+	}
+	return (n);
+}
+
+//busco en la linea las lineas de los colores
+int	ft_check_line_two(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (1);
+	i = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	if ((line[i] == 'F' || line[i] == 'C') && line [i + 1] == ' ')
+		return (0);
+	return (1);
+}
+
+//creo la bidimensional de int de los colores
+int	ft_create_text_col(t_in *dt)
+{
+	int		i;
+
 	dt->color = (int **)malloc(sizeof(int *) * 2);
 	dt->color[0] = (int *)malloc(sizeof(int) * 3);
 	dt->color[1] = (int *)malloc(sizeof(int) * 3);
 	if (!dt->color)
 		return (-1);
-	line = ft_gnl(fd);
 	i = 0;
-	while (line)
+	while (dt->info[i])
 	{
-		if (ft_check_line_two (line) == 0 && line)
+		if (ft_check_line_two (dt->info[i]) == 0)
 		{
-			if (ft_dup_atoi(dt, line, i) == 1)
+			if (ft_dup_atoi(dt, dt->info[i], i) == 1)
 			{
 				printf ("Error\nBad imput in colors - ");
 				return (-1);
 			}
-			i++;
 		}
-		free(line);
-		line = ft_gnl(fd);
+		i++;
 	}
-	close(fd);
 //	printf ("Color 0: <%d / %d / %d>\n", dt->color[0][0], dt->color[0][1], dt->color[0][2]);
 //	printf ("Color 1: <%d / %d / %d>\n", dt->color[1][0], dt->color[1][1], dt->color[1][2]);
 	return (0);
@@ -149,136 +261,4 @@ int	ft_atoi_bid(t_in *dt, char **num, int n)
 	}
 	free(num);
 	return (0);
-}
-
-//creo la bidimensional de las texturas
-int ft_create_text_tex(t_in *dt, char *argv)
-{
-	int		j;
-	int		fd;
-	char	*line;
-
-	fd = open (argv, O_RDWR);
-	dt->tex = (char **)malloc(sizeof(char *) * 5);
-	if (!dt->tex)
-		return (-1);
-	line = ft_gnl(fd);
-	j = -1;
-	while (line)
-	{
-		if (ft_check_line (line, 1) == 0 && line)
-		{
-			dt->tex[++j] = ft_dup(line);
-			dt->tex[j] = ft_regen_tex(dt->tex[j]);
-//			printf ("Textura %d: <%s>\n", j, dt->tex[j]); 
-		}
-		free(line);
-		if (dt->tex[j] == NULL)
-		{
-			printf ("Error\nBad imput in textures - ");
-			return (-1);
-		}
-		line = ft_gnl(fd);
-	}
-	close(fd);
-	dt->tex[++j] = NULL;
-	return (0);
-}
-
-//funcion que purga la bidimensional text quedandose solo con la ruta
-char	*ft_regen_tex(char *old)
-{
-	char	*new;
-	int		i;
-	int		j;
-
-	if (!old)
-		return (NULL);
-	i = 0;
-	j = ft_strlen(old);
-	while (old[i] && (old[i] == 'N' || old[i] == 'S' || old[i] == 'E' || old[i] == 'W' || old[i] == 'O' || old[i] == 'A' || old[i] == ' ' || old[i] == '.' || old[i] == '/'))
-		i++;
-	new = (char *)malloc(sizeof(char) * (j - i + 1));
-	if (!new)
-		return (NULL);
-	j = 0;
-	while (old[i])
-	{
-		if (old[i] != ' ')
-			new[j] = old[i];
-		else
-		{
-			while(old[i] && old[i] == ' ')
-				i++;
-			if (old[i] != 00)
-				return (NULL);
-		}
-		if (old[i])
-		{	
-			i++;
-			j++;
-		}
-	}
-	if (j == 0)//por si alguna linea no tiene textura
-		return (NULL);
-	new[j] = 00;
-	free(old);
-	return (new);
-}
-
-//cuento las lineas de texturas
-int	ft_count_tex(char *argv)
-{
-	int		fd;
-	int		i;
-	char	*line;
-
-	i = 0;
-	fd = open(argv, O_RDWR);
-	line = ft_gnl(fd);
-	while (line)
-	{
-		if (ft_check_line (line, 1) == 0 && line)
-			i++;
-		free(line);
-		line = ft_gnl(fd);
-	}
-	close(fd);
-	return (i);
-}
-
-//cuento las lineas de color
-int	ft_count_col(char *argv)
-{
-	int		fd;
-	int		i;
-	char	*line;
-
-	i = 0;
-	fd = open(argv, O_RDWR);
-	line = ft_gnl(fd);
-	while (line)
-	{
-		if (ft_check_line_two (line) == 0 && line)
-			i++;
-		free(line);
-		line = ft_gnl(fd);
-	}
-	close(fd);
-	return (i);
-}
-
-//busco en la linea las lineas de los colores
-int	ft_check_line_two(char *line)
-{
-	int	i;
-
-	if (!line)
-		return (1);
-	i = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
-	if ((line[i] == 'F' || line[i] == 'C') && line [i + 1] == ' ')
-		return (0);
-	return (1);
 }

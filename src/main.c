@@ -7,17 +7,16 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		printf("Error in arguments\n");
+		printf("Error\nError in arguments\n");
 		return (0);
 	}
-	fd = open(argv[1], O_RDWR);
+	fd = open(argv[1], O_RDWR);//lo cierro en la funcion count info, que es donde primero lo uso
 	if (fd == -1)
 	{
-		perror("Open error\n");
+		printf("Error\nMap does't exist\n");
 		return (0);
 	}
 	ft_traspas(fd, argv[1], &dt);
-	close(fd);
 	ft_free(&dt);
 //	system("leaks cub");
 	return (0);
@@ -29,18 +28,28 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 	t_hook	*hk;
 
 	hk = ft_memset(dt);
-	if (ft_create_text(hk, argv) == -1)
+	dt->info = ft_get_info(fd, argv, dt);
+	if (!dt->info)
+	{
+		printf ("Data error\n");
+		return (-1);
+	}
+	printf ("Al 0 llego\n");
+	if (ft_create_text(hk) == -1)
 	{
 		printf ("Texture error\n");
 		return (-1);
 	}
-	if (ft_create_bid(fd, dt, argv) == -1)
+	printf ("Al 1 llego\n");
+	if (ft_create_bid(dt) == -1)
 		return (-1);
+	printf ("Al 2 llego\n");
 	if (ft_ch_map(dt) == -1)
 	{
 		printf ("Map error\n");
 		return (-1);
 	}
+	printf ("Al 3 llego\n");
 	if (ft_draw_map (hk) == -1)
 	{
 		printf ("Draw map error\n");
@@ -59,6 +68,7 @@ t_hook	*ft_memset(t_in *dt)
 	t_mlx	*gr;//creo la libreria grafica
 	t_hook	*hk;//creo la estructura unica para trabajar con las funciones de la mlx
 
+	dt->info = NULL;
 	dt->map = NULL;
 	dt->tex = NULL;
 	dt->color = NULL;
@@ -80,6 +90,14 @@ void	ft_free(t_in *dt)
 {
 	int	i;
 
+	if (dt->info)
+	{
+		i = -1;
+		while (dt->info[++i])
+			free (dt->info[i]);
+		free (dt->info);
+		dt->info = NULL;
+	}
 	if (dt->map)
 	{
 		i = -1;
@@ -109,6 +127,14 @@ void	ft_free_hk(t_hook *hk)
 {
 	int	i;
 
+	if (hk->dt->info)
+	{
+		i = -1;
+		while (hk->dt->info[++i])
+			free (hk->dt->info[i]);
+		free (hk->dt->info);
+		hk->dt->info = NULL;
+	}
 	if (hk->dt->map)
 	{
 		i = -1;

@@ -1,6 +1,6 @@
 #include "../../include/cub3d.h"
 
-//LE HE PUESTO A LA X=0 EN VEZ DE -1 PARA HACERLO SIMETRICO!!!I
+//LE HE PUESTO A LA X=0 EN VEZ DE -1 PARA HACERLO SIMETRICO!!!
 ////funcion inicial del raycasting
 int	ft_rayc_init(t_hook *hk)
 {
