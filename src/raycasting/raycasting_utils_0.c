@@ -188,6 +188,7 @@ int	ft_rayc_memset(t_hook *hk)
 	hk->dt->sidedisty = 0;
 	hk->dt->deltadistx = 0;
 	hk->dt->deltadisty = 0;
+	hk->dt->anymove = false;
 	hk->dt->rotation_left = false;
 	hk->dt->rotation_right = false;
 	hk->dt->up = false;
