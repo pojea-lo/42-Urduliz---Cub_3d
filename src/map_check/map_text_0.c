@@ -7,7 +7,7 @@ int	ft_create_text(t_hook *hk)
 
 	if (ft_count_tex(hk->dt->info) != 4)
 	{
-		printf ("Error\nError in number of textures - ");
+		printf ("Error\nError in number of valid textures - ");
 		return (-1);
 	}
 	if (ft_create_text_tex(hk->dt) == -1)
@@ -18,7 +18,7 @@ int	ft_create_text(t_hook *hk)
 		fd = open(hk->dt->tex[i], O_RDONLY);//compruebo si existe el archivo
 		if (fd == -1)
 		{
-			printf ("No existe archivo - ");
+			printf ("Error\nTexture file does not exist - ");
 			return (-1);
 		}
 		close (fd);
@@ -26,7 +26,7 @@ int	ft_create_text(t_hook *hk)
 	}
 	if (ft_count_col(hk->dt->info) != 2)
 	{
-		printf ("Error\nError in number of colors - ");
+		printf ("Error\nError in number of valid colors - ");
 		return (-1);
 	}
 	if (ft_create_text_col(hk->dt) == -1)
@@ -132,133 +132,4 @@ t_mlx	ft_charge_tex(t_hook *hk, int i)
 	img.endian = 0;
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	return (img);
-}
-
-//cuento las lineas de color
-int	ft_count_col(char **info)
-{
-	int		i;
-	int		n;
-
-	i = 0;
-	n = 0;
-	while (info[i])
-	{
-		if (ft_check_line_two (info[i]) == 0)
-			n++;
-		i++;
-	}
-	return (n);
-}
-
-//busco en la linea las lineas de los colores
-int	ft_check_line_two(char *line)
-{
-	int	i;
-
-	if (!line)
-		return (1);
-	i = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
-	if ((line[i] == 'F' || line[i] == 'C') && line [i + 1] == ' ')
-		return (0);
-	return (1);
-}
-
-//creo la bidimensional de int de los colores
-int	ft_create_text_col(t_in *dt)
-{
-	int		i;
-
-	dt->color = (int **)malloc(sizeof(int *) * 2);
-	dt->color[0] = (int *)malloc(sizeof(int) * 3);
-	dt->color[1] = (int *)malloc(sizeof(int) * 3);
-	if (!dt->color)
-		return (-1);
-	i = 0;
-	while (dt->info[i])
-	{
-		if (ft_check_line_two (dt->info[i]) == 0)
-		{
-			if (ft_dup_atoi(dt, dt->info[i], i) == 1)
-			{
-				printf ("Error\nBad imput in colors - ");
-				return (-1);
-			}
-		}
-		i++;
-	}
-//	printf ("Color 0: <%d / %d / %d>\n", dt->color[0][0], dt->color[0][1], dt->color[0][2]);
-//	printf ("Color 1: <%d / %d / %d>\n", dt->color[1][0], dt->color[1][1], dt->color[1][2]);
-	return (0);
-}
-
-//funcion que devuelve una cadena de enteros de la linea F o C de color
-int	ft_dup_atoi(t_in *dt, char *line, int n)
-{
-	char	**num;
-	int		i;
-	int		j;
-	int		k;
-
-	num = (char **)malloc(sizeof(char *) * 10);
-	if (!num || !line)
-		return (1);
-	i = 0;
-	j = -1;
-	while (line[i])
-	{
-		if (!(line[i] > 47 && line[i] < 58) && line[i] != 44)
-		{
-			if (line[i] != 'F' && line[i] != 'C' && line[i] != ' ')
-				return (1);
-		}
-		else if (line[i] > 47 && line[i] < 58)
-		{
-			num[++j] = (char *)malloc(sizeof(char) * 50);
-			if (!num[j])
-				return (1);
-			k = -1;
-			while(line[i] && line[i] > 47 && line[i] < 58)
-			{
-				num[j][++k] = line[i];
-				i++;
-			}
-			num[j][++k] = 00;
-			if (line[i] != ',' && line[i] != 00 && line[i] != ' ')
-				return (1);
-		}
-		if(line[i])
-			i++;
-	}
-	num[++j] = NULL;
-	ft_atoi_bid(dt, num, n);
-	return (0);
-}
-
-//hago el itoa de una bidimensional de chars
-int	ft_atoi_bid(t_in *dt, char **num, int n)
-{
-	int	i;
-	int	k;
-
-	i = -1;
-	while (num[++i])
-	{
-		k = 0;
-		while (num[i][k])
-			k++;
-		if (k > 3)//comprobacion por si me meten mas de 3 numeros
-			return (1);
-		dt->color[n][i] = 0;
-		k = -1;
-		while (num[i][++k])
-			dt->color[n][i] = (num[i][k] - '0') + (dt->color[n][i] * 10);
-		if (dt->color[n][i] > 255)
-			return (1);
-		free(num[i]);
-	}
-	free(num);
-	return (0);
 }

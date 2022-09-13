@@ -7,7 +7,6 @@ int	ft_draw_map(t_hook *hk)
 	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, hk->dt->mapw, hk->dt->maph,"");
 	hk->gr->img = mlx_new_image(hk->gr->mlx, hk->dt->mapw, hk->dt->maph);
 	hk->gr->addr = mlx_get_data_addr(hk->gr->img, &hk->gr->bits_per_pixel, &hk->gr->line_length, &hk->gr->endian);
-	printf ("Estoy\n");
 	ft_rayc_init(hk);
 //	mlx_mouse_hook(hk->gr->mlx_win,&manage_mouse_hook_options, hk);
 	mlx_key_hook(hk->gr->mlx_win, &manage_key_hook_options,hk);

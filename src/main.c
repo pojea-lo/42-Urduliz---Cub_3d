@@ -34,22 +34,18 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		printf ("Data error\n");
 		return (-1);
 	}
-	printf ("Al 0 llego\n");
 	if (ft_create_text(hk) == -1)
 	{
 		printf ("Texture error\n");
 		return (-1);
 	}
-	printf ("Al 1 llego\n");
 	if (ft_create_bid(dt) == -1)
 		return (-1);
-	printf ("Al 2 llego\n");
 	if (ft_ch_map(dt) == -1)
 	{
 		printf ("Map error\n");
 		return (-1);
 	}
-	printf ("Al 3 llego\n");
 	if (ft_draw_map (hk) == -1)
 	{
 		printf ("Draw map error\n");

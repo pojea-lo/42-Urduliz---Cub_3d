@@ -26,6 +26,7 @@ typedef struct	s_mlx
 //estructura con datos iniciales
 typedef struct  s_in
 {
+	int		i;
     char	**info;//array bidimensional con toda la info
 	char    **map;//array bidimensional con el map
 	char	**tex;//array bidimensional con las texturas
@@ -34,8 +35,8 @@ typedef struct  s_in
 	double	maph;//altura del mapa
     int     maxx;//cantidad de columnas del mapa
     int     maxy;//cantidad de filas del mapa
-    int		xo;//posicion del personaje en x
-    int		yo;//posicion del personaje en y
+    double	xo;//posicion del personaje en x
+    double	yo;//posicion del personaje en y
 	char	dir;//guardo la dirección del personaje
 	double	dirx;//direccion x del personaje
 	double	diry;//direccion y del personaje
@@ -46,9 +47,11 @@ typedef struct  s_in
 	double	camerax;//coordenada x en el espacio de la camara
 	double	raydirx;//x del vector rayo
 	double	raydiry;//y del vector rayo
+	double	movespeed;
+	double	rotspeed;
 	//variables del algoritmo DDA
-	int		mapx;
-	int		mapy;
+	int		mapx;//posicion del personaje en x
+	int		mapy;//posicion del personaje en y
 	double	sidedistx;
 	double	sidedisty;
 	double	deltadistx;
@@ -157,10 +160,15 @@ int		ft_count_tex(char **info);
 int		ft_create_text_tex(t_in *dt);
 char	*ft_regen_tex(char *old);
 t_mlx	ft_charge_tex(t_hook *hk, int i);
+
+//map_text_0.c files
+//Funciones que gestionan las texturas del mapa
 int		ft_count_col(char **info);
 int		ft_check_line_two(char *line);
 int		ft_create_text_col(t_in *dt);
 int		ft_dup_atoi(t_in *dt, char *line, int n);
+int		ft_line(char *line, char **num, int i, int j);
+char	*ft_trim(char *line, int i);
 int		ft_atoi_bid(t_in *dt, char **num, int n);
 
 //gnl.c files

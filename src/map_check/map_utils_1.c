@@ -8,7 +8,7 @@ int ft_ch_map(t_in *dt)
 	dt->map = ft_add_columns(dt);
     if (ft_ch_personage(dt) == -1)
         return (-1);
-    dt->map[dt->yo][dt->xo] = '0';//sustituyo el personaje por 0
+    dt->map[(int)dt->yo][(int)dt->xo] = '0';//sustituyo el personaje por 0
     if (ft_ch_spaces(dt) == -1)
         return (-1);
     if (ft_ch_close(dt) == -1)
@@ -37,7 +37,7 @@ int ft_ch_chars(t_in *dt)
         {
             if (dt->map[i][j] != '0' && dt->map[i][j] != '1' && dt->map[i][j] != ' ')
             {
-                if (dt->map[i][j] != 'N' && dt->map[i][j] != 'S' && dt->map[i][j] != 'E' && dt->map[i][j] != 'O')
+                if (dt->map[i][j] != 'N' && dt->map[i][j] != 'S' && dt->map[i][j] != 'E' && dt->map[i][j] != 'W')
                 {
                     printf ("Error\nBad char in map - ");
                     return (-1);
@@ -110,7 +110,7 @@ int ft_ch_personage(t_in *dt)
         j = -1;
         while (dt->map[i][++j])
         {
-            if (dt->map[i][j] == 'N' || dt->map[i][j] == 'S' || dt->map[i][j] == 'E' || dt->map[i][j] == 'O')
+            if (dt->map[i][j] == 'N' || dt->map[i][j] == 'S' || dt->map[i][j] == 'E' || dt->map[i][j] == 'W')
             {
                 n = ft_ch_personage_out(i, j, dt);
                 if (n == 1)

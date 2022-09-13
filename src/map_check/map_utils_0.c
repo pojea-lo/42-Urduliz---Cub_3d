@@ -58,9 +58,9 @@ int ft_check_line(char *line, int n)
 		else
 			return (0);
     }
-    else if (n == 1 && line[i])//control de datos de color y texturas
+    else if (n == 1 && line[i] && line[i + 1])//control de datos de color y texturas
     {
-        if (((line[i] == 'N' || line[i] == 'S') && line[i + 1] == 'O') || (line[i] == 'E' && line[i + 1] == 'A') || (line[i] == 'W' && line [i + 1] == 'E'))
+        if ((((line[i] == 'N' || line[i] == 'S') && line[i + 1] == 'O') || (line[i] == 'E' && line[i + 1] == 'A') || (line[i] == 'W' && line [i + 1] == 'E')) && line[i + 2] == ' ')
             return (0);
     }
     return (1);
