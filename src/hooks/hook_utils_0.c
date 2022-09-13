@@ -30,11 +30,22 @@ int manage_key_hook_options(int keycode, t_hook *hk)
 			hk->dt->yo += hk->dt->diry * hk->dt->movespeed;
 	}
 	if (keycode == 1)//Detras
-	   hk->dt->yo += 1;
+	{
+		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
+			hk->dt->xo -= hk->dt->dirx * hk->dt->movespeed;
+		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
+			hk->dt->yo -= hk->dt->diry * hk->dt->movespeed;
+	}
 	if (keycode == 0)//Izquierda
-		hk->dt->xo -= 1;
+	{
+
+
+	}
 	if (keycode == 2)//Derecha
-		hk->dt->xo += 1;
+	{
+
+
+	}
 	if (keycode == 123) //Giro Izquierda
 	{
 		double oldDirX = hk->dt->dirx;
