@@ -56,7 +56,6 @@ typedef struct  s_in
 	bool	down;
 	bool	left;
 	bool	right;
-	bool	anymove;
 	//variables del algoritmo DDA
 	int		mapx;//posicion del personaje en x
 	int		mapy;//posicion del personaje en y

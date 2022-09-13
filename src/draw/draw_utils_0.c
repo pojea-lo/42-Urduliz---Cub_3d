@@ -44,7 +44,7 @@ int manage_movements(t_hook *hk)
 {
 	double oldDirX;
 	double oldPlaneX;
-	
+		
 	if (hk->dt->rotation_right)
 	{
 		oldDirX = hk->dt->dirx;
@@ -66,16 +66,43 @@ int manage_movements(t_hook *hk)
 	if (hk->dt->down)
 	{
 		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
+		{
 			hk->dt->xo -= hk->dt->dirx * hk->dt->movespeed;
+		}
+		
 		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
+		{
 			hk->dt->yo -= hk->dt->diry * hk->dt->movespeed;
+			printf("Coordenada abajo DIRY : %c\n", hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)]);
+		}
 	}
 	if (hk->dt->up)
 	{
+		printf("Coordenada del jugador x %f y %f\n",hk->dt->xo, hk->dt->yo);
+		printf("Subir  Xo : %f\nDir x : %f\nCoordenada de mapa : %c\n",hk->dt->xo,hk->dt->dirx,hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)]);
 		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
 			hk->dt->xo += hk->dt->dirx * hk->dt->movespeed;
 		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
 			hk->dt->yo += hk->dt->diry * hk->dt->movespeed;
+	}
+	if (hk->dt->left)
+	{
+		/*
+		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->diry * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
+			hk->dt->xo += hk->dt->diry * hk->dt->movespeed;
+		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
+			hk->dt->yo += hk->dt->diry * hk->dt->movespeed;
+		*/
+	}
+	if (hk->dt->right)
+	{
+		/*
+		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
+			hk->dt->xo += hk->dt->dirx * hk->dt->movespeed;
+		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
+			hk->dt->yo += hk->dt->diry * hk->dt->movespeed;
+
+		*/
 	}
 	return (1);
 }
@@ -94,13 +121,10 @@ int	ft_draw_map(t_hook *hk)
 	hk->gr->img = mlx_new_image(hk->gr->mlx, hk->dt->mapw, hk->dt->maph);
 	hk->gr->addr = mlx_get_data_addr(hk->gr->img, &hk->gr->bits_per_pixel, &hk->gr->line_length, &hk->gr->endian);
 	ft_rayc_init(hk);
-//	mlx_mouse_hook(hk->gr->mlx_win,&manage_mouse_hook_options, hk);
 	mlx_hook(hk->gr->mlx_win, 2,0, &set, hk);
 	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,0, &unset, hk);
-	//mlx_key_hook(hk->gr->mlx_win, &manage_key_hook_options,hk);
 	mlx_hook(hk->gr->mlx_win, 17, 0, close_button, hk);
-//	mlx_hook(hk->gr->mlx_win, 2, 1L << 0, keyw, hk);
 	mlx_loop(hk->gr->mlx);
 	return (0);
 }

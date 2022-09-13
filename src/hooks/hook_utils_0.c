@@ -20,8 +20,6 @@ int manage_key_hook_options(int keycode, t_hook *hk)
 		printf("EXIT");
 		exit (1);
 	}
-//	printf("keycode %d\n", keycode);
-	//Checkbounds
 	if (keycode == 13)//Delante
 	{
 		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
@@ -38,12 +36,17 @@ int manage_key_hook_options(int keycode, t_hook *hk)
 	}
 	if (keycode == 0)//Izquierda
 	{
-
-
+		//if (hk->dt->map[(int)(hk->dt->yo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
+		hk->dt->yo += hk->dt->diry * hk->dt->movespeed;
+		//if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed) ] != '1')
+		//	hk->dt->xo += hk->dt->dirx * hk->dt->movespeed;
 	}
 	if (keycode == 2)//Derecha
 	{
-
+		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
+			hk->dt->xo -= hk->dt->dirx * hk->dt->movespeed;
+		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
+			hk->dt->yo -= hk->dt->diry * hk->dt->movespeed;
 
 	}
 	if (keycode == 123) //Giro Izquierda
