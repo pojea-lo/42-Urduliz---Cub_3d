@@ -49,6 +49,13 @@ typedef struct  s_in
 	double	raydiry;//y del vector rayo
 	double	movespeed;
 	double	rotspeed;
+	//Player
+	bool	rotation_right;
+	bool	rotation_left;
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
 	//variables del algoritmo DDA
 	int		mapx;//posicion del personaje en x
 	int		mapy;//posicion del personaje en y
