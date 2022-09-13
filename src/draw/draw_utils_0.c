@@ -40,6 +40,7 @@ int set(int keycode, t_hook *hk)
 		hk->dt->rotation_left = true;
 	if (keycode == 124) //Derecha flecha
 		hk->dt->rotation_right = true;
+		printf("change");
 	return (1);
 }
 
