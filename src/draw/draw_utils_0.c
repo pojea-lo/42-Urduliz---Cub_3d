@@ -99,7 +99,6 @@ int game_engine(t_hook *hk)
 
 int	ft_draw_map(t_hook *hk)
 {
-	usleep(50);
 	ft_rayc_memset(hk);
 	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, hk->dt->mapw, hk->dt->maph,"");
 	hk->gr->img = mlx_new_image(hk->gr->mlx, hk->dt->mapw, hk->dt->maph);
