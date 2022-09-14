@@ -177,7 +177,7 @@ int	ft_rayc_memset(t_hook *hk)
 	hk->dt->maph = 720;
 //	hk->dt->fov = 1.152;//fijo el fov en 66 grados
 	hk->dt->fov = 1.5708;//fijo el fov en 90 grados
-	hk->dt->movespeed = 0.3;
+	hk->dt->movespeed = 0.25;
 	hk->dt->rotspeed = 0.2;
 	ft_get_dir(hk);
 //	printf ("El vector direccion:\nX: %f\nY: %f\n", hk->dt->dirx, hk->dt->diry);
