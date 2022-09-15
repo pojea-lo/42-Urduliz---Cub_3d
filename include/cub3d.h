@@ -93,8 +93,12 @@ typedef struct	s_hook
 }	t_hook;
 
 //main.c files
+int		ft_ch_arg(char *argv);
 int		ft_traspas(int fd, char *argv, t_in *dt);
-t_hook	*ft_memset(t_in *dt);
+
+//free.c files
+//Funciones de liberación de memoria
+void	ft_free_structur(t_hook *hk);
 void	ft_free(t_in *dt);
 void	ft_free_hk(t_hook *hk);
 
@@ -110,19 +114,6 @@ unsigned int	get_mlx_pixel_color(t_mlx *img, int x, int y);
 int		close_button(t_hook *hk);
 int		manage_key_hook_options(int keycode, t_hook *hk);
 int		manage_mouse_hook_options(t_hook *hk);
-
-//raycast_utils_0.c
-//Funciones para el calculo numerico del raycasting
-int		ft_rayc_init(t_hook *hk);
-int		ft_rayc_memset(t_hook *hk);
-int		ft_rayc_memset_2(t_hook *hk);
-int		ft_get_dir(t_hook *hk);
-int		ft_get_plane(t_hook *hk);
-void	ft_calcul_step(t_hook *hk);
-void	ft_dda_algorithm(t_hook *hk);
-int		ft_draw_texture(t_hook *hk, int x);
-void	ft_print_tex(t_hook *hk, int x);
-int		ft_cal_texnum(t_hook *hk);
 
 //map_info.c files
 //Funciones para obtener la bidimensional con los datos iniciales
@@ -164,6 +155,7 @@ int     ft_ch_cl_aux_irow(int i, int j, int max, t_in *dt);
 //Funciones que gestionan las texturas del mapa
 int		ft_create_text(t_hook *hk);
 int		ft_count_tex(char **info);
+int		ft_count_tex_aux(char *info);
 int		ft_create_text_tex(t_in *dt);
 char	*ft_regen_tex(char *old);
 t_mlx	ft_charge_tex(t_hook *hk, int i);
@@ -177,6 +169,23 @@ int		ft_dup_atoi(t_in *dt, char *line, int n);
 int		ft_line(char *line, char **num, int i, int j);
 char	*ft_trim(char *line, int i);
 int		ft_atoi_bid(t_in *dt, char **num, int n);
+
+//memset.c files
+//Funciones que realizan los diferentes memsets, al inicio y para el raycasting
+t_hook	*ft_memset(t_in *dt);
+int		ft_rayc_memset(t_hook *hk);
+int		ft_rayc_memset_2(t_hook *hk);
+
+//raycast_utils_0.c
+//Funciones para el calculo numerico del raycasting
+int		ft_rayc_init(t_hook *hk);
+int		ft_get_dir(t_hook *hk);
+int		ft_get_plane(t_hook *hk);
+void	ft_calcul_step(t_hook *hk);
+void	ft_dda_algorithm(t_hook *hk);
+int		ft_draw_texture(t_hook *hk, int x);
+void	ft_print_tex(t_hook *hk, int x);
+int		ft_cal_texnum(t_hook *hk);
 
 //gnl.c files
 char    *ft_gnl(int fd);

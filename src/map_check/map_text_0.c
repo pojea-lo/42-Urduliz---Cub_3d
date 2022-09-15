@@ -5,7 +5,7 @@ int	ft_create_text(t_hook *hk)
 	int	i;
 	int	fd;
 
-	if (ft_count_tex(hk->dt->info) != 4)
+	if (ft_count_tex(hk->dt->info) == -1)
 	{
 		printf ("Error\nError in number of valid textures - ");
 		return (-1);
@@ -34,21 +34,53 @@ int	ft_create_text(t_hook *hk)
 	return (0);
 }
 
-//cuento las lineas de texturas
+//cuento las lineas de texturas y que sean solo una de cada
 int	ft_count_tex(char **info)
 {
 	int		i;
-	int		n;
+	int		j;
+	int		n[4];
 
-	i = 0;
-	n = 0;
-	while (info[i])
+	i = -1;
+	while (++i < 4)
+		n[i] = 0;
+	i = -1;
+	while (info[++i])
 	{
 		if (ft_check_line (info[i], 1) == 0)
-			n++;
-		i++;
+		{
+			j = ft_count_tex_aux(info[i]);
+			if (j == -1)
+				return (-1);
+			else
+				n[j] += 1;
+		}
 	}
-	return (n);
+	i = -1;
+	while (++i < 4)
+	{
+		if (n[i] != 1)
+			return (-1);
+	}
+	return (0);
+}
+
+int	ft_count_tex_aux(char *info)
+{
+	int	j;
+
+	j = 0;
+	while (info[j] == ' ')
+		j++;
+	if (info[j] == 'N')
+		return (0);
+	else if (info[j] == 'S')
+		return (1);
+	else if (info[j] == 'E')
+		return (2);
+	else if (info[j] == 'W')
+		return (3);
+	return (-1);
 }
 
 //creo la bidimensional de las texturas
@@ -133,3 +165,4 @@ t_mlx	ft_charge_tex(t_hook *hk, int i)
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	return (img);
 }
+

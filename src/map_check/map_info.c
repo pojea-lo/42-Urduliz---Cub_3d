@@ -7,7 +7,10 @@ char	**ft_get_info(int fd, char *argv, t_in *dt)
 	int		j;
 	char	*line;
 
-	dt->info = (char **) malloc (sizeof(char *) * (ft_count_info (fd) + 1));
+	i = ft_count_info (fd);
+	if (i == 0)//archivo de mapa vacio. salida comprobada SL
+		return (NULL);
+	dt->info = (char **) malloc (sizeof(char *) * (i + 1));
 	if (!dt->info)
 		return (NULL);
 	fd = open(argv, O_RDWR);
@@ -19,19 +22,11 @@ char	**ft_get_info(int fd, char *argv, t_in *dt)
 		while (line[++i] == ' ' && line[i])
 			i++;
 		if (line[i] != 00)
-		{
 			dt->info[++j] = ft_dup(line);
-//			printf ("Info %d: <%s>\n", j, dt->info[j]);
-		}
 		free (line);
 		line = ft_gnl(fd);
 	}
 	dt->info[++j] = NULL;
-	if (j == 0)
-	{
-		printf ("Error\nEmpty file - ");
-		return (NULL);
-	}
 	close(fd);
 	return (dt->info);
 }
