@@ -18,7 +18,7 @@ t_hook	*ft_memset(t_in *dt)
 		return (NULL);
 	hk->dt = dt;
 	hk->gr = gr;
-	gr->mlx = mlx_init();//inicio la libreria gráfica
+//	gr->mlx = mlx_init();//inicio la libreria gráfica
 	return (hk);
 }
 

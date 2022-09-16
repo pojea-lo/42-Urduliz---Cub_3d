@@ -158,6 +158,8 @@ int		ft_count_tex(char **info);
 int		ft_count_tex_aux(char *info);
 int		ft_create_text_tex(t_in *dt);
 char	*ft_regen_tex(char *old);
+char	*ft_regen_tex_aux(char *old, char *new, int i);
+int		ft_ch_extension(char *new);
 t_mlx	ft_charge_tex(t_hook *hk, int i);
 
 //map_text_0.c files

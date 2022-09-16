@@ -24,7 +24,7 @@ int	main(int argc, char *argv[])
 	}
 	ft_traspas(fd, argv[1], &dt);
 	ft_free(&dt);
-//	system("leaks cub");
+	system("leaks cub");
 	return (0);
 }
 
@@ -73,7 +73,7 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		ft_free_structur (hk);
 		return (-1);
 	}
-	if (ft_create_bid(dt) == -1)
+/*	if (ft_create_bid(dt) == -1)
 		return (-1);
 	if (ft_ch_map(dt) == -1)
 	{
@@ -85,7 +85,7 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		printf ("Draw map error\n");
 		return (-1);
 	}
-	ft_free_structur (hk);
+*/	ft_free_structur (hk);
 	
 	return (0);
 }

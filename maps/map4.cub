@@ -1,7 +1,6 @@
-NO ../pics/mossy.xpm
-NO ../pics/mossy.xpm
+NO ../pics/mossy.xpm 
 SO ../pics/greystone.xpm
-EA ../pics/colorstone.xpm
+EA ../pics/colorstone.xpm 
 WE ../pics/bluestone.xpm    
 
 C 225,30,0
