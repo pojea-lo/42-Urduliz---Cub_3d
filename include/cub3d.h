@@ -162,8 +162,9 @@ char	*ft_regen_tex_aux(char *old, char *new, int i);
 int		ft_ch_extension(char *new);
 t_mlx	ft_charge_tex(t_hook *hk, int i);
 
-//map_text_0.c files
+//map_color_0.c files
 //Funciones que gestionan las texturas del mapa
+int		ft_create_color(t_hook *hk);
 int		ft_count_col(char **info);
 int		ft_check_line_two(char *line);
 int		ft_create_text_col(t_in *dt);

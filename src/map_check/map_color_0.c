@@ -1,5 +1,18 @@
 #include "../../include/cub3d.h"
 
+//funcion inicial para crear los valores de los colores
+int	ft_create_color(t_hook *hk)
+{
+	if (ft_count_col(hk->dt->info) != 2)
+	{
+		printf ("Error\nError in number of valid colors - ");
+		return (-1);
+	}
+	if (ft_create_text_col(hk->dt) == -1)
+		return (-1);
+	return (0);
+}
+
 //cuento las lineas de color
 int	ft_count_col(char **info)
 {
