@@ -3,9 +3,9 @@
 //funcion inicial para crear los valores de los colores
 int	ft_create_color(t_hook *hk)
 {
-	if (ft_count_col(hk->dt->info) != 2)
+	if (ft_count_col(hk->dt->info) == -1)
 	{
-		printf ("Error\nError in number of valid colors - ");
+		printf ("Error\nError in number of valid colors - ");//salida chequeada y SL
 		return (-1);
 	}
 	if (ft_create_text_col(hk->dt) == -1)
@@ -16,33 +16,47 @@ int	ft_create_color(t_hook *hk)
 //cuento las lineas de color
 int	ft_count_col(char **info)
 {
-	int		i;
-	int		n;
+	int	i;
+	int	j;
+	int	n[2];
 
-	i = 0;
-	n = 0;
-	while (info[i])
+	i = -1;
+	while (++i < 2)
+		n[i] = 0;
+	i = -1;
+	while (info[++i])
 	{
-		if (ft_check_line_two (info[i]) == 0)
-			n++;
-		i++;
+		j = ft_count_col_aux(info[i]);
+		if (j == 0 || j == 1)
+			n[j] += 1;
 	}
-	return (n);
+	i = -1;
+	while (++i < 2)
+	{
+		if (n[i] != 1)
+			return (-1);
+	}
+	return (0);
 }
 
-//busco en la linea las lineas de los colores
-int	ft_check_line_two(char *line)
+int	ft_count_col_aux(char *info)
 {
-	int	i;
+	int	j;
 
-	if (!line)
-		return (1);
-	i = 0;
-	while (line[i] && line[i] == ' ')
-		i++;
-	if ((line[i] == 'F' || line[i] == 'C') && line [i + 1] == ' ')
-		return (0);
-	return (1);
+	j = 0;
+	while (info[j] == ' ')
+		j++;
+	if (info[j] == 'C')
+	{
+		if(info[++j] && info[j] == ' ')
+			return (0);
+	}
+	else if (info[j] == 'F')
+	{
+		if (info[++j] && info[j] == ' ')
+			return (1);
+	}
+	return (-1);
 }
 
 //creo la bidimensional de int de los colores
@@ -54,7 +68,7 @@ int	ft_create_text_col(t_in *dt)
 	dt->color = (int **)malloc(sizeof(int *) * 2);
 	dt->color[0] = (int *)malloc(sizeof(int) * 3);
 	dt->color[1] = (int *)malloc(sizeof(int) * 3);
-	if (!dt->color)
+	if (!dt->color || !dt->color[0] || !dt->color[1])
 		return (-1);
 	i = 0;
 	j = -1;
@@ -63,20 +77,45 @@ int	ft_create_text_col(t_in *dt)
 		if (ft_check_line_two (dt->info[i]) == 0)
 		{
 			++j;
-			if (ft_dup_atoi(dt, dt->info[i], j) == 1)
+			if (ft_dup_atoi(dt, dt->info[i], j) == -1)
 			{
 				printf ("Error\nBad imput in colors - ");
 				return (-1);
 			}
 		}
+		else if (ft_check_line_two (dt->info[i]) == -1)
+		{
+			printf ("Error\nBad imput in colors - ");
+			return (-1);
+		}
 		i++;
 	}
-//	printf ("Color 0: <%d / %d / %d>\n", dt->color[0][0], dt->color[0][1], dt->color[0][2]);
-//	printf ("Color 1: <%d / %d / %d>\n", dt->color[1][0], dt->color[1][1], dt->color[1][2]);
 	return (0);
 }
 
-//funcion que devuelve una cadena de enteros de la linea F o C de color
+//busco en la linea las lineas de los colores
+int	ft_check_line_two(char *line)
+{
+	int	i;
+
+	if (!line)
+		return (-1);
+	i = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	if ((line[i] == 'F' || line[i] == 'C') && line [i + 1] == ' ')
+	{
+		while (line[++i])
+		{
+			if (line[i] != ',' && line[i] != ' ' && !(line[i] > 47 && line[i] < 58))
+				return (-1);
+		}
+		return (0);
+	}
+	return (1);
+}
+
+//funcion que genera una cadena de enteros de la linea F o C de color
 int	ft_dup_atoi(t_in *dt, char *line, int n)
 {
 	char	**num;
@@ -85,65 +124,61 @@ int	ft_dup_atoi(t_in *dt, char *line, int n)
 
 	num = (char **)malloc(sizeof(char *) * 5);
 	if (!num || !line)
-		return (1);
-	i = 0;
+		return (-1);
 	j = -1;
-//con esta parte recorro la cabecera de la linea, hasta los numeros
-	while (line[i] && line[i] == ' ')
-		i++;
-	if (line[i] != 'F' && line[i] != 'C' && line[i + 1] != ' ')
-			return (1);
-	i++;
-	while (line[i] && line[i] == ' ')
-		i++;
-	if (!(line[i] > 47) && !(line[i] < 58))
-		return (1);
-//recorro la parte de numeros
-	while (++j < 5 && line[i])
+	i = 0;
+	while (++j < 4 && line[i])//recorro la parte de los numeros
 	{
-		i = ft_line (line, num, i, j);
+		i = ft_restore_i(line, j);
 		if (i == -1)
-			return (1);
-	}
-	if (j != 3)//caso de que me metan mas o menos de 3 numeros
-	{
-		while (--j >= 0)
-			free (num[j]);
-		free(num);
-		return (1);
+			break;
+		num[j] = ft_line (line, num, i, j);
+		printf ("num%d: <%s>\n", j, num[j]);
+		if (!num[j])
+			return (-1);
 	}
 	num[j] = NULL;
+	if (j != 3)//caso de que me metan mas o menos de 3 numeros
+	{
+		ft_free_bidim(num);
+		return (-1);
+	}
 	ft_atoi_bid(dt, num, n);
 	return (0);
 }
 
-//aux de la funcion anterior que retorna la i
-int	ft_line(char *line, char ** num, int i, int j)
+//devuelve el valor de i en la linea para seguir copiando los numeros al array num[j] que coresponda
+int	ft_restore_i(char *line, int j)
 {
-	int k;
+	int	i;
 
-	line = ft_trim(line, i);
-	if (!line)
-		return (-1);
-	num[j] = (char *)malloc(sizeof(char) * 50);
-	if (!num[j])
-		return (1);
-	k = -1;
-	while(line[i] && line[i] > 47 && line[i] < 58)
+	i = ft_linehead_run(line);
+	while (--j >= 0)
 	{
-		num[j][++k] = line[i];
-		i++;
-	}
-	num[j][++k] = 00;
-	if (line[i] == ',' && j != 2)
-	{
-		i++;
-		if (!(line[i] > 47) && !(line[i] < 58))
+		while (line[i] && line[i] != ',')
+			i++;
+		if (!line[i])
 			return (-1);
+		i++;
 	}
-	else if (line[i] == 00 && j == 2)
-		return (i);
-	else
+	return (i);
+}
+
+//funcion que avanza hasta que empiecen los numeros y trimea  de espacios la parte de los numeros
+int	ft_linehead_run (char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	i++;
+	while (line[i] && line[i] == ' ')
+		i++;
+	if (!(line[i] > 47) && !(line[i] < 58))
+		return (-1);
+	line = ft_trim(line, i);
+	if (!line)//si el trim da error retorno -1
 		return (-1);
 	return (i);
 }
@@ -158,26 +193,52 @@ char *ft_trim(char *line, int i)
 	{
 		if (line[i] == ' ')
 		{
+			j = i;
 			if (line[i - 1] > 47 && line[i - 1] < 58)
 			{
-				j = i;
 				while (line[j] == ' ')
 					j++;
 				if (line[j] > 47 && line[j] < 58)
 					return (NULL);
 			}
-			j = i;
-			while (line[j])
+			else if (line[i - 1] == ',')
 			{
-				line[j] = line[j + 1];
-				j++;
+				while (line[j] == ' ')
+					j++;
+				if (line[j] == ',')
+					return (NULL);
 			}
+			j = i - 1;
+			while (line[++j])
+				line[j] = line[j + 1];
 
 		}
 		if (line[i] && line[i] != ' ')
 			i++;
 	}
 	return (line);
+}
+
+//aux de la funcion anterior que retorna la i
+char	*ft_line(char *line, char **num, int i, int j)
+{
+	int k;
+
+	if (!line)
+		return (NULL);
+	num[j] = (char *)malloc(sizeof(char) * 100);
+	if (!num[j])
+		return (NULL);
+	k = -1;
+	while(line[i] && (line[i] > 47 && line[i] < 58))
+	{
+		num[j][++k] = line[i];
+		i++;
+	}
+	if (k == -1)
+		return (NULL);
+	num[j][++k] = 00;
+	return (num[j]);
 }
 
 //hago el itoa de una bidimensional de chars

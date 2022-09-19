@@ -24,7 +24,7 @@ int	ft_create_text(t_hook *hk)
 		close (fd);
 //		hk->dt->texture[i] = ft_charge_tex(hk, i);
 	}
-	if (ft_create_color(hk) == -1)
+	if (ft_create_color(hk) == -1)//funcion para generar los colores
 		return (-1);
 	return (0);
 }

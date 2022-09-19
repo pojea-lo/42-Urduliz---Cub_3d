@@ -101,6 +101,7 @@ int		ft_traspas(int fd, char *argv, t_in *dt);
 void	ft_free_structur(t_hook *hk);
 void	ft_free(t_in *dt);
 void	ft_free_hk(t_hook *hk);
+void	ft_free_bidim(char **str);
 
 //draw_utils_0.c files
 //Funciones que dibujan el mapa
@@ -166,11 +167,14 @@ t_mlx	ft_charge_tex(t_hook *hk, int i);
 //Funciones que gestionan las texturas del mapa
 int		ft_create_color(t_hook *hk);
 int		ft_count_col(char **info);
-int		ft_check_line_two(char *line);
+int		ft_count_col_aux(char *info);
 int		ft_create_text_col(t_in *dt);
+int		ft_check_line_two(char *line);
 int		ft_dup_atoi(t_in *dt, char *line, int n);
-int		ft_line(char *line, char **num, int i, int j);
+int		ft_linehead_run(char *line);
 char	*ft_trim(char *line, int i);
+char	*ft_line(char *line, char **num, int i, int j);
+int		ft_restore_i(char *line, int j);
 int		ft_atoi_bid(t_in *dt, char **num, int n);
 
 //memset.c files

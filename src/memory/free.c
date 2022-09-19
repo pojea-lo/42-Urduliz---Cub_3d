@@ -46,8 +46,10 @@ void	ft_free(t_in *dt)
 	}
 	if (dt->color)
 	{
-		free (dt->color[0]);
-		free (dt->color[1]);
+		if (dt->color[1])
+			free (dt->color[1]);
+		if (dt->color[0])
+			free (dt->color[0]);
 		free (dt->color);
 		dt->color = NULL;
 	}
@@ -93,4 +95,18 @@ void	ft_free_hk(t_hook *hk)
 	hk->gr = NULL;
 	free (hk);
 	hk = NULL;
+}
+
+//libero el num del dup_atoi
+void	ft_free_bidim(char **str)
+{
+	int	j;
+
+	j = -1;
+	while (str[++j])
+	{
+		if (str[j])
+			free(str[j]);
+	}
+	free (str);
 }
