@@ -73,9 +73,9 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		ft_free_structur (hk);
 		return (-1);
 	}
-/*	if (ft_create_bid(dt) == -1)
-		return (-1);
-	if (ft_ch_map(dt) == -1)
+	if (ft_create_bid(dt) == -1)
+		return (ft_free_structur (hk), -1);
+/*	if (ft_ch_map(dt) == -1)
 	{
 		printf ("Map error\n");
 		return (-1);

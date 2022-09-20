@@ -14,7 +14,10 @@ int ft_create_bid (t_in *dt)
     while (dt->info[++i])
     {
        if (ft_check_line (dt->info[i], 2) == 0)
+	   {
             dt->map[++j] = ft_dup(dt->info[i]);
+	   		printf ("<%s>\n", dt->map[j]);
+	   }
     }
 	dt->map[++j] = NULL;
     if (ft_data_map(dt) == -1)
