@@ -157,6 +157,7 @@ int     ft_ch_cl_aux_irow(int i, int j, int max, t_in *dt);
 int		ft_create_text(t_hook *hk);
 int		ft_count_tex(char **info);
 int		ft_count_tex_aux(char *info);
+int		ft_count_tex_aux_bi(int *n);
 int		ft_create_text_tex(t_in *dt);
 char	*ft_regen_tex(char *old);
 char	*ft_regen_tex_aux(char *old, char *new, int i);
@@ -171,10 +172,10 @@ int		ft_count_col_aux(char *info);
 int		ft_create_text_col(t_in *dt);
 int		ft_check_line_two(char *line);
 int		ft_dup_atoi(t_in *dt, char *line, int n);
-int		ft_linehead_run(char *line);
-char	*ft_trim(char *line, int i);
-char	*ft_line(char *line, char **num, int i, int j);
 int		ft_restore_i(char *line, int j);
+char	*ft_trim(char *line, int i);
+int		ft_trim_aux(char *line, int i);
+char	*ft_line(char *line, char **num, int i, int j);
 int		ft_atoi_bid(t_in *dt, char **num, int n);
 
 //memset.c files

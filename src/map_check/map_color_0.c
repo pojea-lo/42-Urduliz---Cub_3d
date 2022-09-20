@@ -65,11 +65,6 @@ int	ft_create_text_col(t_in *dt)
 	int		i;
 	int		j;
 
-	dt->color = (int **)malloc(sizeof(int *) * 2);
-	dt->color[0] = (int *)malloc(sizeof(int) * 3);
-	dt->color[1] = (int *)malloc(sizeof(int) * 3);
-	if (!dt->color || !dt->color[0] || !dt->color[1])
-		return (-1);
 	i = 0;
 	j = -1;
 	while (dt->info[i])
@@ -79,13 +74,13 @@ int	ft_create_text_col(t_in *dt)
 			++j;
 			if (ft_dup_atoi(dt, dt->info[i], j) == -1)
 			{
-				printf ("Error\nBad imput in colors - ");
+				printf ("Error\nBad imput in colors - ");//salida chequeada SL
 				return (-1);
 			}
 		}
 		else if (ft_check_line_two (dt->info[i]) == -1)
 		{
-			printf ("Error\nBad imput in colors - ");
+			printf ("Error\nBad imput in colors - ");//salida chequeada SL
 			return (-1);
 		}
 		i++;
@@ -133,17 +128,14 @@ int	ft_dup_atoi(t_in *dt, char *line, int n)
 		if (i == -1)
 			break;
 		num[j] = ft_line (line, num, i, j);
-		printf ("num%d: <%s>\n", j, num[j]);
 		if (!num[j])
 			return (-1);
 	}
 	num[j] = NULL;
 	if (j != 3)//caso de que me metan mas o menos de 3 numeros
-	{
-		ft_free_bidim(num);
+		return (ft_free_bidim(num), -1);
+	if (ft_atoi_bid(dt, num, n) == -1)
 		return (-1);
-	}
-	ft_atoi_bid(dt, num, n);
 	return (0);
 }
 
@@ -151,23 +143,6 @@ int	ft_dup_atoi(t_in *dt, char *line, int n)
 int	ft_restore_i(char *line, int j)
 {
 	int	i;
-
-	i = ft_linehead_run(line);
-	while (--j >= 0)
-	{
-		while (line[i] && line[i] != ',')
-			i++;
-		if (!line[i])
-			return (-1);
-		i++;
-	}
-	return (i);
-}
-
-//funcion que avanza hasta que empiecen los numeros y trimea  de espacios la parte de los numeros
-int	ft_linehead_run (char *line)
-{
-	int i;
 
 	i = 0;
 	while (line[i] && line[i] == ' ')
@@ -180,11 +155,19 @@ int	ft_linehead_run (char *line)
 	line = ft_trim(line, i);
 	if (!line)//si el trim da error retorno -1
 		return (-1);
+	while (--j >= 0)
+	{
+		while (line[i] && line[i] != ',')
+			i++;
+		if (!line[i])
+			return (-1);
+		i++;
+	}
 	return (i);
 }
 
 //quito todos los espacios que no estén entre numeros
-char *ft_trim(char *line, int i)
+char	*ft_trim(char *line, int i)
 {
 	int	j;
 
@@ -193,21 +176,9 @@ char *ft_trim(char *line, int i)
 	{
 		if (line[i] == ' ')
 		{
-			j = i;
-			if (line[i - 1] > 47 && line[i - 1] < 58)
-			{
-				while (line[j] == ' ')
-					j++;
-				if (line[j] > 47 && line[j] < 58)
-					return (NULL);
-			}
-			else if (line[i - 1] == ',')
-			{
-				while (line[j] == ' ')
-					j++;
-				if (line[j] == ',')
-					return (NULL);
-			}
+			j = ft_trim_aux(line, i);
+			if (j == -1)
+				return (NULL);
 			j = i - 1;
 			while (line[++j])
 				line[j] = line[j + 1];
@@ -217,6 +188,28 @@ char *ft_trim(char *line, int i)
 			i++;
 	}
 	return (line);
+}
+
+int	ft_trim_aux(char *line, int i)
+{
+	int	j;
+
+	j = i;
+	if (line[i - 1] > 47 && line[i - 1] < 58)
+	{
+		while (line[j] == ' ')
+			j++;
+		if (line[j] > 47 && line[j] < 58)
+			return (-1);
+	}
+	else if (line[i - 1] == ',')
+	{
+		while (line[j] == ' ')
+			j++;
+		if (line[j] == ',')
+			return (-1);
+	}
+	return (j);
 }
 
 //aux de la funcion anterior que retorna la i
@@ -250,19 +243,18 @@ int	ft_atoi_bid(t_in *dt, char **num, int n)
 	i = -1;
 	while (num[++i])
 	{
-		k = 0;
-		while (num[i][k])
-			k++;
-		if (k > 3)//comprobacion por si me meten un numero con mas de 3 cifras
-			return (1);
 		dt->color[n][i] = 0;
 		k = -1;
 		while (num[i][++k])
 			dt->color[n][i] = (num[i][k] - '0') + (dt->color[n][i] * 10);
-		if (dt->color[n][i] > 255)
-			return (1);
 		free(num[i]);
 	}
 	free(num);
+	i = -1;
+	while (++i < 3)//comprobacion que sea < 255
+	{
+		if (dt->color[n][i] > 255)
+			return (-1);
+	}
 	return (0);
 }

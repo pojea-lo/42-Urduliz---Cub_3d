@@ -51,12 +51,8 @@ int	ft_count_tex(char **info)
 				n[j] += 1;
 		}
 	}
-	i = -1;
-	while (++i < 4)
-	{
-		if (n[i] != 1)
-			return (-1);
-	}
+	if (ft_count_tex_aux_bi(n) == -1)
+		return (-1);
 	return (0);
 }
 
@@ -76,6 +72,19 @@ int	ft_count_tex_aux(char *info)
 	else if (info[j] == 'W')
 		return (3);
 	return (-1);
+}
+
+int	ft_count_tex_aux_bi(int *n)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		if (n[i] != 1)
+			return (-1);
+	}
+	return (0);
 }
 
 //creo la bidimensional de las texturas
@@ -124,11 +133,7 @@ char	*ft_regen_tex(char *old)
 		return (NULL);
 	new = ft_regen_tex_aux(old, new, i);
 	if (!new)
-	{
-//		free (new);//PQ NO ME DEJA LIBERARLO AQUI????
-		free (old);
-		return (NULL);
-	}
+		return (free (old), NULL);
 	free(old);
 	return (new);
 }
@@ -147,10 +152,7 @@ char	*ft_regen_tex_aux(char *old, char *new, int i)
 			while(old[i] && old[i] == ' ')
 				i++;
 			if (old[i] != 00)//por si hay mas de una ruta
-			{
-				free (new);
-				return (NULL);
-			}
+				return (free (new), NULL);
 		}
 		if (old[i])
 		{
@@ -159,10 +161,7 @@ char	*ft_regen_tex_aux(char *old, char *new, int i)
 		}
 	}
 	if (j == 0)//por si alguna linea no tiene textura
-	{
-		free (new);
-		return (NULL);
-	}
+		return (free (new), NULL);
 	new[j] = 00;
 	return (new);
 }

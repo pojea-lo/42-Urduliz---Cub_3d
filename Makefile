@@ -39,6 +39,7 @@ $(NAME): $(OBJ)
 clean:
 	$(RM) $(OBJS)
 	make clean -C $(MINIPATH)
+
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) *.dSYM
