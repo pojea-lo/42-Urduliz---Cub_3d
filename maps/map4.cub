@@ -1,10 +1,10 @@
 NO ../pics/mossy.xpm 
 SO ../pics/greystone.xpm
 EA ../pics/colorstone.xpm 
-WE ../pics/bluestone.xpm    
+WE ../pics/bluestone.xpm 
 
-C 225,30,0
-F 220,100,0
+C 225,30, 0    
+F 220,  100,0
 
 111111111111111
 100000000000001

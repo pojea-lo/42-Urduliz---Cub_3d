@@ -75,12 +75,12 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 	}
 	if (ft_create_bid(dt) == -1)
 		return (ft_free_structur (hk), -1);
-/*	if (ft_ch_map(dt) == -1)
+	if (ft_ch_map(dt) == -1)
 	{
 		printf ("Map error\n");
-		return (-1);
+		return (ft_free_structur (hk), -1);
 	}
-	if (ft_draw_map (hk) == -1)
+/*	if (ft_draw_map (hk) == -1)
 	{
 		printf ("Draw map error\n");
 		return (-1);

@@ -121,9 +121,10 @@ int		manage_mouse_hook_options(t_hook *hk);
 char	**ft_get_info(int fd, char *argv, t_in *dt);
 int		ft_count_info(int fd);
 
-//map_utils_0.c files
+//map_bidimensional.c files
 //Funciones para crear la bidimensional
 int     ft_create_bid (t_in *dt);
+int     ft_ch_line_first(char **info);
 int     ft_count_fd (char **info, int n);
 int     ft_check_line(char *line, int n);
 int     ft_data_map(t_in *dt);

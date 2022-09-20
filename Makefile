@@ -7,7 +7,7 @@ SRC = 	src/main.c\
 		src/memory/memset.c\
 		include/gnl.c\
 		src/map_check/map_text_0.c\
-		src/map_check/map_utils_0.c\
+		src/map_check/map_bidimensional.c\
 		src/map_check/map_utils_1.c\
 		src/map_check/map_utils_2.c\
 		src/map_check/map_utils_3.c\

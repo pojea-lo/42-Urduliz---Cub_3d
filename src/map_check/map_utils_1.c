@@ -1,57 +1,56 @@
 #include "../../include/cub3d.h"
 
 //funcion que chequea si el mapa es valido
-int ft_ch_map(t_in *dt)
+int	ft_ch_map(t_in *dt)
 {
-    if (ft_ch_chars(dt) == -1)
-        return (-1);
+	if (ft_ch_chars(dt) == -1)
+		return (-1);
 	dt->map = ft_add_columns(dt);
-    if (ft_ch_personage(dt) == -1)
-        return (-1);
-    dt->map[(int)dt->yo][(int)dt->xo] = '0';//sustituyo el personaje por 0
-    if (ft_ch_spaces(dt) == -1)
-        return (-1);
-    if (ft_ch_close(dt) == -1)
-        return (-1);
-/*	int i;
+	if (ft_ch_personage(dt) == -1)
+		return (-1);
+	dt->map[(int)dt->yo][(int)dt->xo] = '0';//sustituyo el personaje por 0
+	if (ft_ch_spaces(dt) == -1)
+		return (-1);
+	if (ft_ch_close(dt) == -1)
+		return (-1);
+	int i;
 	i = -1;
 	while (dt->map[++i])
 		printf ("El map %d: <%s>\n", i, dt->map[i]);
-*/    return (0);
+	return (0);
 }
 
 //chequeo el mapa por si tiene chars prohibidos o permitidos duplicados
 //también guardo la posición del personaje
 int ft_ch_chars(t_in *dt)
 {
-    int i;
-    int j;
-    int n;
+	int i;
+	int j;
+	int n;
 
-    i = -1;
-    n = 0;
-    while (dt->map[++i])
-    {
-        j = -1;
-        while (dt->map[i][++j])
-        {
-            if (dt->map[i][j] != '0' && dt->map[i][j] != '1' && dt->map[i][j] != ' ')
-            {
-                if (dt->map[i][j] != 'N' && dt->map[i][j] != 'S' && dt->map[i][j] != 'E' && dt->map[i][j] != 'W')
-                {
-                    printf ("Error\nBad char in map - ");
-                    return (-1);
-                }
-                n++;
-				if (ft_ch_chars_aux(i, j, n, dt) == -1)
+	i = -1;
+	n = 0;
+	while (dt->map[++i])
+	{
+		j = -1;
+		while (dt->map[i][++j])
+		{
+			if (dt->map[i][j] != '0' && dt->map[i][j] != '1' && dt->map[i][j] != ' ')
+			{
+				if (dt->map[i][j] != 'N' && dt->map[i][j] != 'S' && dt->map[i][j] != 'E' && dt->map[i][j] != 'W')
+				{
+					printf ("Error\nBad char in map - ");//chequeada la salida y SL
 					return (-1);
-            }
-        }
-    }
+				}
+				n++;
+			}
+		}
+	}
+	if (ft_ch_chars_aux(i, j, n, dt) == -1)
+		return (-1);
 	return (0);
 }
 
-//aux de la ft_ch_char
 //funcion que guarda la posición del personaje en la estructura y lo substituye por un 0
 int	ft_ch_chars_aux(int i, int j, int n, t_in *dt)
 {

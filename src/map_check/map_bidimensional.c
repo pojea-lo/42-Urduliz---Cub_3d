@@ -6,6 +6,8 @@ int ft_create_bid (t_in *dt)
     int		i;
 	int     j;
 
+	if (ft_ch_line_first(dt->info) == -1)
+		return (-1);		
     dt->map = (char **) malloc (sizeof(char *) * (ft_count_fd (dt->info, 2) + 1));
     if (!dt->map)
         return (-1);
@@ -16,13 +18,34 @@ int ft_create_bid (t_in *dt)
        if (ft_check_line (dt->info[i], 2) == 0)
 	   {
             dt->map[++j] = ft_dup(dt->info[i]);
-	   		printf ("<%s>\n", dt->map[j]);
+//	   		printf ("<%s>\n", dt->map[j]);
 	   }
     }
 	dt->map[++j] = NULL;
     if (ft_data_map(dt) == -1)
         return (-1);
     return (0);
+}
+
+//evaluo todas las lineas del archivo mapa para que no haya ninguna que empieza por algo indevido
+int	ft_ch_line_first(char **info)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (info[++i])
+	{
+		j = 0;
+		while (info[i][j] == ' ')
+			j++;
+		if (info[i][j] != 'N' && info[i][j] != 'S' && info[i][j] != 'E' && info[i][j] != 'W' && info[i][j] != 'C' && info[i][j] != 'F' && info[i][j] != '1')
+		{
+			printf ("Error\nForbiden line text\n");
+			return (-1);
+		}
+	}
+	return (0);
 }
 
 //cuenta la cantidad de lineas, o de datos (1) o de mapa (2)
