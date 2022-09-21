@@ -64,14 +64,12 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 	if (!dt->info)
 	{
 		printf ("Error\nEmpty map\n");//salida chequeada SL
-		ft_free_structur (hk);
-		return (-1);
+		return (ft_free_structur (hk), -1);
 	}
 	if (ft_create_text(hk) == -1)
 	{
 		printf ("Texture error\n");
-		ft_free_structur (hk);
-		return (-1);
+		return (ft_free_structur (hk), -1);
 	}
 	if (ft_create_bid(dt) == -1)
 		return (ft_free_structur (hk), -1);

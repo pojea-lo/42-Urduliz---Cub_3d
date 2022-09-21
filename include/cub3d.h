@@ -122,21 +122,24 @@ char	**ft_get_info(int fd, char *argv, t_in *dt);
 int		ft_count_info(int fd);
 
 //map_bidimensional.c files
-//Funciones para crear la bidimensional
+//Funciones para crear el mapa bidimensional
 int     ft_create_bid (t_in *dt);
 int     ft_ch_line_first(char **info);
 int     ft_count_fd (char **info, int n);
 int     ft_check_line(char *line, int n);
 int     ft_data_map(t_in *dt);
+char    **ft_add_columns(t_in *dt);
 
-//map_utils_1.c files
+//map_check.c files
 //Funciones para el control del mapa
 int     ft_ch_map(t_in *dt);
 int     ft_ch_chars(t_in *dt);
-int     ft_ch_chars_aux(int i, int j, int n, t_in *dt);
-char    **ft_add_columns(t_in *dt);
+int     ft_ch_chars_aux(t_in *dt, int n);
 int     ft_ch_personage(t_in *dt);
-int     ft_ch_personage_out(int i, int j, t_in *dt);
+int     ft_ch_personage_aux(int i, int j, t_in *dt);
+
+//map_utils_0.c files
+//Herramientas usadas en el chequeo y construccion del mapa
 int		ft_ch(int i, int j, t_in *dt, int n);
 
 //map_utils_2.c files

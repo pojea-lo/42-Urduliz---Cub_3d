@@ -114,3 +114,30 @@ int ft_data_map(t_in *dt)
     }
     return (0);
 }
+
+//cambia el map añadiendo espacios en los huecos vacios a la derecha y asi regularizar el map
+char    **ft_add_columns(t_in *dt)
+{
+    char    **aux;
+    int     i;
+    int     j;
+
+    aux = (char **) malloc (sizeof(char *) * (dt->maxy + 1));
+    if (!aux)
+        return (NULL);
+    i = 0;
+    while (dt->map[i])
+    {
+        aux[i] = (char *) malloc (sizeof(char) * (dt->maxx + 1));
+        j = -1;
+        while (dt->map[i][++j])
+            aux[i][j] = dt->map[i][j];
+        while (j < dt->maxx)
+            aux[i][j++] = ' ';
+        aux[i][j] = 00;
+        free (dt->map[i++]);
+    }
+    aux[i] = NULL;
+    free (dt->map);
+    return (aux);
+}
