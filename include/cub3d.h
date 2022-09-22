@@ -142,7 +142,7 @@ int     ft_ch_personage_aux(int i, int j, t_in *dt);
 //Herramientas usadas en el chequeo y construccion del mapa
 int		ft_ch(int i, int j, t_in *dt, int n);
 
-//map_utils_2.c files
+//map_ch_spaces.c files
 //Funciones para encontrar espacios erroneos en el mapa
 int     ft_ch_spaces(t_in *dt);
 int     ft_ch_spaces_aux(int i, int j, int max, t_in *dt);
@@ -150,7 +150,7 @@ int     ft_ch_sp_aux_frow(int i, int j, int max, t_in *dt);
 int     ft_ch_sp_aux_lrow(int i, int j, int max, t_in *dt);
 int     ft_ch_sp_aux_irow(int i, int j, int max, t_in *dt);
 
-//map_utils_3.c files
+//map_ch_close.c files
 //Funciones para encontrar mapas abiertos
 int     ft_ch_close(t_in *dt);
 int     ft_ch_close_aux(int i, int j, int max, t_in *dt);

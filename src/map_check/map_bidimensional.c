@@ -39,7 +39,7 @@ int	ft_ch_line_first(char **info)
 		j = 0;
 		while (info[i][j] == ' ')
 			j++;
-		if (info[i][j] != 'N' && info[i][j] != 'S' && info[i][j] != 'E' && info[i][j] != 'W' && info[i][j] != 'C' && info[i][j] != 'F' && info[i][j] != '1')
+		if (info[i][j] != 'N' && info[i][j] != 'S' && info[i][j] != 'E' && info[i][j] != 'W' && info[i][j] != 'C' && info[i][j] != 'F' && info[i][j] != '1' && info[i][j] != '0')
 		{
 			printf ("Error\nForbiden line text\n");
 			return (-1);

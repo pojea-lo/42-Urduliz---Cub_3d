@@ -12,7 +12,7 @@ int	ft_ch(int i, int j, t_in *dt, int n)
 		}
 		if (n == 1)//compruebo 1 o 0
 		{
-			if (dt->map[i][j] != '1' && dt->map[i][j] != '0' && dt->map[i][j] != 'N')
+			if (dt->map[i][j] != '1' && dt->map[i][j] != '0')
 				return (-1);
 		}
 	}

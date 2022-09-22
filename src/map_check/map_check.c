@@ -13,11 +13,11 @@ int	ft_ch_map(t_in *dt)
 		return (-1);
 	if (ft_ch_close(dt) == -1)
 		return (-1);
-	int i;
+/*	int i;
 	i = -1;
 	while (dt->map[++i])
 		printf ("El map %d: <%s>\n", i, dt->map[i]);
-	return (0);
+*/	return (0);
 }
 
 //chequeo el mapa por si tiene chars prohibidos o permitidos duplicados

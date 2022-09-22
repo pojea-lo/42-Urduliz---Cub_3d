@@ -78,12 +78,11 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 		printf ("Map error\n");
 		return (ft_free_structur (hk), -1);
 	}
-/*	if (ft_draw_map (hk) == -1)
+	if (ft_draw_map (hk) == -1)
 	{
 		printf ("Draw map error\n");
 		return (-1);
 	}
-*/	ft_free_structur (hk);
-	
+	ft_free_structur (hk);
 	return (0);
 }

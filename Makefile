@@ -10,8 +10,8 @@ SRC = 	src/main.c\
 		src/map_check/map_bidimensional.c\
 		src/map_check/map_check.c\
 		src/map_check/map_utils.c\
-		src/map_check/map_utils_2.c\
-		src/map_check/map_utils_3.c\
+		src/map_check/map_ch_spaces.c\
+		src/map_check/map_ch_close.c\
 		src/map_check/map_color_0.c\
 		src/raycasting/raycasting_utils_0.c\
 		src/draw/draw_utils_0.c\
