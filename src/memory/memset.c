@@ -21,10 +21,10 @@ t_hook	*ft_memset(t_in *dt)
 		return (NULL);
 	hk->dt = dt;
 	hk->gr = gr;
-//	gr->mlx = mlx_init();//inicio la libreria gráfica
+	gr->mlx = mlx_init();//inicio la libreria gráfica
 	return (hk);
 }
-
+/*
 //inicialización de las variables del rayc y calculo de algunas
 int	ft_rayc_memset(t_hook *hk)
 {
@@ -62,4 +62,4 @@ int	ft_rayc_memset_2(t_hook *hk)
 	hk->dt->mapy = hk->dt->yo;
 	hk->dt->hit = 0;
 	return (0);
-}
+}*/

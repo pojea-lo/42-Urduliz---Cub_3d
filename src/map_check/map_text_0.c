@@ -22,7 +22,7 @@ int	ft_create_text(t_hook *hk)
 			return (-1);
 		}
 		close (fd);
-//		hk->dt->texture[i] = ft_charge_tex(hk, i);
+		hk->dt->texture[i] = ft_charge_tex(hk, i);
 	}
 	if (ft_create_color(hk) == -1)//funcion para generar los colores
 		return (-1);

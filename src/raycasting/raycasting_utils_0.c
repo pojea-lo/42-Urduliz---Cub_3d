@@ -32,6 +32,7 @@ int	ft_rayc_init(t_hook *hk)
 		ft_draw_texture(hk, x);
 	}
 	mlx_put_image_to_window(hk->gr->mlx, hk->gr->mlx_win, hk->gr->img, 0, 0);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->gun,438,400);
 	return (0);
 }
 
@@ -123,21 +124,16 @@ void	ft_dda_algorithm(t_hook *hk)
 			hk->dt->mapy += hk->dt->stepy;
 			hk->dt->side = 1;
 		}
-		if (hk->dt->map[hk->dt->mapy][hk->dt->mapx] == '1')
-		{
+		if (hk->dt->map[hk->dt->mapx][hk->dt->mapy] == '1')
 			hk->dt->hit = 1;
-//			printf ("choca en:\nx: %d\ny: %d\nvalor: %c\n", hk->dt->mapx, hk->dt->mapy, hk->dt->map[hk->dt->mapy][hk->dt->mapx]);
-		}
-//		printf ("avanzo:\nx: %d\ny: %d\n", hk->dt->mapx, hk->dt->mapy);
-		if (hk->dt->hit == 1)//calculo la distancia al punto de choque
-		{
-			if (hk->dt->side == 0)
-				hk->dt->perpwalldist = (hk->dt->sidedistx - hk->dt->deltadistx);
-			else if (hk->dt->side == 1)
-				hk->dt->perpwalldist = (hk->dt->sidedisty - hk->dt->deltadisty);
-//			printf ("la dist: %f\n", hk->dt->perpwalldist);
-		}
 	}
+	if (hk->dt->side == 0)
+		hk->dt->perpwalldist = (hk->dt->mapx
+				- hk->dt->xo + (1 - hk->dt->stepx) / 2) / hk->dt->raydirx;
+	else
+		hk->dt->perpwalldist = (hk->dt->mapy
+				- hk->dt->yo + (1 - hk->dt->stepy) / 2) / hk->dt->raydiry;
+		
 }
 
 //LE HA AÑADIDO AQUI EL +1 A TODO PARA HACERLO SIMETRICO!!!
@@ -147,7 +143,8 @@ void	ft_calcul_step(t_hook *hk)
 	if (hk->dt->raydirx < 0)//valor de los steps y sededist
 	{
 		hk->dt->stepx = -1;
-		hk->dt->sidedistx = (hk->dt->xo + 1.0 - hk->dt->mapx) * hk->dt->deltadistx;
+		hk->dt->sidedistx = (hk->dt->xo - hk->dt->mapx) * hk->dt->deltadistx;
+//		hk->dt->sidedistx = (hk->dt->xo - hk->dt->mapx) * hk->dt->deltadistx;//Es como pone la guia pero no lo dibuja simetrico
 	}
 	else
 	{
@@ -157,7 +154,8 @@ void	ft_calcul_step(t_hook *hk)
 	if (hk->dt->raydiry < 0)//valor del stepy
 	{
 		hk->dt->stepy = -1;
-		hk->dt->sidedisty = (hk->dt->yo + 1.0 - hk->dt->mapy) * hk->dt->deltadisty;
+//		hk->dt->sidedisty = (hk->dt->yo + - hk->dt->mapy) * hk->dt->deltadisty;
+		hk->dt->sidedisty = (hk->dt->yo - hk->dt->mapy) * hk->dt->deltadisty;
 	}
 	else
 	{
@@ -165,6 +163,45 @@ void	ft_calcul_step(t_hook *hk)
 		hk->dt->sidedisty = (hk->dt->mapy + 1.0 - hk->dt->yo) * hk->dt->deltadisty;
 	}
 //	printf ("sidedistX: %f\nsidedistY: %f\n", hk->dt->sidedistx, hk->dt->sidedisty);
+}
+
+//inicialización de las variables del rayc y calculo de algunas
+int	ft_rayc_memset(t_hook *hk)
+{
+	hk->dt->i = 0;//buleano para la direccion QUITAR
+	hk->dt->mapw = WIN_WIDTH;//dimensiones del mapa
+	hk->dt->maph = WIN_HEIGHT;
+//	hk->dt->fov = 1.152;//fijo el fov en 66 grados
+	hk->dt->fov = 1.5708;//fijo el fov en 90 grados
+	hk->dt->movespeed = 0.20;
+	hk->dt->rotspeed = 0.10;
+	ft_get_dir(hk);
+//	printf ("El vector direccion:\nX: %f\nY: %f\n", hk->dt->dirx, hk->dt->diry);
+//	printf ("El FOV: %f\n", (hk->dt->fov * 360) / (2 * 3.1416));
+	ft_get_plane(hk);
+//	printf ("El vector plano:\nX: %f\nY: %f\n", hk->dt->planex, hk->dt->planey);
+	hk->dt->sidedistx = 0;
+	hk->dt->sidedisty = 0;
+	hk->dt->deltadistx = 0;
+	hk->dt->deltadisty = 0;
+	hk->dt->rotation_left = false;
+	hk->dt->rotation_right = false;
+	hk->dt->up = false;
+	hk->dt->down = false;
+	hk->dt->right = false;
+	hk->dt->left = false;
+	hk->dt->stepx = 0;
+	hk->dt->stepy = 0;
+	hk->dt->side = -1;//ni 0 ni 1
+	return (0);
+}
+
+int	ft_rayc_memset_2(t_hook *hk)
+{
+	hk->dt->mapx = hk->dt->xo;
+	hk->dt->mapy = hk->dt->yo;
+	hk->dt->hit = 0;
+	return (0);
 }
 
 //obtengo el vector plano de pantall

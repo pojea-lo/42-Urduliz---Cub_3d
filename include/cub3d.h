@@ -9,6 +9,9 @@
 # include "mlx/mlx.h"
 # include <stdbool.h>
 
+#define WIN_HEIGHT 600
+#define WIN_WIDTH 1000
+
 //estructura de la mlx
 typedef struct	s_mlx
 {
@@ -21,6 +24,10 @@ typedef struct	s_mlx
 	int		endian;
 	int		w;
 	int		h;
+	void	*hud;
+	void	*gun;
+	int		mouse_x;
+	int		mouse_y;
 }	t_mlx;
 
 //estructura con datos iniciales
@@ -115,6 +122,7 @@ unsigned int	get_mlx_pixel_color(t_mlx *img, int x, int y);
 int		close_button(t_hook *hk);
 int		manage_key_hook_options(int keycode, t_hook *hk);
 int		manage_mouse_hook_options(t_hook *hk);
+//int		mouse(int x, int y,t_hook *hk);
 
 //map_info.c files
 //Funciones para obtener la bidimensional con los datos iniciales
