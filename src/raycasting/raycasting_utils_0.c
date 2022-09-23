@@ -12,6 +12,11 @@ int	ft_rayc_init(t_hook *hk)
 		ft_rayc_memset_2(hk);
 		hk->dt->camerax = ((2 * x) / hk->dt->mapw - 1);
 //		printf ("La camerax: %f\n", hk->dt->camerax);
+		if (hk->dt->i == 0)
+		{
+			printf ("Dirx: %f y Diry: %f\n", hk->dt->dirx, hk->dt->diry);
+			hk->dt->i++;
+		}
 		hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax);
 		hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
 //		printf ("Para x % d Los raydir:\nX: %f\nY: %f\n", x, hk->dt->raydirx, hk->dt->raydiry);
@@ -46,7 +51,7 @@ int	ft_draw_texture(t_hook *hk, int x)
 		hk->dt->wallx = hk->dt->xo + (hk->dt->perpwalldist * hk->dt->raydirx);
 	hk->dt->wallx -= floor((hk->dt->wallx));
 	hk->dt->texx = (int)(hk->dt->wallx * (double)hk->dt->texwidth);
-	if (hk->dt->texx < 0 || hk->dt->texx > 64)
+//	if (hk->dt->texx < 0 || hk->dt->texx > 64)
 //		printf("texx: %d\n", hk->dt->texx);
 	if((hk->dt->side == 0 && hk->dt->raydirx > 0) || (hk->dt->side == 1 && hk->dt->raydiry < 0))
 		hk->dt->texx = hk->dt->texwidth - hk->dt->texx - 1;
@@ -64,14 +69,14 @@ int	ft_cal_texnum(t_hook *hk)
 	texnum = 0;
 	if (hk->dt->side == 0)
 	{
-		if (hk->dt->dirx > 0)
+		if (hk->dt->dirx >= 0)
 			texnum = 0;
 		else
 			texnum = 1;
 	}
 	else if (hk->dt->side == 1)
 	{
-		if (hk->dt->diry > 0)
+		if (hk->dt->diry >= 0)
 			texnum = 2;
 		else
 			texnum = 3;
@@ -209,13 +214,17 @@ int	ft_get_plane(t_hook *hk)
 {
 	if (hk->dt->dir == 'N' || hk->dt->dir == 'S')
 	{
-		hk->dt->planey = 0;
-		hk->dt->planex = (-1) * hk->dt->diry * tan(hk->dt->fov / 2);
+//		hk->dt->planey = 0;
+//		hk->dt->planex = (-1) * hk->dt->diry * tan(hk->dt->fov / 2);
+		hk->dt->planex = 0;
+		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
 	}
 	else if (hk->dt->dir == 'E' || hk->dt->dir == 'W')
 	{
-		hk->dt->planex = 0;
-		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
+//		hk->dt->planex = 0;
+//		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
+		hk->dt->planey = 0;
+		hk->dt->planex = (-1) * hk->dt->diry * tan(hk->dt->fov / 2);
 	}
 	return (0);
 }
@@ -226,23 +235,31 @@ int	ft_get_dir(t_hook *hk)
 {
 	if (hk->dt->dir == 'N')
 	{
-		hk->dt->dirx = 0;
-		hk->dt->diry = -1;
+//		hk->dt->dirx = 0;
+//		hk->dt->diry = -1;
+		hk->dt->dirx = -1;
+		hk->dt->diry = 0;
 	}
 	else if (hk->dt->dir == 'S')
 	{
-		hk->dt->dirx = 0;
-		hk->dt->diry = 1;
-	}
-	else if (hk->dt->dir == 'E')
-	{
+//		hk->dt->dirx = 0;
+//		hk->dt->diry = 1;
 		hk->dt->dirx = 1;
 		hk->dt->diry = 0;
 	}
+	else if (hk->dt->dir == 'E')
+	{
+//		hk->dt->dirx = 1;
+//		hk->dt->diry = 0;
+		hk->dt->dirx = 0;
+		hk->dt->diry = -1;
+	}
 	else if (hk->dt->dir == 'W')
 	{
-		hk->dt->dirx = -1;
-		hk->dt->diry = 0;
+//		hk->dt->dirx = -1;
+//		hk->dt->diry = 0;
+		hk->dt->dirx = 0;
+		hk->dt->diry = 1;
 	}
 	return (0);
 }

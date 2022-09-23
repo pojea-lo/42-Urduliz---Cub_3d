@@ -54,8 +54,8 @@ int manage_movements(t_hook *hk)
 		oldPlaneX = hk->dt->planex;
 		hk->dt->planex = hk->dt->planex * cos(hk->dt->rotspeed) - hk->dt->planey * sin(hk->dt->rotspeed);
 		hk->dt->planey = oldPlaneX * sin(hk->dt->rotspeed) + hk->dt->planey * cos(hk->dt->rotspeed);
-		printf("Coordenada del jugador x %f y %f\n",hk->dt->xo, hk->dt->yo);
-		printf("Coordenada del jugador dirx %f diry %f\n",hk->dt->dirx, hk->dt->diry);
+//		printf("Coordenada del jugador x %f y %f\n",hk->dt->xo, hk->dt->yo);
+//		printf("Coordenada del jugador dirx %f diry %f\n",hk->dt->dirx, hk->dt->diry);
 	}
 	if (hk->dt->rotation_left)
 	{
@@ -95,22 +95,22 @@ int manage_movements(t_hook *hk)
 			i++;
 		}
 		// Fin pruebas
-		//printf("Coordenada del jugador x %f y %f\n",hk->dt->xo, hk->dt->yo);
+		printf("Coordenada del jugador x %f y %f\n",hk->dt->xo, hk->dt->yo);
 		//printf("Subir  Xo : %f\nDir x : %f\nCoordenada de mapa : %c\n",hk->dt->xo,hk->dt->dirx,hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)]);
 	}
 	if (hk->dt->left)
 	{
 
-		//hk->dt->xo = hk->dt->xo + sin(angulo) * hk->dt->movespeed;
-		//hk->dt->yo = hk->dt->yo + cos(angulo) * hk->dt->movespeed;
-		//if (hk->dt->map[(int)(hk->dt->xo + hk->dt->diry * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
-		//	hk->dt->xo += hk->dt->diry * hk->dt->movespeed;
+/*		hk->dt->xo = hk->dt->xo + sin(angulo) * hk->dt->movespeed;
+		hk->dt->yo = hk->dt->yo + cos(angulo) * hk->dt->movespeed;
+//		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->diry * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
+			hk->dt->xo += hk->dt->diry * hk->dt->movespeed;
 
 
 
-		//if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
-		//	hk->dt->yo += hk->dt->dirx * hk->dt->movespeed;
-		
+//		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
+			hk->dt->yo += hk->dt->dirx * hk->dt->movespeed;
+*/		
 	}
 	if (hk->dt->right)
 	{
@@ -198,6 +198,9 @@ int	ft_draw_map(t_hook *hk)
 	//FIN INHABILITAR EL HUD
 	
 	mlx_hook(hk->gr->mlx_win, 2, (1L << 0) , &set, hk);
+	hk->dt->i = 0;
+	ft_rayc_init(hk);
+	manage_movements(hk);
 	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,(1 << 0), &unset, hk);
 	mlx_hook(hk->gr->mlx_win, 17, 17L << 0 , close_button, 0);
