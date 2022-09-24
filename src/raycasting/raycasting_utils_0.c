@@ -12,11 +12,6 @@ int	ft_rayc_init(t_hook *hk)
 		ft_rayc_memset_2(hk);
 		hk->dt->camerax = ((2 * x) / hk->dt->mapw - 1);
 //		printf ("La camerax: %f\n", hk->dt->camerax);
-		if (hk->dt->i == 0)
-		{
-			printf ("Dirx: %f y Diry: %f\n", hk->dt->dirx, hk->dt->diry);
-			hk->dt->i++;
-		}
 		hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax);
 		hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
 //		printf ("Para x % d Los raydir:\nX: %f\nY: %f\n", x, hk->dt->raydirx, hk->dt->raydiry);
@@ -159,7 +154,7 @@ void	ft_calcul_step(t_hook *hk)
 	if (hk->dt->raydiry < 0)//valor del stepy
 	{
 		hk->dt->stepy = -1;
-//		hk->dt->sidedisty = (hk->dt->yo + - hk->dt->mapy) * hk->dt->deltadisty;
+//		hk->dt->sidedisty = (hk->dt->yo - hk->dt->mapy) * hk->dt->deltadisty;
 		hk->dt->sidedisty = (hk->dt->yo - hk->dt->mapy) * hk->dt->deltadisty;
 	}
 	else
@@ -173,7 +168,6 @@ void	ft_calcul_step(t_hook *hk)
 //inicialización de las variables del rayc y calculo de algunas
 int	ft_rayc_memset(t_hook *hk)
 {
-	hk->dt->i = 0;//buleano para la direccion QUITAR
 	hk->dt->mapw = WIN_WIDTH;//dimensiones del mapa
 	hk->dt->maph = WIN_HEIGHT;
 //	hk->dt->fov = 1.152;//fijo el fov en 66 grados

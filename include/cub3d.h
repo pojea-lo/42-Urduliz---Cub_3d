@@ -33,7 +33,6 @@ typedef struct	s_mlx
 //estructura con datos iniciales
 typedef struct  s_in
 {
-	int		i;
     char	**info;//array bidimensional con toda la info
 	char    **map;//array bidimensional con el map
 	char	**tex;//array bidimensional con las texturas

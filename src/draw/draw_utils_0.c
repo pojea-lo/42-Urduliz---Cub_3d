@@ -59,27 +59,32 @@ int manage_movements(t_hook *hk)
 	}
 	if (hk->dt->rotation_left)
 	{
+		printf ("antes Dirx: %f y diry: %f\n", hk->dt->dirx, hk->dt->diry);
 		oldDirX = hk->dt->dirx;
 		hk->dt->dirx = hk->dt->dirx * cos(-hk->dt->rotspeed) - hk->dt->diry * sin(-hk->dt->rotspeed);
 		hk->dt->diry = oldDirX * sin(-hk->dt->rotspeed) + hk->dt->diry * cos(-hk->dt->rotspeed);
 		oldPlaneX = hk->dt->planex;
 		hk->dt->planex = hk->dt->planex * cos(-hk->dt->rotspeed) - hk->dt->planey * sin(-hk->dt->rotspeed);
 		hk->dt->planey = oldPlaneX * sin(-hk->dt->rotspeed) + hk->dt->planey * cos(-hk->dt->rotspeed);
+		printf ("despues Dirx: %f y diry: %f\n", hk->dt->dirx, hk->dt->diry);
 	}
 	if (hk->dt->down)
 	{
+		printf ("Dirx: %f y diry: %f\n", hk->dt->dirx, hk->dt->diry);
 		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
 			hk->dt->xo -= hk->dt->dirx * hk->dt->movespeed;
 		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
 			hk->dt->yo -= hk->dt->diry * hk->dt->movespeed;
+		printf("Coordenada del jugador x %f y %f\n",hk->dt->xo, hk->dt->yo);
 	}
 	if (hk->dt->up)
 	{
+		printf ("Dirx: %f y diry: %f\n", hk->dt->dirx, hk->dt->diry);
 		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx
 				* hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
 			hk->dt->xo += hk->dt->dirx * hk->dt->movespeed;
 		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo
-				+ hk->dt->diry * hk->dt->movespeed)] != '1')
+				- hk->dt->diry * hk->dt->movespeed)] != '1')
 			hk->dt->yo += hk->dt->diry * hk->dt->movespeed;
 		int i = 0;
 		int u = 0;
@@ -198,7 +203,6 @@ int	ft_draw_map(t_hook *hk)
 	//FIN INHABILITAR EL HUD
 	
 	mlx_hook(hk->gr->mlx_win, 2, (1L << 0) , &set, hk);
-	hk->dt->i = 0;
 	ft_rayc_init(hk);
 	manage_movements(hk);
 	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
