@@ -10,7 +10,7 @@
 # include <stdbool.h>
 
 #define WIN_HEIGHT 600
-#define WIN_WIDTH 1000
+#define WIN_WIDTH 10
 
 //estructura de la mlx
 typedef struct	s_mlx
@@ -63,8 +63,8 @@ typedef struct  s_in
 	bool	left;
 	bool	right;
 	//variables del algoritmo DDA
-	int		mapx;//posicion del personaje en x
-	int		mapy;//posicion del personaje en y
+	double		mapx;//posicion del personaje en x
+	double		mapy;//posicion del personaje en y
 	double	sidedistx;
 	double	sidedisty;
 	double	deltadistx;

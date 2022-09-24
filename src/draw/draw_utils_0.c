@@ -47,7 +47,8 @@ int manage_movements(t_hook *hk)
 	double oldPlaneX;
 		
 	if (hk->dt->rotation_right)
-	{
+	{	
+		printf ("antes Dirx: %f y diry: %f\n", hk->dt->dirx, hk->dt->diry);
 		oldDirX = hk->dt->dirx;
 		hk->dt->dirx = hk->dt->dirx * cos(hk->dt->rotspeed) - hk->dt->diry * sin(hk->dt->rotspeed);
 		hk->dt->diry = oldDirX * sin(hk->dt->rotspeed) + hk->dt->diry * cos(hk->dt->rotspeed);
@@ -56,6 +57,7 @@ int manage_movements(t_hook *hk)
 		hk->dt->planey = oldPlaneX * sin(hk->dt->rotspeed) + hk->dt->planey * cos(hk->dt->rotspeed);
 //		printf("Coordenada del jugador x %f y %f\n",hk->dt->xo, hk->dt->yo);
 //		printf("Coordenada del jugador dirx %f diry %f\n",hk->dt->dirx, hk->dt->diry);
+		printf ("despues Dirx: %f y diry: %f\n", hk->dt->dirx, hk->dt->diry);
 	}
 	if (hk->dt->rotation_left)
 	{
@@ -185,7 +187,7 @@ int mouse(int x, int y,t_hook *hk)
 int	ft_draw_map(t_hook *hk)
 {
 	int res = 99;
-	int res2 = 1000;
+	int res2 = WIN_WIDTH;//1000;
 	int res3 = 150;
 	hk->gr->mouse_x = 0;
 	hk->gr->mouse_y = 0;
@@ -195,17 +197,17 @@ int	ft_draw_map(t_hook *hk)
 	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, WIN_WIDTH, WIN_HEIGHT +100,"Cub3d");
 	hk->gr->img = mlx_new_image(hk->gr->mlx, hk->dt->mapw, hk->dt->maph);
 	hk->gr->addr = mlx_get_data_addr(hk->gr->img, &hk->gr->bits_per_pixel, &hk->gr->line_length, &hk->gr->endian);
+
 	//COMENTAR PARA INHABILITAR EL HUD Y ARMA
 	hk->gr->hud = mlx_xpm_file_to_image(hk->gr->mlx,"./pics/hud.xpm",&res2,&res);
 	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->hud,0,WIN_HEIGHT);
 	hk->gr->gun = mlx_xpm_file_to_image(hk->gr->mlx,"./pics/gun.xpm",&res3,&res3);
-	
 	//FIN INHABILITAR EL HUD
 	
 	mlx_hook(hk->gr->mlx_win, 2, (1L << 0) , &set, hk);
-	ft_rayc_init(hk);
+	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
 	manage_movements(hk);
-	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
+//	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,(1 << 0), &unset, hk);
 	mlx_hook(hk->gr->mlx_win, 17, 17L << 0 , close_button, 0);
 	mlx_hook(hk->gr->mlx_win, 6, 1L << 0, mouse, hk);

@@ -6,7 +6,7 @@ int	ft_rayc_init(t_hook *hk)
 {
 	int	x;
 
-	x = -1;
+	x = 0;//CAMBIO, antes tenia -1, de esta forma no dibuja el primer pixel
 	while (++x < hk->dt->mapw)
 	{
 		ft_rayc_memset_2(hk);
@@ -14,7 +14,8 @@ int	ft_rayc_init(t_hook *hk)
 //		printf ("La camerax: %f\n", hk->dt->camerax);
 		hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax);
 		hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
-//		printf ("Para x % d Los raydir:\nX: %f\nY: %f\n", x, hk->dt->raydirx, hk->dt->raydiry);
+//		hk->dt->raydiry *= -1;//CAMBIO es necesario, si no invierte direcciones y dibuja el simetrico!!!!
+		printf ("Para x %d Los raydir:\nX: %f\nY: %f\n", x, hk->dt->raydirx, hk->dt->raydiry);
 		hk->dt->deltadistx = fabs(1 / hk->dt->raydirx);
 		hk->dt->deltadisty = fabs(1 / hk->dt->raydiry);
 //		printf ("Las deltadist:\nX: %f\nY: %f\n", hk->dt->deltadistx, hk->dt->deltadisty);
@@ -124,7 +125,7 @@ void	ft_dda_algorithm(t_hook *hk)
 			hk->dt->mapy += hk->dt->stepy;
 			hk->dt->side = 1;
 		}
-		if (hk->dt->map[hk->dt->mapx][hk->dt->mapy] == '1')
+		if (hk->dt->map[(int)hk->dt->mapx][(int)hk->dt->mapy] == '1')
 			hk->dt->hit = 1;
 	}
 	if (hk->dt->side == 0)
@@ -197,8 +198,9 @@ int	ft_rayc_memset(t_hook *hk)
 
 int	ft_rayc_memset_2(t_hook *hk)
 {
-	hk->dt->mapx = hk->dt->xo;
-	hk->dt->mapy = hk->dt->yo;
+	hk->dt->mapx = hk->dt->xo + 0.5;
+	hk->dt->mapy = hk->dt->yo + 0.5;
+//	printf ("mapx: %f y mapy: %f\n", hk->dt->mapx, hk->dt->mapy);
 	hk->dt->hit = 0;
 	return (0);
 }
@@ -208,17 +210,21 @@ int	ft_get_plane(t_hook *hk)
 {
 	if (hk->dt->dir == 'N' || hk->dt->dir == 'S')
 	{
-//		hk->dt->planey = 0;
-//		hk->dt->planex = (-1) * hk->dt->diry * tan(hk->dt->fov / 2);
-		hk->dt->planex = 0;
-		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
+		hk->dt->planey = 0;
+		hk->dt->planex = hk->dt->diry * tan(hk->dt->fov / 2);
+		if (hk->dt->dir == 'S')
+			hk->dt->planex *= -1;
+//		hk->dt->planex = 0;
+//		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
 	}
 	else if (hk->dt->dir == 'E' || hk->dt->dir == 'W')
 	{
-//		hk->dt->planex = 0;
-//		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
-		hk->dt->planey = 0;
-		hk->dt->planex = (-1) * hk->dt->diry * tan(hk->dt->fov / 2);
+		hk->dt->planex = 0;
+		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
+		if (hk->dt->dir == 'W')
+			hk->dt->planey *= -1;
+//		hk->dt->planey = 0;
+//		hk->dt->planex = (-1) * hk->dt->diry * tan(hk->dt->fov / 2);
 	}
 	return (0);
 }
@@ -229,31 +235,31 @@ int	ft_get_dir(t_hook *hk)
 {
 	if (hk->dt->dir == 'N')
 	{
-//		hk->dt->dirx = 0;
-//		hk->dt->diry = -1;
-		hk->dt->dirx = -1;
-		hk->dt->diry = 0;
+		hk->dt->dirx = 0;
+		hk->dt->diry = -1;
+//		hk->dt->dirx = -1;
+//		hk->dt->diry = 0;
 	}
 	else if (hk->dt->dir == 'S')
 	{
-//		hk->dt->dirx = 0;
-//		hk->dt->diry = 1;
-		hk->dt->dirx = 1;
-		hk->dt->diry = 0;
+		hk->dt->dirx = 0;
+		hk->dt->diry = 1;
+//		hk->dt->dirx = 1;
+//		hk->dt->diry = 0;
 	}
 	else if (hk->dt->dir == 'E')
 	{
-//		hk->dt->dirx = 1;
-//		hk->dt->diry = 0;
-		hk->dt->dirx = 0;
-		hk->dt->diry = -1;
+		hk->dt->dirx = 1;
+		hk->dt->diry = 0;
+//		hk->dt->dirx = 0;
+//		hk->dt->diry = 1;
 	}
 	else if (hk->dt->dir == 'W')
 	{
-//		hk->dt->dirx = -1;
-//		hk->dt->diry = 0;
-		hk->dt->dirx = 0;
-		hk->dt->diry = 1;
+		hk->dt->dirx = -1;
+		hk->dt->diry = 0;
+//		hk->dt->dirx = 0;
+//		hk->dt->diry = -1;
 	}
 	return (0);
 }
