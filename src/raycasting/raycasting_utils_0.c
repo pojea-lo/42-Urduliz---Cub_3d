@@ -10,22 +10,22 @@ int	ft_rayc_init(t_hook *hk)
 	while (++x < hk->dt->mapw)
 	{
 		ft_rayc_memset_2(hk);
-		hk->dt->camerax = ((2 * x) / hk->dt->mapw - 1);
+		hk->dt->camerax = (2 * x) / hk->dt->mapw - 1;
 //		printf ("La camerax: %f\n", hk->dt->camerax);
 		hk->dt->raydirx = hk->dt->dirx + (hk->dt->planex * hk->dt->camerax);
+//		hk->dt->raydirx *= -1;//CAMBIO es necesario, si no invierte direcciones y dibuja el simetrico!!!!
 		hk->dt->raydiry = hk->dt->diry + (hk->dt->planey * hk->dt->camerax);
-//		hk->dt->raydiry *= -1;//CAMBIO es necesario, si no invierte direcciones y dibuja el simetrico!!!!
-		printf ("Para x %d Los raydir:\nX: %f\nY: %f\n", x, hk->dt->raydirx, hk->dt->raydiry);
+//		printf ("Para x %d Los raydir:\nX: %f\nY: %f\n", x, hk->dt->raydirx, hk->dt->raydiry);
 		hk->dt->deltadistx = fabs(1 / hk->dt->raydirx);
 		hk->dt->deltadisty = fabs(1 / hk->dt->raydiry);
 //		printf ("Las deltadist:\nX: %f\nY: %f\n", hk->dt->deltadistx, hk->dt->deltadisty);
 		ft_calcul_step(hk);
 		ft_dda_algorithm(hk);
 		hk->dt->lineheight = (int)(hk->dt->maph / hk->dt->perpwalldist);
-		hk->dt->drawstart = (int)(-hk->dt->lineheight / 2 + hk->dt->maph / 2);
+		hk->dt->drawstart = -hk->dt->lineheight / 2 + hk->dt->maph / 2;
 		if (hk->dt->drawstart < 0)
 			hk->dt->drawstart = 0;
-		hk->dt->drawend = (int)(hk->dt->lineheight / 2 + hk->dt->maph / 2);
+		hk->dt->drawend = hk->dt->lineheight / 2 + hk->dt->maph / 2;
 		if (hk->dt->drawend >= hk->dt->maph)
 			hk->dt->drawend = hk->dt->maph - 1;
 //		printf ("La linea empieza: %d y termina %d\n", hk->dt->drawstart, hk->dt->drawend);
@@ -125,15 +125,17 @@ void	ft_dda_algorithm(t_hook *hk)
 			hk->dt->mapy += hk->dt->stepy;
 			hk->dt->side = 1;
 		}
-		if (hk->dt->map[(int)hk->dt->mapx][(int)hk->dt->mapy] == '1')
+		//estaba cambiada la y y la x
+		if (hk->dt->map[hk->dt->mapy][hk->dt->mapx] == '1')
 			hk->dt->hit = 1;
 	}
 	if (hk->dt->side == 0)
-		hk->dt->perpwalldist = (hk->dt->mapx
-				- hk->dt->xo + (1 - hk->dt->stepx) / 2) / hk->dt->raydirx;
+//		hk->dt->perpwalldist = (hk->dt->mapx - hk->dt->xo + (1 - hk->dt->stepx) / 2) / hk->dt->raydirx;
+		hk->dt->perpwalldist = (hk->dt->sidedistx - hk->dt->deltadistx);
+		
 	else
-		hk->dt->perpwalldist = (hk->dt->mapy
-				- hk->dt->yo + (1 - hk->dt->stepy) / 2) / hk->dt->raydiry;
+//		hk->dt->perpwalldist = (hk->dt->mapy - hk->dt->yo + (1 - hk->dt->stepy) / 2) / hk->dt->raydiry;
+		hk->dt->perpwalldist = (hk->dt->sidedisty - hk->dt->deltadisty);
 		
 }
 
@@ -155,7 +157,6 @@ void	ft_calcul_step(t_hook *hk)
 	if (hk->dt->raydiry < 0)//valor del stepy
 	{
 		hk->dt->stepy = -1;
-//		hk->dt->sidedisty = (hk->dt->yo - hk->dt->mapy) * hk->dt->deltadisty;
 		hk->dt->sidedisty = (hk->dt->yo - hk->dt->mapy) * hk->dt->deltadisty;
 	}
 	else
@@ -180,6 +181,7 @@ int	ft_rayc_memset(t_hook *hk)
 //	printf ("El FOV: %f\n", (hk->dt->fov * 360) / (2 * 3.1416));
 	ft_get_plane(hk);
 //	printf ("El vector plano:\nX: %f\nY: %f\n", hk->dt->planex, hk->dt->planey);
+//	printf ("mapx: %f y mapy: %f\n", hk->dt->mapx, hk->dt->mapy);
 	hk->dt->sidedistx = 0;
 	hk->dt->sidedisty = 0;
 	hk->dt->deltadistx = 0;
@@ -198,9 +200,9 @@ int	ft_rayc_memset(t_hook *hk)
 
 int	ft_rayc_memset_2(t_hook *hk)
 {
-	hk->dt->mapx = hk->dt->xo + 0.5;
-	hk->dt->mapy = hk->dt->yo + 0.5;
-//	printf ("mapx: %f y mapy: %f\n", hk->dt->mapx, hk->dt->mapy);
+	hk->dt->mapx = hk->dt->xo;
+	hk->dt->mapy = hk->dt->yo;
+//	printf ("En memset2 mapx: %d y mapy: %d\n", hk->dt->mapx, hk->dt->mapy);
 	hk->dt->hit = 0;
 	return (0);
 }
@@ -211,7 +213,7 @@ int	ft_get_plane(t_hook *hk)
 	if (hk->dt->dir == 'N' || hk->dt->dir == 'S')
 	{
 		hk->dt->planey = 0;
-		hk->dt->planex = hk->dt->diry * tan(hk->dt->fov / 2);
+		hk->dt->planex = 0.66;//hk->dt->diry * tan(hk->dt->fov / 2);QUITAR ESO
 		if (hk->dt->dir == 'S')
 			hk->dt->planex *= -1;
 //		hk->dt->planex = 0;
@@ -220,7 +222,7 @@ int	ft_get_plane(t_hook *hk)
 	else if (hk->dt->dir == 'E' || hk->dt->dir == 'W')
 	{
 		hk->dt->planex = 0;
-		hk->dt->planey = hk->dt->dirx * tan(hk->dt->fov / 2);
+		hk->dt->planey = 0.66;//hk->dt->dirx * tan(hk->dt->fov / 2);QUITAR ESO
 		if (hk->dt->dir == 'W')
 			hk->dt->planey *= -1;
 //		hk->dt->planey = 0;

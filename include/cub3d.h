@@ -10,7 +10,7 @@
 # include <stdbool.h>
 
 #define WIN_HEIGHT 600
-#define WIN_WIDTH 10
+#define WIN_WIDTH 1000
 
 //estructura de la mlx
 typedef struct	s_mlx
@@ -33,6 +33,7 @@ typedef struct	s_mlx
 //estructura con datos iniciales
 typedef struct  s_in
 {
+	int		i;
     char	**info;//array bidimensional con toda la info
 	char    **map;//array bidimensional con el map
 	char	**tex;//array bidimensional con las texturas
@@ -63,8 +64,9 @@ typedef struct  s_in
 	bool	left;
 	bool	right;
 	//variables del algoritmo DDA
-	double		mapx;//posicion del personaje en x
-	double		mapy;//posicion del personaje en y
+	//cambio de double a int!!!
+	int		mapx;//posicion del personaje en x
+	int		mapy;//posicion del personaje en y
 	double	sidedistx;
 	double	sidedisty;
 	double	deltadistx;
@@ -148,6 +150,8 @@ int     ft_ch_personage_aux(int i, int j, t_in *dt);
 //map_utils_0.c files
 //Herramientas usadas en el chequeo y construccion del mapa
 int		ft_ch(int i, int j, t_in *dt, int n);
+char	**ft_matrix_symetric(t_in *dt);
+void	ft_matrix_symetric_aux(t_in *dt);
 
 //map_ch_spaces.c files
 //Funciones para encontrar espacios erroneos en el mapa

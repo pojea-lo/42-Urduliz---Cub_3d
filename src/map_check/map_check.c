@@ -13,7 +13,12 @@ int	ft_ch_map(t_in *dt)
 		return (-1);
 	if (ft_ch_close(dt) == -1)
 		return (-1);
-	int i;
+	int i = -1;
+	while (dt->map[++i])
+		printf ("El map %d: <%s>\n", i, dt->map[i]);
+//	dt->map = ft_matrix_symetric(dt);
+	if (!dt->map)
+		return (-1);
 	i = -1;
 	while (dt->map[++i])
 		printf ("El map %d: <%s>\n", i, dt->map[i]);
@@ -68,8 +73,8 @@ int	ft_ch_chars_aux(t_in *dt, int n)
 			{
 				if (dt->map[i][j] != '0' && dt->map[i][j] != '1' && dt->map[i][j] != ' ')
 				{
-					dt->xo = j;
-					dt->yo = i;
+					dt->xo = j + 0.5;
+					dt->yo = i + 0.5;
 				}
 			}
 		}

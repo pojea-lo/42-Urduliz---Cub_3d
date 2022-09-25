@@ -193,8 +193,9 @@ int	ft_draw_map(t_hook *hk)
 	hk->gr->mouse_y = 0;
 
 	ft_rayc_memset(hk);
-	ft_rayc_memset_2(hk);												//ESPACIO EXTRA HUD
-	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, WIN_WIDTH, WIN_HEIGHT +100,"Cub3d");
+	ft_rayc_memset_2(hk);
+	//ESPACIO EXTRA HUD
+	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, WIN_WIDTH, WIN_HEIGHT + 100,"Cub3d");
 	hk->gr->img = mlx_new_image(hk->gr->mlx, hk->dt->mapw, hk->dt->maph);
 	hk->gr->addr = mlx_get_data_addr(hk->gr->img, &hk->gr->bits_per_pixel, &hk->gr->line_length, &hk->gr->endian);
 
@@ -205,12 +206,14 @@ int	ft_draw_map(t_hook *hk)
 	//FIN INHABILITAR EL HUD
 	
 	mlx_hook(hk->gr->mlx_win, 2, (1L << 0) , &set, hk);
-	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
+	printf ("El mapx: %d y mapy: %d\n", hk->dt->mapx, hk->dt->mapy);
+	printf ("El x0: %f y y0: %f\n", hk->dt->xo, hk->dt->yo);
+//	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
 	manage_movements(hk);
-//	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
+	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,(1 << 0), &unset, hk);
 	mlx_hook(hk->gr->mlx_win, 17, 17L << 0 , close_button, 0);
-	mlx_hook(hk->gr->mlx_win, 6, 1L << 0, mouse, hk);
+//	mlx_hook(hk->gr->mlx_win, 6, 1L << 0, mouse, hk);
 	mlx_mouse_hook(hk->gr->mlx_win,mouse, hk);
 	mlx_loop(hk->gr->mlx);
 	return (0);
