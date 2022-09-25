@@ -125,7 +125,6 @@ void	ft_dda_algorithm(t_hook *hk)
 			hk->dt->mapy += hk->dt->stepy;
 			hk->dt->side = 1;
 		}
-		//estaba cambiada la y y la x
 		if (hk->dt->map[hk->dt->mapy][hk->dt->mapx] == '1')
 			hk->dt->hit = 1;
 	}
