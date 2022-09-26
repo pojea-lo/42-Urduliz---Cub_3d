@@ -204,10 +204,10 @@ int	ft_draw_map(t_hook *hk)
 	mlx_hook(hk->gr->mlx_win, 2, (1L << 0) , &set, hk);
 //	printf ("El mapx: %d y mapy: %d\n", hk->dt->mapx, hk->dt->mapy);
 //	printf ("El x0: %f y y0: %f\n", hk->dt->xo, hk->dt->yo);
-	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
-//	manage_movements(hk);
+//	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
+	manage_movements(hk);
 	mlx_hook(hk->gr->mlx_win, 4,(1L << 2), &click, hk);
-//	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
+	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,(1 << 0), &unset, hk);
 	mlx_hook(hk->gr->mlx_win, 17, (17L << 0), close_button, 0);
 	mlx_hook(hk->gr->mlx_win, 6, (1L << 0), mouse, hk);

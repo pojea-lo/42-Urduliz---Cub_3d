@@ -85,12 +85,16 @@ int	ft_cal_texnum(t_hook *hk)
 //dibuja en la imagen la textura con los datos
 void	ft_print_tex(t_hook *hk, int x)
 {
-	int		y;
+	int	y;
+	int	color_c;
+	int	color_f;
 	
 	y = 0;
+	color_c = ft_color_converter(hk->dt, 0);
+	color_f = ft_color_converter(hk->dt, 1);
 	while (y < hk->dt->drawstart)
 	{
-		my_mlx_pixel_put(hk, x, y, ft_color_converter(hk->dt, 0));
+		my_mlx_pixel_put(hk, x, y, color_c);
 		y++;
 	}
 	y = hk->dt->drawstart;
@@ -104,7 +108,7 @@ void	ft_print_tex(t_hook *hk, int x)
 	}
 	while (y < hk->dt->maph)
 	{
-		my_mlx_pixel_put(hk, x, y, ft_color_converter(hk->dt, 1));
+		my_mlx_pixel_put(hk, x, y, color_f);
 		y++;
 	}
 }
