@@ -41,7 +41,7 @@ typedef struct  s_in
     char	**info;//array bidimensional con toda la info
 	char    **map;//array bidimensional con el map
 	char	**tex;//array bidimensional con las texturas
-	int		**color;//array bidimensional con los colores cielo y sueo
+	int		**color;//array bidimensional con los colores cielo y suelo
 	double	mapw;//anchura del mapa
 	double	maph;//altura del mapa
     int     maxx;//cantidad de columnas del mapa
@@ -189,7 +189,7 @@ int		ft_create_color(t_hook *hk);
 int		ft_count_col(char **info);
 int		ft_count_col_aux(char *info);
 int		ft_create_text_col(t_in *dt);
-int		ft_check_line_two(char *line);
+int		ft_ch_line_two(char *line);
 int		ft_dup_atoi(t_in *dt, char *line, int n);
 int		ft_restore_i(char *line, int j);
 char	*ft_trim(char *line, int i);
@@ -212,6 +212,8 @@ void	ft_calcul_step(t_hook *hk);
 void	ft_dda_algorithm(t_hook *hk);
 int		ft_draw_texture(t_hook *hk, int x);
 void	ft_print_tex(t_hook *hk, int x);
+int		ft_color_converter(t_in *dt, int i);
+int		ft_ch_sky(t_in *dt);
 int		ft_cal_texnum(t_hook *hk);
 
 //gnl.c files

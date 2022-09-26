@@ -69,7 +69,7 @@ int	ft_create_text_col(t_in *dt)
 	j = -1;
 	while (dt->info[i])
 	{
-		if (ft_check_line_two (dt->info[i]) == 0)
+		if (ft_ch_line_two (dt->info[i]) == 0 || ft_ch_line_two(dt->info[i]) == 1)
 		{
 			++j;
 			if (ft_dup_atoi(dt, dt->info[i], j) == -1)
@@ -78,7 +78,7 @@ int	ft_create_text_col(t_in *dt)
 				return (-1);
 			}
 		}
-		else if (ft_check_line_two (dt->info[i]) == -1)
+		else if (ft_ch_line_two (dt->info[i]) == -1)
 		{
 			printf ("Error\nBad imput in colors - ");//salida chequeada SL
 			return (-1);
@@ -89,15 +89,17 @@ int	ft_create_text_col(t_in *dt)
 }
 
 //busco en la linea las lineas de los colores
-int	ft_check_line_two(char *line)
+int	ft_ch_line_two(char *line)
 {
 	int	i;
+	int	j;
 
 	if (!line)
 		return (-1);
 	i = 0;
 	while (line[i] && line[i] == ' ')
 		i++;
+	j = i;
 	if ((line[i] == 'F' || line[i] == 'C') && line [i + 1] == ' ')
 	{
 		while (line[++i])
@@ -105,9 +107,11 @@ int	ft_check_line_two(char *line)
 			if (line[i] != ',' && line[i] != ' ' && !(line[i] > 47 && line[i] < 58))
 				return (-1);
 		}
-		return (0);
+		if (line[j] == 'C')
+			return (0);
+		return (1);
 	}
-	return (1);
+	return (2);
 }
 
 //funcion que genera una cadena de enteros de la linea F o C de color

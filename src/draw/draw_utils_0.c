@@ -77,7 +77,7 @@ int manage_movements(t_hook *hk)
 			hk->dt->yo -= hk->dt->diry * hk->dt->movespeed;
 		if (hk->dt->map[(int)(hk->dt->yo)][(int)(hk->dt->xo - hk->dt->dirx * hk->dt->movespeed)] != '1')
 			hk->dt->xo -= hk->dt->dirx * hk->dt->movespeed;
-		printf("Coordenada del jugador x %f / %d y %f / %d\n",hk->dt->xo, (int)hk->dt->xo, hk->dt->yo, (int)hk->dt->yo);
+//		printf("Coordenada del jugador x %f / %d y %f / %d\n",hk->dt->xo, (int)hk->dt->xo, hk->dt->yo, (int)hk->dt->yo);
 	}
 	if (hk->dt->up)
 	{
@@ -87,7 +87,7 @@ int manage_movements(t_hook *hk)
 		if (hk->dt->map[(int)(hk->dt->yo)][(int)(hk->dt->xo
 				+ hk->dt->dirx * hk->dt->movespeed)] != '1')
 			hk->dt->xo += hk->dt->dirx * hk->dt->movespeed;
-		printf("Coordenada del jugador x %f / %d y %f / %d\n",hk->dt->xo, (int)hk->dt->xo, hk->dt->yo, (int)hk->dt->yo);
+//		printf("Coordenada del jugador x %f / %d y %f / %d\n",hk->dt->xo, (int)hk->dt->xo, hk->dt->yo, (int)hk->dt->yo);
 	}
 	if (hk->dt->left)
 	{
@@ -202,12 +202,12 @@ int	ft_draw_map(t_hook *hk)
 	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->face,WIN_WIDTH / 2,WIN_HEIGHT +18);
 
 	mlx_hook(hk->gr->mlx_win, 2, (1L << 0) , &set, hk);
-	printf ("El mapx: %d y mapy: %d\n", hk->dt->mapx, hk->dt->mapy);
-	printf ("El x0: %f y y0: %f\n", hk->dt->xo, hk->dt->yo);
-//	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
+//	printf ("El mapx: %d y mapy: %d\n", hk->dt->mapx, hk->dt->mapy);
+//	printf ("El x0: %f y y0: %f\n", hk->dt->xo, hk->dt->yo);
+	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
 //	manage_movements(hk);
 	mlx_hook(hk->gr->mlx_win, 4,(1L << 2), &click, hk);
-	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
+//	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,(1 << 0), &unset, hk);
 	mlx_hook(hk->gr->mlx_win, 17, (17L << 0), close_button, 0);
 	mlx_hook(hk->gr->mlx_win, 6, (1L << 0), mouse, hk);

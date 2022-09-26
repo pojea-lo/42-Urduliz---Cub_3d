@@ -90,7 +90,7 @@ void	ft_print_tex(t_hook *hk, int x)
 	y = 0;
 	while (y < hk->dt->drawstart)
 	{
-		my_mlx_pixel_put(hk, x, y, 0x00FFFF / 2);
+		my_mlx_pixel_put(hk, x, y, ft_color_converter(hk->dt, 0));
 		y++;
 	}
 	y = hk->dt->drawstart;
@@ -104,10 +104,56 @@ void	ft_print_tex(t_hook *hk, int x)
 	}
 	while (y < hk->dt->maph)
 	{
-		my_mlx_pixel_put(hk, x, y, 0xFFFF00 / 2);
+		my_mlx_pixel_put(hk, x, y, ft_color_converter(hk->dt, 1));
 		y++;
 	}
 }
+
+//coge el color del mapa y lo convierte a hexadecimal
+int	ft_color_converter(t_in *dt, int i)
+{
+	int		res;
+	int		j;//posicion en el array de la C
+
+	res = 0;
+	j = 0;//si C esta en la primera posicion del color
+	if (ft_ch_sky(dt) != 0)
+		j = 1;//si el C está en la segunda posicion del color
+	if (i == 0)
+	{
+		res = dt->color[j][0];
+		res = (res << 8) | dt->color[j][1];
+		res = (res << 8) | dt->color[j][2];
+	}
+	else if (i != 0)
+	{
+		if (j == 0)
+			j = 1;
+		else if (j == 1)
+			j = 0;
+		res = dt->color[j][0];
+		res = (res << 8) | dt->color[j][1];
+		res = (res << 8) | dt->color[j][2];
+	}
+	return (res);
+}
+
+//funcion que chequea la posicion de C en el array de info. Si aparece primero que la F devuelve 0 (porque esa será su posicion en el array) y si no 1
+int	ft_ch_sky(t_in *dt)
+{
+	int	i;
+
+	i = -1;
+	while (dt->info[++i])
+	{
+		if (ft_ch_line_two(dt->info[i]) == 0)
+			return (0);
+		else if (ft_ch_line_two(dt->info[i]) == 1)
+			return (1);
+	}
+	return (-1);
+}
+	
 //algoritmo DDA
 void	ft_dda_algorithm(t_hook *hk)
 {
