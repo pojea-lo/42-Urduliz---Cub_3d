@@ -4,6 +4,7 @@
 
 int set(int keycode, t_hook *hk)
 {	
+	printf("Keycode %d\n",keycode);
 	if (keycode == 53)
 		close_button(hk);
 	if (keycode == 13) //Arriba w
@@ -112,16 +113,6 @@ int manage_movements(t_hook *hk)
 }
 int game_engine(t_hook *hk)
 {	
-	//double mouse;
-	//int i = 0;
-	//int u = 0;
-
-	//mouse = mlx_mouse_get_pos(hk->gr->mlx_win,&i,&u);
-	//printf("Mouse %f\n", mouse);
-	
-	
-	//ft_rayc_memset(hk);
-	//ft_rayc_memset_2(hk);
 	manage_movements(hk);
 	ft_rayc_init(hk);
 	return (1);
@@ -166,6 +157,16 @@ int mouse(int x, int y,t_hook *hk)
 	return (1);
 }
 
+int click(int key, int x , int y, t_hook *hk)
+{
+	(void)x;
+	(void)y;
+	(void)key;
+	(void)hk;
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->fired,438,380);
+	return (1);
+}
+
 int	ft_draw_map(t_hook *hk)
 {
 	int res = 99;
@@ -185,18 +186,32 @@ int	ft_draw_map(t_hook *hk)
 	hk->gr->hud = mlx_xpm_file_to_image(hk->gr->mlx,"./pics/hud.xpm",&res2,&res);
 	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->hud,0,WIN_HEIGHT);
 	hk->gr->gun = mlx_xpm_file_to_image(hk->gr->mlx,"./pics/gun.xpm",&res3,&res3);
+	hk->gr->fired = mlx_xpm_file_to_image(hk->gr->mlx,"./pics/fire_gun.xpm",&res3,&res3);
+	hk->gr->bullet = mlx_xpm_file_to_image(hk->gr->mlx,"./pics/bullet.xpm",&res3,&res3);
+	hk->gr->face = mlx_xpm_file_to_image(hk->gr->mlx,"./pics/face.xpm",&res3,&res3);
 	//FIN INHABILITAR EL HUD
-	
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 60,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 100,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 140,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 180,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 220,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 260,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 300,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 340,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->bullet,WIN_WIDTH - 380,WIN_HEIGHT +18);
+	mlx_put_image_to_window(hk->gr->mlx,hk->gr->mlx_win,hk->gr->face,WIN_WIDTH / 2,WIN_HEIGHT +18);
+
 	mlx_hook(hk->gr->mlx_win, 2, (1L << 0) , &set, hk);
 	printf ("El mapx: %d y mapy: %d\n", hk->dt->mapx, hk->dt->mapy);
 	printf ("El x0: %f y y0: %f\n", hk->dt->xo, hk->dt->yo);
 //	ft_rayc_init(hk);//poner cuando anulemos el loop del gameengine
 //	manage_movements(hk);
+	mlx_hook(hk->gr->mlx_win, 4,(1L << 2), &click, hk);
 	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,(1 << 0), &unset, hk);
-	mlx_hook(hk->gr->mlx_win, 17, 17L << 0 , close_button, 0);
-//	mlx_hook(hk->gr->mlx_win, 6, 1L << 0, mouse, hk);
-	mlx_mouse_hook(hk->gr->mlx_win,mouse, hk);
+	mlx_hook(hk->gr->mlx_win, 17, (17L << 0), close_button, 0);
+	mlx_hook(hk->gr->mlx_win, 6, (1L << 0), mouse, hk);
+	//mlx_mouse_hook(hk->gr->mlx_win,mouse, hk);
 	mlx_loop(hk->gr->mlx);
 	return (0);
 }

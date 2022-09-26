@@ -26,8 +26,12 @@ typedef struct	s_mlx
 	int		h;
 	void	*hud;
 	void	*gun;
+	void	*fired;
+	void	*bullet;
+	void	*face;
 	int		mouse_x;
 	int		mouse_y;
+	int		bullet_nbr;
 }	t_mlx;
 
 //estructura con datos iniciales
