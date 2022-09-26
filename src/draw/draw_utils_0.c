@@ -86,48 +86,28 @@ int manage_movements(t_hook *hk)
 		if (hk->dt->map[(int)(hk->dt->yo)][(int)(hk->dt->xo
 				+ hk->dt->dirx * hk->dt->movespeed)] != '1')
 			hk->dt->xo += hk->dt->dirx * hk->dt->movespeed;
-/*		int i = 0;
-		int u = 0;
-		while (hk->dt->map[i])
-		{
-			u = 0;
-			while(hk->dt->map[i][u])
-			{
-		//		printf("%c", hk->dt->map[i][u]);
-				u++;
-			}
-		//	printf("\n");
-			i++;
-		}
-*/		// Fin pruebas
 		printf("Coordenada del jugador x %f / %d y %f / %d\n",hk->dt->xo, (int)hk->dt->xo, hk->dt->yo, (int)hk->dt->yo);
-		//printf("Subir  Xo : %f\nDir x : %f\nCoordenada de mapa : %c\n",hk->dt->xo,hk->dt->dirx,hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)]);
 	}
 	if (hk->dt->left)
 	{
-		double angulo = atan(hk->dt->dirx/hk->dt->diry);
-		printf ("El angulo con dirx: %f y diry: %f vale %f\n", hk->dt->dirx, hk->dt->diry, angulo);
-		hk->dt->xo = hk->dt->xo - cos(angulo) * hk->dt->movespeed;
-		hk->dt->yo = hk->dt->yo - sin(angulo) * hk->dt->movespeed;
-//		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->diry * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
-//			hk->dt->xo += hk->dt->diry * hk->dt->movespeed;
-
-
-
-//		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
-//			hk->dt->yo += hk->dt->dirx * hk->dt->movespeed;
-		
+		if (hk->dt->map[(int)(hk->dt->yo - hk->dt->dirx
+				* hk->dt->movespeed)][(int)(hk->dt->xo)] != '1')
+			hk->dt->yo -= hk->dt->dirx * hk->dt->movespeed;
+		if (hk->dt->map[(int)(hk->dt->yo)][(int)(hk->dt->xo
+				+ hk->dt->diry * hk->dt->movespeed)] != '1')
+			hk->dt->xo += hk->dt->diry * hk->dt->movespeed;
+			
 	}
 	if (hk->dt->right)
 	{
-		double angulo = atan(hk->dt->dirx/hk->dt->diry);
-		hk->dt->xo = hk->dt->xo + cos(angulo) * hk->dt->movespeed;
-		hk->dt->yo = hk->dt->yo + sin(angulo) * hk->dt->movespeed;
-/*		if (hk->dt->map[(int)(hk->dt->xo + hk->dt->dirx * hk->dt->movespeed)][(int)(hk->dt->yo)] != '1')
-			hk->dt->xo += hk->dt->dirx * hk->dt->movespeed;
-		if (hk->dt->map[(int)(hk->dt->xo)][(int)(hk->dt->yo + hk->dt->diry * hk->dt->movespeed)] != '1')
-			hk->dt->yo += hk->dt->diry * hk->dt->movespeed;
-*/	}
+		if (hk->dt->map[(int)(hk->dt->yo + hk->dt->dirx
+				* hk->dt->movespeed)][(int)(hk->dt->xo)] != '1')
+			hk->dt->yo += hk->dt->dirx * hk->dt->movespeed;
+		if (hk->dt->map[(int)(hk->dt->yo)][(int)(hk->dt->xo
+				- hk->dt->diry * hk->dt->movespeed)] != '1')
+			hk->dt->xo -= hk->dt->diry * hk->dt->movespeed;
+	
+	}
 	return (1);
 }
 int game_engine(t_hook *hk)
