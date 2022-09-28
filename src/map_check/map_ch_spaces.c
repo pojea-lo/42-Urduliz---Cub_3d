@@ -2,33 +2,33 @@
 
 //chequeo el mapa por si tiene huecos vacios y abiertos
 //Realizo un chequeo buscando espacios en blanco y estos espacios solo pueden estar rodeados de otro espacio en blanco o de 1s
-int ft_ch_spaces(t_in *dt)
+int	ft_ch_spaces(t_in *dt)
 {
-    int i;
-    int j;
-	int max;//valor de posicion máximo de x en cada fila
+	int	i;
+	int	j;
+	int	max;//valor de posicion máximo de x en cada fila
 
-    i = -1;
-    while (dt->map[++i])
-    {
+	i = -1;
+	while (dt->map[++i])
+	{
 		max = dt->maxx - 1;
 		while (dt->map[i][max] == ' ')
 			max--;
-      	j = -1;
-        while (dt->map[i][++j])
-        {
-            if (dt->map[i][j] == ' ')
+		j = -1;
+		while (dt->map[i][++j])
+		{
+			if (dt->map[i][j] == ' ')
 			{
 				if (ft_ch_spaces_aux(i, j, max, dt) == -1)
 				{
 //					printf ("Falla con sp\nx: %d\ny: %d\nchar: %c\n", j, i, dt->map[i][j]);
 					printf ("Error\nBad space in map - ");
-            		return (-1);
+					return (-1);
 				}
 			}
 		}
-    }
-    return (0);
+	}
+	return (0);
 }
 
 //chequeo los espacios que estan entre 1

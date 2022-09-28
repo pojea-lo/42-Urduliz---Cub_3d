@@ -4,7 +4,7 @@
 
 int set(int keycode, t_hook *hk)
 {	
-	printf("Keycode %d\n",keycode);
+//	printf("Keycode %d\n",keycode);
 	if (keycode == 53)
 		close_button(hk);
 	if (keycode == 13) //Arriba w
@@ -210,8 +210,8 @@ int	ft_draw_map(t_hook *hk)
 	mlx_loop_hook(hk->gr->mlx, &game_engine,hk);
 	mlx_hook(hk->gr->mlx_win, 3,(1 << 0), &unset, hk);
 	mlx_hook(hk->gr->mlx_win, 17, (17L << 0), close_button, 0);
-	mlx_hook(hk->gr->mlx_win, 6, (1L << 0), mouse, hk);
-	//mlx_mouse_hook(hk->gr->mlx_win,mouse, hk);
+//	mlx_hook(hk->gr->mlx_win, 6, (1L << 0), mouse, hk);
+//	mlx_mouse_hook(hk->gr->mlx_win,mouse, hk);
 	mlx_loop(hk->gr->mlx);
 	return (0);
 }
@@ -233,18 +233,24 @@ int	ft_draw_line(t_hook *hk, int x)
 	{
 		if (hk->dt->side == 0)
 		{
-			my_mlx_pixel_put(hk, x, i, 0xFF00FF);
+			if (hk->dt->dirx > 0)
+				my_mlx_pixel_put(hk, x, i, 0xFF00FF);
+			else
+				my_mlx_pixel_put(hk, x, i, 0xFFFF00);
 			i++;
 		}
 		else if (hk->dt->side == 1)
 		{
-			my_mlx_pixel_put(hk, x, i, 0xFF00FF / 2);
+			if (hk->dt->diry > 0)
+				my_mlx_pixel_put(hk, x, i, 0xFF00FF / 2);
+			else
+				my_mlx_pixel_put(hk, x, i, 0x000000 / 2);
 			i++;
 		}
 	}
 	while (i < hk->dt->maph) 
 	{
-		my_mlx_pixel_put(hk, x, i, 0xFFFF00 / 2);
+		my_mlx_pixel_put(hk, x, i, 0xFFFFFF / 2);
 		i++;
 	}
 	return (0);

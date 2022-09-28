@@ -1,11 +1,11 @@
 NO ../pics/mossy.xpm 
-SO ../pics/greystone.xpm
 EA ../pics/colorstone.xpm 
 WE ../pics/bluestone.xpm 
 
 C 50,185,255    
 F 140,115,70 
 
+SO ../pics/greystone.xpm
 111111111111111
 1000000000000001
 1000000000000001

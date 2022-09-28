@@ -193,6 +193,7 @@ t_mlx	ft_charge_tex(t_hook *hk, int i)
 {
 	t_mlx	img;
 
+	printf ("Para %d la tex es: %s\n", i, hk->dt->tex[i]);
 	img.img = mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[i], &img.w, &img.h);
 	img.line_length = 0;
 	img.bits_per_pixel = 0;
