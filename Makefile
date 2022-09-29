@@ -2,7 +2,8 @@ NAME = cub3d
 MINIPATH = include/mlx
 
 SRC = 	src/main.c\
-		src/memory/free.c\
+		src/memory/free_0.c\
+		src/memory/free_1.c\
 		src/map_check/map_info.c\
 		src/memory/memset.c\
 		include/gnl.c\

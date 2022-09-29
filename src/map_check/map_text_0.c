@@ -7,7 +7,7 @@ int	ft_create_text(t_hook *hk)
 
 	if (ft_count_tex(hk->dt->info) == -1)
 	{
-		printf ("Error\nError in number of valid textures - ");//Salida chequeada SL. Salen unos L pero son de la minilib
+		printf ("Error\nError in number of valid textures - "); //Salida chequeada SL. Salen unos L pero son de la minilib
 		return (-1);
 	}
 	if (ft_create_text_tex(hk->dt) == -1)
@@ -15,16 +15,16 @@ int	ft_create_text(t_hook *hk)
 	i = -1;
 	while (hk->dt->tex[++i])
 	{
-		fd = open(hk->dt->tex[i], O_RDONLY);//compruebo si existe el archivo
+		fd = open(hk->dt->tex[i], O_RDONLY); //compruebo si existe el archivo
 		if (fd == -1)
 		{
-			printf ("Error\nTexture file doesn`t exist - ");//Salida chequeada y SL
+			printf ("Error\nTexture file doesn`t exist - "); //Salida chequeada y SL
 			return (-1);
 		}
 		close (fd);
 		hk->dt->texture[i] = ft_charge_tex(hk, i);
 	}
-	if (ft_create_color(hk) == -1)//funcion para generar los colores
+	if (ft_create_color(hk) == -1) //funcion para generar los colores
 		return (-1);
 	return (0);
 }
@@ -88,10 +88,10 @@ int	ft_count_tex_aux_bi(int *n)
 }
 
 //creo la bidimensional de las texturas
-int ft_create_text_tex(t_in *dt)
+int	ft_create_text_tex(t_in *dt)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	dt->tex = (char **)malloc(sizeof(char *) * 5);
 	if (!dt->tex)
@@ -104,12 +104,11 @@ int ft_create_text_tex(t_in *dt)
 		{
 			dt->tex[++j] = ft_dup(dt->info[i]);
 			dt->tex[j] = ft_regen_tex(dt->tex[j]);
-//			printf ("Textura %d: <%s>\n", j, dt->tex[j]);
 		}
-		if (dt->tex[j] == NULL || ft_ch_extension(dt->tex[j]) == -1)//salida comprobada y SL
+		if (dt->tex[j] == NULL || ft_ch_extension(dt->tex[j]) == -1) //salida comprobada y SL
 		{
 			dt->tex[++j] = NULL;
-			printf ("Error\nBad imput in textures - ");//salida chequeada SL
+			printf ("Error\nBad imput in textures - "); //salida chequeada SL
 			return (-1);
 		}
 	}
@@ -137,7 +136,7 @@ char	*ft_regen_tex(char *old)
 	free(old);
 	return (new);
 }
-	
+
 char	*ft_regen_tex_aux(char *old, char *new, int i)
 {
 	int	j;
@@ -149,9 +148,9 @@ char	*ft_regen_tex_aux(char *old, char *new, int i)
 			new[j] = old[i];
 		else
 		{
-			while(old[i] && old[i] == ' ')
+			while (old[i] && old[i] == ' ')
 				i++;
-			if (old[i] != 00)//por si hay mas de una ruta
+			if (old[i] != 00) //por si hay mas de una ruta
 				return (free (new), NULL);
 		}
 		if (old[i])
@@ -160,7 +159,7 @@ char	*ft_regen_tex_aux(char *old, char *new, int i)
 			j++;
 		}
 	}
-	if (j == 0)//por si alguna linea no tiene textura
+	if (j == 0) //por si alguna linea no tiene textura
 		return (free (new), NULL);
 	new[j] = 00;
 	return (new);
@@ -193,7 +192,6 @@ t_mlx	ft_charge_tex(t_hook *hk, int i)
 {
 	t_mlx	img;
 
-	printf ("Para %d la tex es: %s\n", i, hk->dt->tex[i]);
 	img.img = mlx_xpm_file_to_image(hk->gr->mlx, hk->dt->tex[i], &img.w, &img.h);
 	img.line_length = 0;
 	img.bits_per_pixel = 0;

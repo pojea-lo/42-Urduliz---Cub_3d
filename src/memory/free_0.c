@@ -1,7 +1,7 @@
 #include "../../include/cub3d.h"
 
 //libero la estructura hk y la gr
-void	ft_free_structur (t_hook *hk)
+void	ft_free_structur(t_hook *hk)
 {
 	if (hk->gr)
 	{
@@ -36,6 +36,13 @@ void	ft_free(t_in *dt)
 		free (dt->map);
 		dt->map = NULL;
 	}
+	ft_free_aux(dt);
+}
+
+void	ft_free_aux(t_in *dt)
+{
+	int	i;
+
 	if (dt->tex)
 	{
 		i = -1;
@@ -46,10 +53,10 @@ void	ft_free(t_in *dt)
 	}
 	if (dt->color)
 	{
-		if (dt->color[1])
-			free (dt->color[1]);
 		if (dt->color[0])
 			free (dt->color[0]);
+		if (dt->color[1])
+			free (dt->color[1]);
 		free (dt->color);
 		dt->color = NULL;
 	}
@@ -76,6 +83,13 @@ void	ft_free_hk(t_hook *hk)
 		free (hk->dt->map);
 		hk->dt->map = NULL;
 	}
+	ft_free_hk_aux (hk);
+}
+
+void	ft_free_hk_aux(t_hook *hk)
+{
+	int	i;
+
 	if (hk->dt->tex)
 	{
 		i = -1;
@@ -95,18 +109,4 @@ void	ft_free_hk(t_hook *hk)
 	hk->gr = NULL;
 	free (hk);
 	hk = NULL;
-}
-
-//libero el num del dup_atoi
-void	ft_free_bidim(char **str)
-{
-	int	j;
-
-	j = -1;
-	while (str[++j])
-	{
-		if (str[j])
-			free(str[j]);
-	}
-	free (str);
 }

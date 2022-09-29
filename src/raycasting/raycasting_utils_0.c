@@ -6,7 +6,7 @@ int	ft_rayc_init(t_hook *hk)
 {
 	int	x;
 
-	x = -1;//CAMBIO, antes tenia -1, de esta forma no dibuja el primer pixel
+	x = -1; //CAMBIO, antes tenia -1, de esta forma no dibuja el primer pixel
 	while (++x < hk->dt->mapw)
 	{
 		ft_rayc_memset_2(hk);
@@ -24,7 +24,7 @@ int	ft_rayc_init(t_hook *hk)
 		hk->dt->drawend = hk->dt->lineheight / 2 + hk->dt->maph / 2;
 		if (hk->dt->drawend >= hk->dt->maph)
 			hk->dt->drawend = hk->dt->maph - 1;
-//		ft_draw_line(hk, x);//dibuja por colores
+//		ft_draw_line(hk, x); //dibuja por colores
 		ft_draw_texture(hk, x);
 	}
 	mlx_put_image_to_window(hk->gr->mlx, hk->gr->mlx_win, hk->gr->img, 0, 0);
@@ -109,12 +109,12 @@ void	ft_print_tex(t_hook *hk, int x)
 int	ft_color_converter(t_in *dt, int i)
 {
 	int		res;
-	int		j;//posicion en el array de la C
+	int		j; //posicion en el array de la C
 
 	res = 0;
-	j = 0;//si C esta en la primera posicion del color
+	j = 0; //si C esta en la primera posicion del color
 	if (ft_ch_sky(dt) != 0)
-		j = 1;//si el C está en la segunda posicion del color
+		j = 1; //si el C está en la segunda posicion del color
 	if (i == 0)
 	{
 		res = dt->color[j][0];
@@ -180,7 +180,7 @@ void	ft_dda_algorithm(t_hook *hk)
 //calculo los steps y las sidedist
 void	ft_calcul_step(t_hook *hk)
 {
-	if (hk->dt->raydirx < 0)//valor de los steps y sededist
+	if (hk->dt->raydirx < 0) //valor de los steps y sededist
 	{
 		hk->dt->stepx = -1;
 		hk->dt->sidedistx = (hk->dt->xo - hk->dt->mapx) * hk->dt->deltadistx;
@@ -190,7 +190,7 @@ void	ft_calcul_step(t_hook *hk)
 		hk->dt->stepx = 1;
 		hk->dt->sidedistx = (hk->dt->mapx + 1.0 - hk->dt->xo) * hk->dt->deltadistx;
 	}
-	if (hk->dt->raydiry < 0)//valor del stepy
+	if (hk->dt->raydiry < 0) //valor del stepy
 	{
 		hk->dt->stepy = -1;
 		hk->dt->sidedisty = (hk->dt->yo - hk->dt->mapy) * hk->dt->deltadisty;
@@ -205,10 +205,10 @@ void	ft_calcul_step(t_hook *hk)
 //inicialización de las variables del rayc y calculo de algunas
 int	ft_rayc_memset(t_hook *hk)
 {
-	hk->dt->mapw = WIN_WIDTH;//dimensiones del mapa
+	hk->dt->mapw = WIN_WIDTH; //dimensiones del mapa
 	hk->dt->maph = WIN_HEIGHT;
 //	hk->dt->fov = 1.152;//fijo el fov en 66 grados
-	hk->dt->fov = 1.5708;//fijo el fov en 90 grados
+	hk->dt->fov = 1.5708; //fijo el fov en 90 grados
 	hk->dt->movespeed = 0.20;
 	hk->dt->rotspeed = 0.10;
 	ft_get_dir(hk);
@@ -225,7 +225,7 @@ int	ft_rayc_memset(t_hook *hk)
 	hk->dt->left = false;
 	hk->dt->stepx = 0;
 	hk->dt->stepy = 0;
-	hk->dt->side = -1;//ni 0 ni 1
+	hk->dt->side = -1; //ni 0 ni 1
 	return (0);
 }
 

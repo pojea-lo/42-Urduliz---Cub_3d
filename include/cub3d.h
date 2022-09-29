@@ -108,11 +108,15 @@ typedef struct	s_hook
 int		ft_ch_arg(char *argv);
 int		ft_traspas(int fd, char *argv, t_in *dt);
 
-//free.c files
+//free_0.c files
 //Funciones de liberación de memoria
 void	ft_free_structur(t_hook *hk);
 void	ft_free(t_in *dt);
+void	ft_free_aux(t_in *dt);
 void	ft_free_hk(t_hook *hk);
+void	ft_free_hk_aux(t_hook *hk);
+
+//free_1.c files
 void	ft_free_bidim(char **str);
 
 //draw_utils_0.c files

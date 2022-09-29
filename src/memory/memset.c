@@ -3,8 +3,8 @@
 //resetea los valores iniciales
 t_hook	*ft_memset(t_in *dt)
 {
-	t_mlx	*gr;//creo la libreria grafica
-	t_hook	*hk;//creo la estructura unica para trabajar con las funciones de la mlx
+	t_mlx	*gr; //creo la libreria grafica
+	t_hook	*hk; //creo la estructura unica para trabajar con las funciones de la mlx
 
 	dt->info = NULL;
 	dt->map = NULL;
@@ -21,6 +21,6 @@ t_hook	*ft_memset(t_in *dt)
 		return (NULL);
 	hk->dt = dt;
 	hk->gr = gr;
-	gr->mlx = mlx_init();//inicio la libreria gráfica
+	gr->mlx = mlx_init(); //inicio la libreria gráfica
 	return (hk);
 }

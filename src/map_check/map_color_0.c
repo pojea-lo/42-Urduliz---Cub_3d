@@ -48,7 +48,7 @@ int	ft_count_col_aux(char *info)
 		j++;
 	if (info[j] == 'C')
 	{
-		if(info[++j] && info[j] == ' ')
+		if (info[++j] && info[j] == ' ')
 			return (0);
 	}
 	else if (info[j] == 'F')
@@ -126,17 +126,17 @@ int	ft_dup_atoi(t_in *dt, char *line, int n)
 		return (-1);
 	j = -1;
 	i = 0;
-	while (++j < 4 && line[i])//recorro la parte de los numeros
+	while (++j < 4 && line[i]) //recorro la parte de los numeros
 	{
 		i = ft_restore_i(line, j);
 		if (i == -1)
-			break;
+			break ;
 		num[j] = ft_line (line, num, i, j);
 		if (!num[j])
 			return (-1);
 	}
 	num[j] = NULL;
-	if (j != 3)//caso de que me metan mas o menos de 3 numeros
+	if (j != 3) //caso de que me metan mas o menos de 3 numeros
 		return (ft_free_bidim(num), -1);
 	if (ft_atoi_bid(dt, num, n) == -1)
 		return (-1);
@@ -157,7 +157,7 @@ int	ft_restore_i(char *line, int j)
 	if (!(line[i] > 47) && !(line[i] < 58))
 		return (-1);
 	line = ft_trim(line, i);
-	if (!line)//si el trim da error retorno -1
+	if (!line) //si el trim da error retorno -1
 		return (-1);
 	while (--j >= 0)
 	{
@@ -186,7 +186,6 @@ char	*ft_trim(char *line, int i)
 			j = i - 1;
 			while (line[++j])
 				line[j] = line[j + 1];
-
 		}
 		if (line[i] && line[i] != ' ')
 			i++;
@@ -219,7 +218,7 @@ int	ft_trim_aux(char *line, int i)
 //aux de la funcion anterior que retorna la i
 char	*ft_line(char *line, char **num, int i, int j)
 {
-	int k;
+	int	k;
 
 	if (!line)
 		return (NULL);
@@ -227,7 +226,7 @@ char	*ft_line(char *line, char **num, int i, int j)
 	if (!num[j])
 		return (NULL);
 	k = -1;
-	while(line[i] && (line[i] > 47 && line[i] < 58))
+	while (line[i] && (line[i] > 47 && line[i] < 58))
 	{
 		num[j][++k] = line[i];
 		i++;
@@ -255,7 +254,7 @@ int	ft_atoi_bid(t_in *dt, char **num, int n)
 	}
 	free(num);
 	i = -1;
-	while (++i < 3)//comprobacion que sea < 255
+	while (++i < 3) //comprobacion que sea < 255
 	{
 		if (dt->color[n][i] > 255)
 			return (-1);
