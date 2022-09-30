@@ -24,7 +24,7 @@ int	main(int argc, char *argv[])
 	}
 	ft_traspas(fd, argv[1], &dt);
 	ft_free(&dt);
-	system("leaks cub");
+//	system("leaks cub");
 	return (0);
 }
 

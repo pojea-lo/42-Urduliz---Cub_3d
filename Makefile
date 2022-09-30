@@ -36,7 +36,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) #$(SAN)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
 
 clean:
 	$(RM) $(OBJS)
