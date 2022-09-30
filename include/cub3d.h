@@ -1,12 +1,12 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "mlx/mlx.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <math.h>
-# include "mlx/mlx.h"
 # include <stdbool.h>
 
 #define WIN_HEIGHT 600
