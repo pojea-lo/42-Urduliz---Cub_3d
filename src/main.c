@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
+/*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 06:48:33 by pojea-lo          #+#    #+#             */
+/*   Updated: 2022/09/30 07:00:28 by pojea-lo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3d.h"
 
 int	main(int argc, char *argv[])
 {
 	int		fd;
-	t_in	dt; //inicio estructura de datos inicial
+	t_in	dt;
 
-	if (argc != 2) //salida comprobada SL
+	if (argc != 2)
 	{
 		printf("Error\nError in arguments\n");
 		return (0);
 	}
-	if (ft_ch_arg(argv[1]) == -1) //salida comprobada SL
+	if (ft_ch_arg(argv[1]) == -1)
 	{
 		printf("Error\nBad extension in file\n");
 		return (0);
 	}
-	fd = open(argv[1], O_RDWR); //lo cierro en la funcion count info, que es donde primero lo uso
-	if (fd == -1) //salida comprobada SL
+	fd = open(argv[1], O_RDWR);
+	if (fd == -1)
 	{
 		printf("Error\nMap does't exist\n");
 		close (fd);
@@ -24,11 +36,9 @@ int	main(int argc, char *argv[])
 	}
 	ft_traspas(fd, argv[1], &dt);
 	ft_free(&dt);
-	system("leaks cub");
 	return (0);
 }
 
-//chequea la extension del archivo, 0 bien -1 mal
 int	ft_ch_arg(char *argv)
 {
 	int	i;
@@ -54,18 +64,14 @@ int	ft_ch_arg(char *argv)
 	return (0);
 }
 
-//funcion inicial que empieza a analizar el mapa
 int	ft_traspas(int fd, char *argv, t_in *dt)
 {
 	t_hook	*hk;
 
 	hk = ft_memset(dt);
-	dt->info = ft_get_info(fd, argv, dt); //cargo la bidim. info
+	dt->info = ft_get_info(fd, argv, dt);
 	if (!dt->info)
-	{
-		printf ("Error\nEmpty map\n"); //salida chequeada SL(Salen unos L pero son de la inicializacion de la minilibx, si silencias su init en el memset de memory y haces make re desaparecen)
-		return (ft_free_structur (hk), -1);
-	}
+		return (printf ("Error\nEmpty map\n"), ft_free_structur (hk), -1);
 	if (ft_create_text(hk) == -1)
 	{
 		printf ("Texture error\n");

@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_0.c                                           :+:      :+:    :+:   */
+/*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
+/*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 07:48:05 by pojea-lo          #+#    #+#             */
+/*   Updated: 2022/09/30 07:48:36 by pojea-lo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
-//libero la estructura hk y la gr
 void	ft_free_structur(t_hook *hk)
 {
 	if (hk->gr)
@@ -15,7 +26,6 @@ void	ft_free_structur(t_hook *hk)
 	}
 }
 
-//frees saliendo por normal, con errores en mapa,...
 void	ft_free(t_in *dt)
 {
 	int	i;
@@ -62,7 +72,6 @@ void	ft_free_aux(t_in *dt)
 	}
 }
 
-//frees saliendo por hooks
 void	ft_free_hk(t_hook *hk)
 {
 	int	i;

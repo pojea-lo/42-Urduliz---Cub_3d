@@ -1,12 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_ch_close.c                                     :+:      :+:    :+:   */
+/*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
+/*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 07:18:14 by pojea-lo          #+#    #+#             */
+/*   Updated: 2022/09/30 07:19:01 by pojea-lo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
-//chequeo el mapa por si esta cerrado
-//Realizo un chequeo buscando 0 y estos 0 solo pueden estar rodeados de otros 0s o de 1s
 int	ft_ch_close(t_in *dt)
 {
 	int	i;
 	int	j;
-	int	max; //valor de posicion máximo de x en cada fila
+	int	max;
 
 	i = -1;
 	while (dt->map[++i])
@@ -21,7 +31,6 @@ int	ft_ch_close(t_in *dt)
 			{
 				if (ft_ch_close_aux(i, j, max, dt) == -1)
 				{
-//					printf ("Falla con 0\nx: %d\ny: %d\nchar: %c\n", j, i, dt->map[i][j]);
 					printf ("Error\nNo closed map - ");
 					return (-1);
 				}
@@ -31,7 +40,6 @@ int	ft_ch_close(t_in *dt)
 	return (0);
 }
 
-//chequeo los espacios que estan entre 1
 int	ft_ch_close_aux(int i, int j, int max, t_in *dt)
 {
 	if (i == 0)
@@ -46,14 +54,14 @@ int	ft_ch_close_aux(int i, int j, int max, t_in *dt)
 	return (0);
 }
 
-//chequeo 0s en filas intermedias
 int	ft_ch_cl_aux_irow(int i, int j, int max, t_in *dt)
 {
-	if (j == 0 || j == max) //esquinas
+	if (j == 0 || j == max)
 		return (-1);
 	else
 	{
-		if (ft_ch(i, j + 1, dt, 1) == -1 || ft_ch(i, j - 1, dt, 1) == -1 || ft_ch(i + 1, j, dt, 1) == -1 || ft_ch(i - 1, j, dt, 1) == -1)
+		if (ft_ch(i, j + 1, dt, 1) == -1 || ft_ch(i, j - 1, dt, 1) == -1
+			|| ft_ch(i + 1, j, dt, 1) == -1 || ft_ch(i - 1, j, dt, 1) == -1)
 		{
 			return (-1);
 		}

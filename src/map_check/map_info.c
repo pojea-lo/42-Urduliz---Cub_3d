@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_info.c                                         :+:      :+:    :+:   */
+/*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
+/*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 07:39:00 by pojea-lo          #+#    #+#             */
+/*   Updated: 2022/09/30 07:39:32 by pojea-lo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
-//obtengo del descriptor la bidimensional con toda la info para poder trabajar con ella posteriormente y no tener que andar abriendo y cerrando descriptores
 char	**ft_get_info(int fd, char *argv, t_in *dt)
 {
 	int		i;
@@ -8,7 +19,7 @@ char	**ft_get_info(int fd, char *argv, t_in *dt)
 	char	*line;
 
 	i = ft_count_info (fd);
-	if (i == 0) //archivo de mapa vacio. salida comprobada SL
+	if (i == 0)
 		return (NULL);
 	dt->info = (char **) malloc (sizeof(char *) * (i + 1));
 	if (!dt->info)
@@ -30,7 +41,6 @@ char	**ft_get_info(int fd, char *argv, t_in *dt)
 	return (close(fd), dt->info);
 }
 
-//cuento las lineas que no estén vacias, sean de mapa o de datos, del archivo datos
 int	ft_count_info(int fd)
 {
 	int		i;
@@ -49,6 +59,6 @@ int	ft_count_info(int fd)
 		free (line);
 		line = ft_gnl(fd);
 	}
-	close(fd); //cierro el descriptor abierto en el main al ppio
+	close(fd);
 	return (n);
 }

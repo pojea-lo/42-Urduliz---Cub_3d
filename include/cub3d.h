@@ -145,7 +145,6 @@ int     ft_ch_line_first(char **info);
 int     ft_count_fd (char **info, int n);
 int     ft_check_line(char *line, int n);
 int     ft_data_map(t_in *dt);
-char    **ft_add_columns(t_in *dt);
 
 //map_check.c files
 //Funciones para el control del mapa
@@ -158,8 +157,7 @@ int     ft_ch_personage_aux(int i, int j, t_in *dt);
 //map_utils_0.c files
 //Herramientas usadas en el chequeo y construccion del mapa
 int		ft_ch(int i, int j, t_in *dt, int n);
-char	**ft_matrix_symetric(t_in *dt);
-void	ft_matrix_symetric_aux(t_in *dt);
+char    **ft_add_columns(t_in *dt);
 
 //map_ch_spaces.c files
 //Funciones para encontrar espacios erroneos en el mapa
@@ -207,18 +205,20 @@ t_hook	*ft_memset(t_in *dt);
 int		ft_rayc_memset(t_hook *hk);
 int		ft_rayc_memset_2(t_hook *hk);
 
-//raycast_utils_0.c
+//raycast.c
 //Funciones para el calculo numerico del raycasting
 int		ft_rayc_init(t_hook *hk);
 int		ft_get_dir(t_hook *hk);
 int		ft_get_plane(t_hook *hk);
 void	ft_calcul_step(t_hook *hk);
 void	ft_dda_algorithm(t_hook *hk);
+
+//print.c
 int		ft_draw_texture(t_hook *hk, int x);
+int		ft_cal_texnum(t_hook *hk);
 void	ft_print_tex(t_hook *hk, int x);
 int		ft_color_converter(t_in *dt, int i);
 int		ft_ch_sky(t_in *dt);
-int		ft_cal_texnum(t_hook *hk);
 
 //gnl.c files
 char    *ft_gnl(int fd);
