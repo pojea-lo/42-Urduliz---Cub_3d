@@ -2,6 +2,7 @@ NAME = cub3d
 MINIPATH = include/mlx
 
 SRC = 	include/gnl.c\
+	 	include/gnl_aux.c\
 		src/main.c\
 		src/map_check/map_bidimensional.c\
 		src/map_check/map_ch_close.c\

@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   atoi.c                                             :+:      :+:    :+:   */
+/*   gnl_aux.c                                          :+:      :+:    :+:   */
 /*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
 /*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/30 10:43:30 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/09/30 10:43:53 by pojea-lo         ###   ########.fr       */
+/*   Created: 2022/09/30 10:45:04 by pojea-lo          #+#    #+#             */
+/*   Updated: 2022/09/30 10:46:57 by pojea-lo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
-int	ft_atoi(char *str)
+int	ft_check(char *str)
 {
 	int	i;
-	int	r;
 
-	r = 0;
 	i = 0;
-	while (str[i])
+	if (str == NULL)
+		return (0);
+	while (str[i] != '\n' && str[i])
 		i++;
-	if (i > 3)
-		return (-1);
-	i = -1;
-	while (str[++i])
-		r = (str[i] - '0') + (r * 10);
-	if (r > 255)
-		return (-1);
-	return (r);
+	if (str[i] == 00)
+		return (0);
+	return (1);
 }

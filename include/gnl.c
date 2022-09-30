@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gnl.c                                              :+:      :+:    :+:   */
+/*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
+/*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/30 10:51:36 by pojea-lo          #+#    #+#             */
+/*   Updated: 2022/09/30 10:52:25 by pojea-lo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	*ft_gnl(int fd)
@@ -10,23 +22,22 @@ char	*ft_gnl(int fd)
 	buf = (char *) malloc (sizeof (char) * 2);
 	if (buf == NULL)
 		return (NULL);
-	while (ft_check (rest) == 0)//mientras no haya \n en el rest sigo leyendo
+	while (ft_check (rest) == 0)
 	{
 		rb = read (fd, buf, 1);
-		if (rb == 0)//final de archivo
+		if (rb == 0)
 		{
 			free (buf);
 			return (rest);
 		}
 		buf[1] = 00;
-		rest = ft_copy (buf, rest);//meto el buf al rest
+		rest = ft_copy (buf, rest);
 	}
 	rest = ft_update_rest (rest);
 	free(buf);
 	return (rest);
 }
 
-//funcion que quita el salto de linea de la linea
 char	*ft_update_rest(char *rest)
 {
 	char	*aux;
@@ -96,18 +107,4 @@ int	ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
-
-int	ft_check(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str == NULL)
-		return (0);
-	while (str[i] != '\n' && str[i])
-		i++;
-	if (str[i] == 00)
-		return (0);
-	return (1);
 }
