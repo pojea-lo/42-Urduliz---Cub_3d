@@ -6,7 +6,7 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 10:41:57 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/10/02 22:12:23 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/02 23:20:18 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include "mlx/mlx.h"
 # include <stdbool.h>
 
-#define WIN_HEIGHT 600
-#define WIN_WIDTH 1000
+# define WIN_HEIGHT 600
+# define WIN_WIDTH 1000
 
 typedef struct s_mlx
 {
