@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
-/*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
-/*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 10:41:57 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/09/30 10:42:46 by pojea-lo         ###   ########.fr       */
+/*   Updated: 2022/10/02 22:12:23 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,15 @@ typedef struct s_hook
 	t_in	*dt;
 	t_mlx	*gr;
 }	t_hook;
+
+void			init_hook_threads(t_hook *hk);
+int				unset(int keycode, t_hook *hk);
+int				set(int keycode, t_hook *hk);
+int				game_engine(t_hook *hk);
+int				manage_movements(t_hook *hk);
+void			manage_rotation(t_hook *hk);
+void			manage_x_axys(t_hook *hk);
+void			manage_y_axys(t_hook *hk);
 
 //main.c files
 int				ft_ch_arg(char *argv);

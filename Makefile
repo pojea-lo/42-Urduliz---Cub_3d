@@ -21,7 +21,9 @@ SRC = 	include/gnl.c\
 		src/raycasting/raycasting.c\
 		src/raycasting/print.c\
 		src/draw/draw_utils_0.c\
-		src/hooks/hook_utils_0.c
+		src/hooks/hook_utils_0.c\
+		src/hooks/hooks.c \
+		src/draw/draw.c
 
 OBJ = $(SRC: .c=.o)  
 
