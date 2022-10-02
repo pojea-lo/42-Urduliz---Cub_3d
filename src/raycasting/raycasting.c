@@ -2,11 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
-/*   By: jsmith <marvin@42.fr>                        +:+ +:+         +:+     */
-/*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:05:21 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/09/30 08:05:45 by pojea-lo         ###   ########.fr       */
+/*   Updated: 2022/10/02 21:53:54 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	ft_rayc_init(t_hook *hk)
 		ft_draw_texture(hk, x);
 	}
 	mlx_put_image_to_window(hk->gr->mlx, hk->gr->mlx_win, hk->gr->img, 0, 0);
-	mlx_put_image_to_window(hk->gr->mlx, hk->gr->mlx_win, hk->gr->gun, 438, 400);
 	return (0);
 }
 
