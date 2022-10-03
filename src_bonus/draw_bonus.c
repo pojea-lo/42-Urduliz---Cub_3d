@@ -6,7 +6,7 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:33:09 by jsmith            #+#    #+#             */
-/*   Updated: 2022/10/03 10:55:06 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 11:00:11 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@ int	ft_draw_map(t_hook *hk)
 	ft_rayc_memset(hk);
 	ft_rayc_memset_2(hk);
 	hk->gr->mlx_win = mlx_new_window(hk->gr->mlx, WIN_WIDTH,
-			WIN_HEIGHT, "Cub3d");
+			WIN_HEIGHT + 100, "Cub3d");
 	hk->gr->img = mlx_new_image(hk->gr->mlx, hk->dt->mapw, hk->dt->maph);
 	hk->gr->addr = mlx_get_data_addr(hk->gr->img, &hk->gr->bits_per_pixel,
 			&hk->gr->line_length, &hk->gr->endian);
-	load_hooks_images(hk);
+	load_hud_images(hk);
 	load_bullets(hk);
 	init_hook_threads(hk);
 	mlx_loop(hk->gr->mlx);

@@ -6,7 +6,7 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 22:35:47 by jsmith            #+#    #+#             */
-/*   Updated: 2022/10/03 10:55:24 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 11:02:02 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ int	click(int key, int x, int y, t_hook *hk)
 int	mouse(int x, int y, t_hook *hk)
 {
 	double	whereis;
+	double	mouse;
 
 	whereis = x - (WIN_WIDTH / 2);
-	mlx_mouse_get_pos(hk->gr->mlx_win, &x, &y);
+	mouse = mlx_mouse_get_pos(hk->gr->mlx_win, &x, &y);
+	(void)mouse;
 	(void)y;
 	if (whereis < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 10:41:57 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/10/03 10:54:49 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 10:58:36 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct s_hook
 	t_mlx	*gr;
 }	t_hook;
 
+//Bonus
 void			init_hook_threads(t_hook *hk);
 int				unset(int keycode, t_hook *hk);
 int				set(int keycode, t_hook *hk);
@@ -116,6 +117,10 @@ int				manage_movements(t_hook *hk);
 void			manage_rotation(t_hook *hk);
 void			manage_x_axys(t_hook *hk);
 void			manage_y_axys(t_hook *hk);
+int				mouse(int x, int y, t_hook *hk);
+int				click(int key, int x, int y, t_hook *hk);
+void			load_bullets(t_hook *hk);
+void			load_hud_images(t_hook *hk);
 
 //main.c files
 int				ft_ch_arg(char *argv);

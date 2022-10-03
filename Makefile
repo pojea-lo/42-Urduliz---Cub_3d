@@ -46,7 +46,7 @@ SRC_BONUS = 	include/gnl.c\
 		src/raycasting/print.c\
 		src/draw/draw_utils_0.c\
 		src_bonus/hook_utils_bonus.c\
-		src_bonus/hooks_bonus.c \
+		src_bonus/hook_bonus.c \
 		src_bonus/draw_bonus.c
 
 OBJ = $(SRC:.c=.o)
@@ -63,7 +63,7 @@ all: $(NAME)
 
 bonus: $(OBJ_BONUS) 
 	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN) -o cub3d_bonus
 
 %.o: %.c
 	$(CC) -c $< -o $@
@@ -75,11 +75,12 @@ $(NAME): $(OBJ)
 
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(OBJ_BONUS)
 	make clean -C $(MINIPATH)
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) cub3d_bonus
 	$(RM) *.dSYM
 
 re:	fclean all

@@ -6,7 +6,7 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:28:10 by jsmith            #+#    #+#             */
-/*   Updated: 2022/10/03 10:55:02 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 11:09:22 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ void	init_hook_threads(t_hook *hk)
 	mlx_hook(hk->gr->mlx_win, 2,
 		(1L << 0), &set, hk);
 	mlx_hook(hk->gr->mlx_win, 4, (1L << 2), &click, hk);
-	mlx_mouse_hook(hk->gr->mlx_win, mouse, hk);
 	mlx_loop_hook(hk->gr->mlx, &game_engine, hk);
 	mlx_hook(hk->gr->mlx_win, 3, (1 << 0), &unset, hk);
 	mlx_hook(hk->gr->mlx_win, 17, (17L << 0), close_button, 0);
+	mlx_hook(hk->gr->mlx_win, 6, (1L << 0), mouse, hk);
 }
