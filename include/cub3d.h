@@ -6,7 +6,7 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 10:41:57 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/10/02 23:20:18 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 10:54:49 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_mlx
 	int		w;
 	int		h;
 	void	*hud;
-	void	*gun;
+	void	*gn;
 	void	*fired;
 	void	*bullet;
 	void	*face;

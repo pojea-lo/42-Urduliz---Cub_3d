@@ -6,11 +6,11 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 08:05:21 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/10/03 10:32:00 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 10:54:29 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../include/cub3d.h"
 
 int	ft_rayc_init(t_hook *hk)
 {

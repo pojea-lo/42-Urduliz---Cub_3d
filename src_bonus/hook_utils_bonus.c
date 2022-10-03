@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook_utils_bonus1.c                                :+:      :+:    :+:   */
+/*   hook_utils_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 22:35:47 by jsmith            #+#    #+#             */
-/*   Updated: 2022/10/03 10:28:30 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 10:55:24 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../include/cub3d.h"
 
 int	click(int key, int x, int y, t_hook *hk)
 {
@@ -46,7 +46,6 @@ int	mouse(int x, int y, t_hook *hk)
 		hk->dt->rotation_right = false;
 	}
 	mlx_mouse_move(hk->gr->mlx_win, WIN_WIDTH / 2, WIN_HEIGHT / 2);
-	hk->dt->rotspeed = old_rot;
 	return (1);
 }
 

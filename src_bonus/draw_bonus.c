@@ -6,11 +6,11 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 10:33:09 by jsmith            #+#    #+#             */
-/*   Updated: 2022/10/03 10:43:34 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/03 10:55:06 by jsmith           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "../include/cub3d.h"
 
 int	ft_draw_line(t_hook *hk, int x)
 {
