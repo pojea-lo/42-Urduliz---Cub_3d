@@ -25,7 +25,32 @@ SRC = 	include/gnl.c\
 		src/hooks/hooks.c \
 		src/draw/draw.c
 
-OBJ = $(SRC:.c=.o)  
+SRC_BONUS = 	include/gnl.c\
+	 	include/gnl_aux.c\
+		src/main.c\
+		src/map_check/map_bidimensional.c\
+		src/map_check/map_ch_close.c\
+		src/map_check/map_ch_spaces.c\
+		src/map_check/map_check.c\
+		src/map_check/map_color_0.c\
+		src/map_check/map_color_1.c\
+		src/map_check/map_color_2.c\
+		src/map_check/map_info.c\
+		src/map_check/map_text_0.c\
+		src/map_check/map_text_1.c\
+		src/map_check/map_utils.c\
+		src/memory/free_0.c\
+		src/memory/free_1.c\
+		src/memory/memset.c\
+		src_bonus/raycasting_bonus.c\
+		src/raycasting/print.c\
+		src/draw/draw_utils_0.c\
+		src_bonus/hook_utils_bonus.c\
+		src_bonus/hooks_bonus.c \
+		src_bonus/draw_bonus.c
+
+OBJ = $(SRC:.c=.o)
+OBJ_BONUS = $(SRC_BONUS:.c=.o) 
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
