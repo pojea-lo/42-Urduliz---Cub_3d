@@ -26,7 +26,7 @@ SRC = 	include/gnl.c\
 		src/hooks/hooks.c \
 		src/draw/draw.c
 
-SRC_BONUS = 	include/gnl.c\
+SRC_BONUS = include/gnl.c\
 	 	include/gnl_aux.c\
 		src/main.c\
 		src/map_check/map_bidimensional.c\
@@ -68,11 +68,11 @@ bonus: $(BONUS_NAME)
 
 $(BONUS_NAME) : $(OBJ_BONUS)
 	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) #$(SAN)
 
 $(NAME): $(OBJ)
 	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) #$(SAN)
 
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)
@@ -84,6 +84,6 @@ fclean: clean
 	$(RM) *.dSYM
 
 re:	fclean all
-
-.phony: name, all, clean, fclean, re, bonus 
+rebonus: fclean bonus
+.phony: name, all, clean, fclean, re, bonus, rebonus
 

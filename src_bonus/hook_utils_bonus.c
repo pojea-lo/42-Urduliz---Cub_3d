@@ -89,6 +89,9 @@ int	set(int keycode, t_hook *hk)
 
 int	close_button(t_hook *hk)
 {
+	mlx_destroy_image(hk->gr->mlx, hk->gr->bullet);
+	mlx_destroy_image(hk->gr->mlx, hk->gr->gn);
+	mlx_destroy_image(hk->gr->mlx, hk->gr->hud);
 	mlx_destroy_window(hk->gr->mlx, hk->gr->mlx_win);
 	mlx_destroy_image(hk->gr->mlx, hk->gr->img);
 	ft_free_hk(hk);
