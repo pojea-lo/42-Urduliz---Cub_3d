@@ -61,10 +61,6 @@ RM = rm -r -f
 
 all: $(NAME)
 
-bonus: $(OBJ_BONUS) 
-	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN) -o cub3d_bonus
-
 %.o: %.c
 	$(CC) -c $< -o $@
 
@@ -72,7 +68,9 @@ $(NAME): $(OBJ)
 	make -C $(MINIPATH)
 	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
 
-
+bonus: $(OBJ_BONUS)
+	make -C $(MINIPATH)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN) -o cub3d_bonus
 
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)

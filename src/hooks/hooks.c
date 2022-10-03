@@ -95,5 +95,5 @@ void	init_hook_threads(t_hook *hk)
 		(1L << 0), &set, hk);
 	mlx_loop_hook(hk->gr->mlx, &game_engine, hk);
 	mlx_hook(hk->gr->mlx_win, 3, (1 << 0), &unset, hk);
-	mlx_hook(hk->gr->mlx_win, 17, (17L << 0), close_button, 0);
+	mlx_hook(hk->gr->mlx_win, 17, (17L << 0), close_button, hk);
 }
