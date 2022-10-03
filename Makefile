@@ -1,5 +1,6 @@
 NAME = cub3d
-MINIPATH = include/mlx
+MINIPATH = include/mlx/.
+MINIPATH2 = ../include/mlx/.
 
 SRC = 	include/gnl.c\
 	 	include/gnl_aux.c\
@@ -42,11 +43,11 @@ SRC_BONUS = 	include/gnl.c\
 		src/memory/free_0.c\
 		src/memory/free_1.c\
 		src/memory/memset.c\
-		src_bonus/raycasting_bonus.c\
 		src/raycasting/print.c\
 		src/draw/draw_utils_0.c\
+		src_bonus/raycasting_bonus.c\
 		src_bonus/hook_utils_bonus.c\
-		src_bonus/hook_bonus.c \
+		src_bonus/hook_bonus.c\
 		src_bonus/draw_bonus.c
 
 OBJ = $(SRC:.c=.o)
@@ -56,23 +57,22 @@ CC = gcc
 FLAGS = -Wall -Werror -Wextra
 SAN = -g3 -fsanitize=address
 MLX = -L $(MINIPATH) -lmlx -framework OpenGL -framework Appkit -I include/cub3d.h
-
+BONUS_NAME = cub3d_bonus
 RM = rm -r -f
 
 all: $(NAME)
-
-bonus: $(OBJ_BONUS) 
-	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN) -o cub3d_bonus
+bonus: $(BONUS_NAME)
 
 %.o: %.c
 	$(CC) -c $< -o $@
 
-$(NAME): $(OBJ)
+$(BONUS_NAME) : $(OBJ_BONUS)
 	make -C $(MINIPATH)
 	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
 
-
+$(NAME): $(OBJ)
+	make -C $(MINIPATH)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
 
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)
