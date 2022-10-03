@@ -25,7 +25,7 @@ SRC = 	include/gnl.c\
 		src/hooks/hooks.c \
 		src/draw/draw.c
 
-OBJ = $(SRC: .c=.o)  
+OBJ = $(SRC:.c=.o)  
 
 CC = gcc
 FLAGS = -Wall -Werror -Wextra
@@ -33,8 +33,6 @@ SAN = -g3 -fsanitize=address
 MLX = -L $(MINIPATH) -lmlx -framework OpenGL -framework Appkit
 
 RM = rm -r -f
-
-.SILENT:
 
 all: $(NAME)
 
@@ -46,7 +44,7 @@ $(NAME): $(OBJ)
 	$(CC) $(FLAGS) $^ -o $@ $(MLX) #$(SAN)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJ)
 	make clean -C $(MINIPATH)
 
 fclean: clean
