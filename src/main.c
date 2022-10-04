@@ -6,7 +6,7 @@
 /*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 06:48:33 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/09/30 07:00:28 by pojea-lo         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:11:55 by pojea-lo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,14 @@ int	ft_traspas(int fd, char *argv, t_in *dt)
 	hk = ft_memset(dt);
 	dt->info = ft_get_info(fd, argv, dt);
 	if (!dt->info)
-		return (printf ("Error\nEmpty map\n"), ft_free_structur (hk), -1);
+		return (printf ("Error\nBroken or Empty map\n"),
+			ft_free_structur (hk), -1);
 	if (ft_create_text(hk) == -1)
-	{
-		printf ("Texture error\n");
-		return (ft_free_structur (hk), -1);
-	}
+		return (printf ("Texture error\n"), ft_free_structur (hk), -1);
 	if (ft_create_bid(dt) == -1)
 		return (ft_free_structur (hk), -1);
 	if (ft_ch_map(dt) == -1)
-	{
-		printf ("Map error\n");
-		return (ft_free_structur (hk), -1);
-	}
+		return (printf ("Map error\n"), ft_free_structur (hk), -1);
 	if (ft_draw_map (hk) == -1)
 	{
 		printf ("Draw map error\n");

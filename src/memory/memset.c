@@ -6,7 +6,7 @@
 /*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 07:49:43 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/09/30 07:57:51 by pojea-lo         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:11:18 by pojea-lo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_hook	*ft_memset(t_in *dt)
 	dt->map = NULL;
 	dt->tex = NULL;
 	dt->color = NULL;
+	dt->findmap = false;
 	dt->xo = 0;
 	dt->yo = 0;
 	gr = (t_mlx *)malloc(sizeof(t_mlx) * 1);

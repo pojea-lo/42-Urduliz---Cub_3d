@@ -6,7 +6,7 @@
 /*   By: pojea-lo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 07:03:25 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/09/30 07:16:48 by pojea-lo         ###   ########.fr       */
+/*   Updated: 2022/10/04 11:22:08 by pojea-lo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	ft_data_map(t_in *dt)
 			dt->maxx = j;
 		dt->maxy++;
 	}
-	if (dt->maxy < 4 || dt->maxx < 4)
+	if (dt->maxy < 4 && dt->maxx < 4)
 	{
 		printf ("Error\nBad map dimension - Error map\n");
 		return (-1);

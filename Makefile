@@ -54,8 +54,8 @@ OBJ = $(SRC:.c=.o)
 OBJ_BONUS = $(SRC_BONUS:.c=.o) 
 
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
-SAN = -g3 -fsanitize=address
+FLAGS = -Wall -Werror -Wextra -g
+SAN = -fsanitize=address
 MLX = -L $(MINIPATH) -lmlx -framework OpenGL -framework Appkit -I include/cub3d.h
 BONUS_NAME = cub3d_bonus
 RM = rm -r -f
@@ -68,11 +68,11 @@ bonus: $(BONUS_NAME)
 
 $(BONUS_NAME) : $(OBJ_BONUS)
 	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) #$(SAN)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
 
 $(NAME): $(OBJ)
 	make -C $(MINIPATH)
-	$(CC) $(FLAGS) $^ -o $@ $(MLX) #$(SAN)
+	$(CC) $(FLAGS) $^ -o $@ $(MLX) $(SAN)
 
 clean:
 	$(RM) $(OBJ) $(OBJ_BONUS)

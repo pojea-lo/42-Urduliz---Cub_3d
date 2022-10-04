@@ -1,0 +1,12 @@
+NO ../pics/este.xpm
+SO ../pics/oeste.xpm
+EA ../pics/colorstone.xpm
+WE ../pics/bluestone.xpm
+
+C 50,185,255
+F 140,115,70
+
+111
+101
+1N1
+111

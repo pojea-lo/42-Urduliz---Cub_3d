@@ -6,7 +6,7 @@
 /*   By: jsmith < jsmith@student.42urduliz.com >    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/30 10:41:57 by pojea-lo          #+#    #+#             */
-/*   Updated: 2022/10/03 10:58:36 by jsmith           ###   ########.fr       */
+/*   Updated: 2022/10/04 11:16:03 by pojea-lo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_in
 	char	**map;
 	char	**tex;
 	int		**color;
+	int		findmap;
 	double	mapw;
 	double	maph;
 	int		maxx;
@@ -141,6 +142,7 @@ void			ft_free_hk(t_hook *hk);
 void			ft_free_hk_aux(t_hook *hk);
 
 //free_1.c files
+void			ft_free_breakmap(t_in *dt, int j, char *line);
 void			ft_free_bidim(char **str);
 
 //hook_utils_0.c
@@ -152,6 +154,7 @@ int				manage_mouse_hook_options(t_hook *hk);
 //map_info.c files
 char			**ft_get_info(int fd, char *argv, t_in *dt);
 int				ft_count_info(int fd);
+int				fd_copy_info(t_in *dt, char *line);
 
 //map_bidimensional.c files
 int				ft_create_bid(t_in *dt);
